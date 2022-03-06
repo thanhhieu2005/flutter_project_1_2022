@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/views/home_screen.dart';
+import 'package:flutter_project_1/views/login/login_page.dart';
+import 'package:flutter_project_1/views/sign_up/sign_up_page.dart';
 
 class AppRoute {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -9,6 +11,10 @@ class AppRoute {
         return CupertinoPageRoute(
           builder: (_) => const HomeScreen(),
         );
+      case LoginPage.nameRoute:
+        return CupertinoPageRoute(builder: (_) => const LoginPage());
+      case SignUpPage.nameRoute:
+        return CupertinoPageRoute(builder: (_) => const SignUpPage());
       default:
         return _errorRoute();
     }

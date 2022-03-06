@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "46810423477",
+    "project_id": "vatraction---travel-app",
+    "storage_bucket": "vatraction---travel-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:46810423477:android:1efdacdadde2192ef99efc",
+        "android_client_info": {
+          "package_name": "com.example.flutter_project_1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "46810423477-pdplf2q0794eij2797si97e9h6okuna8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flutter_project_1",
+            "certificate_hash": "20d111cc4c4a7e1637db4c4153be6b81096f5249"
+          }
+        },
+        {
+          "client_id": "46810423477-6m9koatqsqcl0h21k4ft7vfnbhcffh90.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDt8E1tub0S_FSiQ0LTjdI7h07kjInp3C0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "46810423477-6m9koatqsqcl0h21k4ft7vfnbhcffh90.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
