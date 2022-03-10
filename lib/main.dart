@@ -25,33 +25,33 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  return ScreenUtilInit(
+    return ScreenUtilInit(
         designSize: const Size(414, 736),
         builder: () {
-    return MultiProvider(
-      providers: [
-        Provider<AuthService>(
-          create: (_) => AuthService(),
-        ),
-      ],
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        // ignore: prefer_const_literals_to_create_immutables
-        localizationsDelegates: [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        locale: context.watch<LocaleProvider>().locale,
-        // ignore: prefer_const_literals_to_create_immutables
-        supportedLocales: L10n.support,
-        debugShowCheckedModeBanner: false,
-        home: const LandingPage(),
-      ),
-    });
+          return MultiProvider(
+              providers: [
+                Provider<AuthService>(
+                  create: (_) => AuthService(),
+                ),
+              ],
+              child: MaterialApp(
+                title: 'Flutter Demo',
+                theme: ThemeData(
+                  primarySwatch: Colors.blue,
+                ),
+                // ignore: prefer_const_literals_to_create_immutables
+                localizationsDelegates: [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                locale: context.watch<LocaleProvider>().locale,
+                // ignore: prefer_const_literals_to_create_immutables
+                supportedLocales: L10n.support,
+                debugShowCheckedModeBanner: false,
+                home: const LandingPage(),
+              ));
+        });
   }
 }
