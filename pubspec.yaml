@@ -34,7 +34,7 @@ dependencies:
   equatable: ^2.0.3
   provider: ^6.0.1
   dio: ^4.0.0
-  flutter_screenutil: ^5.0.0+2
+  flutter_screenutil: ^5.3.1
   shared_preferences: ^2.0.8
   flutter_svg: ^0.23.0+1
   google_fonts: ^2.1.0

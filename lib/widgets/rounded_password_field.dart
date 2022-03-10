@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/widgets/text_field_container.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../configs/color_config.dart';
 
 class RoundedPasswordField extends StatefulWidget {
@@ -9,7 +10,7 @@ class RoundedPasswordField extends StatefulWidget {
   const RoundedPasswordField({
     Key? key,
     required this.onChanged,
-    this.hintText = "Your Password",
+    this.hintText = "Password",
     // required this.controller,
   }) : super(key: key);
 
@@ -38,14 +39,14 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
             val!.isNotEmpty ? null : "Password cannot be blank!",
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
-          prefixIcon: Icon(
-            Icons.lock,
-            color: AppColors.kPrimaryColor,
-          ),
           suffixIcon: IconButton(
-            icon: Icon(
-              _passwordVisibility ? Icons.visibility_off : Icons.visibility,
-              color: AppColors.kPrimaryColor,
+            icon: Padding(
+              padding: EdgeInsets.only(right: 20.w),
+              child: Icon(
+                _passwordVisibility ? Icons.visibility_off : Icons.visibility,
+                size: 20.h,
+                color: Colors.black,
+              ),
             ),
             onPressed: () {
               setState(() {
@@ -54,26 +55,26 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
             },
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.black38),
-            borderRadius: BorderRadius.circular(29),
+            borderSide: const BorderSide(color: Colors.black38),
+            borderRadius: BorderRadius.circular(15),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppColors.kPrimaryColor),
-            borderRadius: BorderRadius.circular(29),
+            borderSide: const BorderSide(color: AppColors.kPrimaryColor),
+            borderRadius: BorderRadius.circular(15),
           ),
           errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.red),
-            borderRadius: BorderRadius.circular(29),
-          ),
+              borderSide: const BorderSide(color: Colors.red),
+              borderRadius: BorderRadius.circular(15)),
           border: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.black38),
-            borderRadius: BorderRadius.circular(29),
+            borderSide: const BorderSide(color: Colors.black38),
+            borderRadius: BorderRadius.circular(15),
           ),
-          contentPadding: EdgeInsets.all(10),
+          contentPadding:
+              EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
           hintText: widget.hintText,
-          hintStyle: TextStyle(
+          hintStyle: const TextStyle(
             fontSize: 14,
-            color: Colors.black26,
+            color: Colors.black,
           ),
         ),
       ),
