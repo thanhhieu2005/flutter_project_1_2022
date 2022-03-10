@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/widgets/text_field_container.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../configs/color_config.dart';
 
 class RoundedInputField extends StatelessWidget {
@@ -26,31 +27,28 @@ class RoundedInputField extends StatelessWidget {
         validator: (val) =>
             val!.isNotEmpty ? null : inputName + "cannot be blank!",
         decoration: InputDecoration(
-          prefixIcon: Icon(
-            icon,
-            color: AppColors.kPrimaryColor,
-          ),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.black38),
-            borderRadius: BorderRadius.circular(29),
+            borderSide: const BorderSide(color: Colors.black38),
+            borderRadius: BorderRadius.circular(15),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppColors.kPrimaryColor),
-            borderRadius: BorderRadius.circular(29),
+            borderSide: const BorderSide(color: AppColors.kPrimaryColor),
+            borderRadius: BorderRadius.circular(15),
           ),
           errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.red),
-            borderRadius: BorderRadius.circular(29),
+            borderSide: const BorderSide(color: Colors.red),
+            borderRadius: BorderRadius.circular(15),
           ),
           border: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.black38),
-            borderRadius: BorderRadius.circular(29),
+            borderSide: const BorderSide(color: Colors.black38),
+            borderRadius: BorderRadius.circular(15),
           ),
-          contentPadding: EdgeInsets.all(10),
+          contentPadding:
+              EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
           hintText: hintText,
-          hintStyle: TextStyle(
+          hintStyle: const TextStyle(
             fontSize: 14,
-            color: Colors.black26,
+            color: Colors.black,
           ),
         ),
       ),

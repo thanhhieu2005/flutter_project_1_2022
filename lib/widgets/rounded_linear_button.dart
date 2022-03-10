@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../configs/color_config.dart';
 
@@ -18,10 +19,12 @@ class RoundedLinearButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return InkWell(
       onTap: press,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        margin: EdgeInsets.symmetric(horizontal: 10.w),
+        padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
         // margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         decoration: BoxDecoration(
           gradient: LinearGradient(colors: [
@@ -29,14 +32,14 @@ class RoundedLinearButton extends StatelessWidget {
             startColor,
           ]),
           borderRadius: const BorderRadius.all(
-            Radius.circular(10),
+            Radius.circular(29),
           ),
         ),
         child: Center(
           child: Text(
             text.toUpperCase(),
             style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 20, color: textColor),
+                fontWeight: FontWeight.bold, fontSize: 20.sp, color: textColor),
           ),
         ),
       ),
