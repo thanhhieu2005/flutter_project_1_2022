@@ -53,7 +53,17 @@ class _LoginPageState extends State<LoginPage> {
               hintText: "Password",
             ),
             SizedBox(
-              height: 24.h,
+              height: 10.h,
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                "Forget your password ?",
+                style: TextConfigs.kText16BoldBlack,
+              ),
+            ),
+            SizedBox(
+              height: 20.h,
             ),
             RoundedLinearButton(
                 text: "Log In",
@@ -82,15 +92,28 @@ class _LoginPageState extends State<LoginPage> {
                 startColor: AppColors.kPrimaryColor,
                 endColor: AppColors.kPrimaryColor),
             SizedBox(
-              height: 10.h,
+              height: 30.h,
             ),
-            Text(
-              "Forget your password ?",
-              style: TextConfigs.kText16BoldBlack,
-            ),
-            Text(
-              "Forget your password ?",
-              style: TextConfigs.kText16_1,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Don't have an account ?",
+                  style: TextConfigs.kText16BoldBlack,
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context, SignUpPage.route());
+                  },
+                  child: Text(
+                    "Sign up",
+                    style: TextConfigs.kText16BoldKprimary,
+                  ),
+                ),
+              ],
             )
           ],
         )),

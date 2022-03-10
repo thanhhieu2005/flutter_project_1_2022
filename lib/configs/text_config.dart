@@ -25,4 +25,11 @@ class TextConfigs {
     fontWeight: FontWeight.bold,
     color: Colors.black,
   );
+
+  static final kText16BoldKprimary = TextStyle(
+    fontSize: 16.sp,
+    fontFamily: kFontFamily,
+    fontWeight: FontWeight.bold,
+    color: AppColors.kPrimaryColor,
+  );
 }
