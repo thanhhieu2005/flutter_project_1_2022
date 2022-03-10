@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/services/auth_service.dart';
+import 'package:flutter_project_1/view_models/locale_provider.dart';
 import 'package:flutter_project_1/views/login/login_page.dart';
 import 'package:provider/provider.dart';
 
@@ -38,7 +39,18 @@ class HomeScreen extends StatelessWidget {
                 },
                 textColor: Colors.black,
                 startColor: Colors.grey,
-                endColor: Colors.grey)
+                endColor: Colors.grey),
+            Text(AppLocalizations.of(context).helloWorld),
+            // ignore: prefer_const_constructors
+            SizedBox(
+              height: 10.0,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                context.read<LocaleProvider>().changeLocale();
+              },
+              child: Text(AppLocalizations.of(context).changeLaguage),
+            )
           ],
         ),
       ),
