@@ -1,0 +1,7 @@
+{
+    "helloWorld": "Xin chào thế giới!",
+    "@helloWorld": {
+      "description": "Lời chào của lập trình viên sơ sinh thông thường"
+    },
+    "changeLaguage": "Đổi ngôn ngữ"
+}
