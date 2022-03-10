@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/services/auth_service.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-
 import '../../configs/color_config.dart';
 import '../../widgets/custom_dialog.dart';
 import '../../widgets/rounded_input_field.dart';
 import '../../widgets/rounded_linear_button.dart';
 import '../../widgets/rounded_password_field.dart';
-import '../login/login_page.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
