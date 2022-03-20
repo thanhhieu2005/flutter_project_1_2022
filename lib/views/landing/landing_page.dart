@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/services/auth_service.dart';
-import 'package:flutter_project_1/views/home_screen.dart';
 import 'package:flutter_project_1/views/login/login_page.dart';
+import 'package:flutter_project_1/views/navigation_bar_view/navigation_bar_view.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +19,7 @@ class LandingPage extends StatelessWidget {
       builder: (_, AsyncSnapshot<User?> snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           final User? user = snapshot.data;
-          return user == null ? const LoginPage() : const HomeScreen();
+          return user == null ? const LoginPage() : const NavigationBarView();
         } else {
           return const Scaffold(
             backgroundColor: Colors.white,
