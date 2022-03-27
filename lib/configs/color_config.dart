@@ -10,4 +10,5 @@ class AppColors {
   static const kLightBlue1 = Color(0xff90E0EF);
   static const kLightBlue2 = Color(0xffCAF0F8);
   static const kLightBlue3 = Color(0xff4FDCF6);
+  static const kGreen1 = Color(0xff43C72E);
 }

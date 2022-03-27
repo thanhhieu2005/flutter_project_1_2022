@@ -32,4 +32,30 @@ class TextConfigs {
     fontWeight: FontWeight.bold,
     color: AppColors.kPrimaryColor,
   );
+
+  static final kText24_1 = TextStyle(
+    fontSize: 24.sp,
+    fontFamily: kFontFamily,
+    color: AppColors.kBlackColor,
+  );
+
+  static final kText24_2 = TextStyle(
+    fontSize: 24.sp,
+    fontFamily: kFontFamily,
+    color: AppColors.kBlackColor,
+    fontWeight: FontWeight.bold,
+  );
+
+  static final kText12W500Green1 = TextStyle(
+    fontSize: 12.sp,
+    fontFamily: kFontFamily,
+    fontWeight: FontWeight.w500,
+    color: AppColors.kGreen1,
+  );
+
+  static final kTextSubtitleBold = TextStyle(
+    fontSize: 20.sp,
+    fontFamily: kFontFamily,
+    color: AppColors.kBlackColor,
+  );
 }
