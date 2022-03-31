@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_project_1/services/auth_service.dart';
+import 'package:flutter_project_1/view_models/locale_provider.dart';
+import 'package:flutter_project_1/views/account/sub_screens/change_pwd_screen.dart';
+import 'package:flutter_project_1/views/account/sub_screens/per_info_screen.dart';
 import 'package:flutter_project_1/views/account/widgets/setting_app_item.dart';
+import 'package:flutter_project_1/views/account/widgets/setting_language.dart';
 import 'package:flutter_project_1/views/login/login_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -40,26 +44,10 @@ class AccountScreen extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    Container(
-                      width: 80.h,
+                    AvatarUserWidget(
                       height: 80.h,
-                      // ignore: prefer_const_constructors
-                      decoration: BoxDecoration(
-                        color: AppColors.kColor1,
-                        // ignore: prefer_const_constructors
-                        image: DecorationImage(
-                          image: const NetworkImage(
-                              'https://picsum.photos/250?image=9'),
-                          fit: BoxFit.cover,
-                        ),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(65),
-                        ),
-                        border: Border.all(
-                          color: AppColors.kColor1,
-                          width: 6.0,
-                        ),
-                      ),
+                      width: 80.h,
+                      linkImage: 'https://picsum.photos/250?image=9',
                     ),
                     SizedBox(
                       width: 16.w,
@@ -140,7 +128,9 @@ class AccountScreen extends StatelessWidget {
                 icon: "assets/icons/ic_personal.svg",
                 name: AppLocalizations.of(context).personalInfo,
                 colorItem: AppColors.kBlackColor,
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, PersonalInfoScreen.nameRoute);
+                },
                 visibility: true,
               ),
               SizedBox(
@@ -151,7 +141,8 @@ class AccountScreen extends StatelessWidget {
                 icon: "assets/icons/ic_changepwd.svg",
                 name: AppLocalizations.of(context).changePwd,
                 colorItem: AppColors.kBlackColor,
-                onTap: () {},
+                onTap: () => Navigator.pushNamed(
+                    context, ChangePasswordScreen.nameRoute),
                 visibility: true,
               ),
               SizedBox(
@@ -167,13 +158,16 @@ class AccountScreen extends StatelessWidget {
               SizedBox(
                 height: 8.h,
               ),
-              SettingAppItem(
+              SettingLanguage(
                 backgroundColor: AppColors.kColor1,
                 icon: "assets/icons/ic_language.svg",
                 name: AppLocalizations.of(context).language,
                 colorItem: AppColors.kBlackColor,
-                onTap: () {},
+                onTap: () {
+                  context.read<LocaleProvider>().changeLocale();
+                },
                 visibility: true,
+                currentLanguage: AppLocalizations.of(context).currentLanguage,
               ),
               SizedBox(
                 height: 4.h,
@@ -214,6 +208,49 @@ class AccountScreen extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class AvatarUserWidget extends StatelessWidget {
+  final double width, height;
+  final String linkImage;
+  const AvatarUserWidget({
+    Key? key,
+    required this.width,
+    required this.height,
+    required this.linkImage,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width,
+      height: height,
+      // ignore: prefer_const_constructors
+      decoration: BoxDecoration(
+        color: AppColors.kColor1,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 2,
+            blurRadius: 3,
+            offset: const Offset(0, 2),
+          ),
+        ],
+        // ignore: prefer_const_constructors
+        image: DecorationImage(
+          image: NetworkImage(linkImage),
+          fit: BoxFit.cover,
+        ),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(65),
+        ),
+        border: Border.all(
+          color: AppColors.kColor1,
+          width: 6.0,
         ),
       ),
     );

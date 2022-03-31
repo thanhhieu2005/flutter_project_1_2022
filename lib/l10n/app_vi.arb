@@ -3,6 +3,7 @@
     "@helloWorld": {
       "description": "Lời chào của lập trình viên sơ sinh thông thường"
     },
+    "currentLanguage": "Tiếng Việt",
     "changeLaguage": "Đổi ngôn ngữ",
     "goodMorning": "Chào buổi sáng, ",
     "goodAfternoon": "Chào buổi trưa, ",
@@ -12,8 +13,11 @@
     "changePwd": "Thay đổi mật khẩu",
     "setting": "Cài đặt",
     "language": "Ngôn ngữ",
-    "aboutApp": "Thông Tin App",
+    "aboutApp": "Thông Tin Ứng Dụng",
     "policy": "Chính Sách",
-    "logout": "Đăng Xuất"
+    "logout": "Đăng Xuất",
+    "account": "Tài Khoản",
+    "change": "Thay Đổi",
+    "yourPwd": "Mật khẩu"
 }
 
