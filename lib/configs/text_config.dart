@@ -12,6 +12,12 @@ class TextConfigs {
     color: AppColors.kColor1,
   );
 
+  static final kText16Black = TextStyle(
+    fontSize: 16.sp,
+    fontFamily: kFontFamily,
+    color: AppColors.kBlackColor,
+  );
+
   static final kText16Bold_1 = TextStyle(
     fontSize: 16.sp,
     fontFamily: kFontFamily,
@@ -31,5 +37,52 @@ class TextConfigs {
     fontFamily: kFontFamily,
     fontWeight: FontWeight.bold,
     color: AppColors.kPrimaryColor,
+  );
+
+  static final kText24_1 = TextStyle(
+    fontSize: 24.sp,
+    fontFamily: kFontFamily,
+    color: AppColors.kBlackColor,
+  );
+
+  static final kText24_2 = TextStyle(
+    fontSize: 24.sp,
+    fontFamily: kFontFamily,
+    color: AppColors.kBlackColor,
+    fontWeight: FontWeight.bold,
+  );
+
+  static final kText12W500Green1 = TextStyle(
+    fontSize: 12.sp,
+    fontFamily: kFontFamily,
+    fontWeight: FontWeight.w500,
+    color: AppColors.kGreen1,
+  );
+
+  static final kTextSubtitle = TextStyle(
+    fontSize: 20.sp,
+    fontFamily: kFontFamily,
+    color: AppColors.kBlackColor,
+  );
+
+  static final kTextBody1KPrimaryBold = TextStyle(
+    fontFamily: kFontFamily,
+    fontSize: 20.sp,
+    color: AppColors.kPrimaryColor,
+    fontWeight: FontWeight.bold,
+  );
+
+  static final kTextHeader1 = TextStyle(
+    fontSize: 39.sp,
+    fontFamily: kFontFamily,
+    fontWeight: FontWeight.bold,
+    color: AppColors.kBlackColor,
+  );
+
+  static final kTextHeader2 = TextStyle(
+    fontFamily: kFontFamily,
+    fontSize: 31.sp,
+    fontWeight: FontWeight.bold,
+    color: AppColors.kBlackColor,
   );
 }

@@ -3,5 +3,21 @@
     "@helloWorld": {
       "description": "Lời chào của lập trình viên sơ sinh thông thường"
     },
-    "changeLaguage": "Đổi ngôn ngữ"
+    "currentLanguage": "Tiếng Việt",
+    "changeLaguage": "Đổi ngôn ngữ",
+    "goodMorning": "Chào buổi sáng, ",
+    "goodAfternoon": "Chào buổi trưa, ",
+    "goodEvening": "Chào buổi tối, ",
+    "postModeration": "Kiểm Duyệt Bài Đăng",
+    "personalInfo": "Thông tin cá nhân",
+    "changePwd": "Thay đổi mật khẩu",
+    "setting": "Cài đặt",
+    "language": "Ngôn ngữ",
+    "aboutApp": "Thông Tin Ứng Dụng",
+    "policy": "Chính Sách",
+    "logout": "Đăng Xuất",
+    "account": "Tài Khoản",
+    "change": "Thay Đổi",
+    "yourPwd": "Mật khẩu"
 }
+

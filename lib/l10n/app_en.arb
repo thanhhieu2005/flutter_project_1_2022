@@ -3,5 +3,20 @@
     "@helloWorld": {
       "description": "The conventional newborn programmer greeting"
     },
-    "changeLaguage": "Change Language"
+    "currentLanguage": "English",
+    "changeLaguage": "Change Language",
+    "goodMorning": "Good Morning, ",
+    "goodAfternoon": "Good Afternoon, ",
+    "goodEvening": "Good Evening, ",
+    "postModeration": "Post Moderation",
+    "personalInfo": "Personal Information",
+    "changePwd": "Change Password",
+    "setting": "Settings",
+    "language": "Language",
+    "aboutApp": "About App",
+    "policy": "Policy",
+    "logout": "Logout",
+    "account": "Account",
+    "change": "Change",
+    "yourPwd": "Your Password"
 }

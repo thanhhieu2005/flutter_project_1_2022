@@ -19,7 +19,6 @@ class RoundedLinearButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return InkWell(
       onTap: press,
       child: Container(
