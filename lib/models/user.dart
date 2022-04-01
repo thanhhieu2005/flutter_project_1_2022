@@ -5,4 +5,6 @@ class User {
     required this.uid,
     this.email,
   });
+
+  Map<String, dynamic> toJson() => {'uid': uid, 'email': email};
 }
