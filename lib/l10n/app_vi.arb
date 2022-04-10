@@ -18,6 +18,8 @@
     "logout": "Đăng Xuất",
     "account": "Tài Khoản",
     "change": "Thay Đổi",
-    "yourPwd": "Mật khẩu"
+    "yourPwd": "Mật khẩu",
+    "create": "Tạo",
+    "newAccount": "Tài Khoản Mới"
 }
 
