@@ -96,7 +96,7 @@ class PersonalInfoScreen extends StatelessWidget {
                 SizedBox(
                   height: 8.h,
                 ),
-                TextFormFieldCustom(
+                const TextFormFieldCustom(
                   inputType: TextInputType.name,
                 ),
                 SizedBox(
@@ -110,7 +110,7 @@ class PersonalInfoScreen extends StatelessWidget {
                 SizedBox(
                   height: 8.h,
                 ),
-                TextFormFieldCustom(
+                const TextFormFieldCustom(
                   inputType: TextInputType.emailAddress,
                 ),
                 SizedBox(
@@ -124,7 +124,7 @@ class PersonalInfoScreen extends StatelessWidget {
                 SizedBox(
                   height: 8.h,
                 ),
-                TextFormFieldCustom(
+                const TextFormFieldCustom(
                   inputType: TextInputType.phone,
                 ),
                 SizedBox(
@@ -138,7 +138,7 @@ class PersonalInfoScreen extends StatelessWidget {
                 SizedBox(
                   height: 8.h,
                 ),
-                TextFormFieldCustom(
+                const TextFormFieldCustom(
                   inputType: TextInputType.datetime,
                 ),
                 SizedBox(
@@ -152,7 +152,7 @@ class PersonalInfoScreen extends StatelessWidget {
                 SizedBox(
                   height: 8.h,
                 ),
-                TextFormFieldCustom(
+                const TextFormFieldCustom(
                   inputType: TextInputType.streetAddress,
                 ),
                 SizedBox(
