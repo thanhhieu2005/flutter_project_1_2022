@@ -4,14 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../configs/color_config.dart';
 
 class RoundedInputField extends StatelessWidget {
-  final String hintText;
   final String inputName;
   final IconData icon;
   final ValueChanged<String> onChanged;
   // final TextEditingController controller;
   const RoundedInputField({
     Key? key,
-    required this.hintText,
     required this.inputName,
     required this.icon,
     required this.onChanged,
@@ -19,7 +17,22 @@ class RoundedInputField extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return TextFieldContainer(
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10.h),
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      decoration: BoxDecoration(
+        shape: BoxShape.rectangle,
+        borderRadius: BorderRadius.circular(10),
+        color: AppColors.kColor1,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.1),
+            spreadRadius: 3,
+            blurRadius: 3,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
       child: TextFormField(
         // controller: controller,
         textInputAction: TextInputAction.next,
@@ -27,29 +40,9 @@ class RoundedInputField extends StatelessWidget {
         validator: (val) =>
             val!.isNotEmpty ? null : inputName + "cannot be blank!",
         decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.black38),
-            borderRadius: BorderRadius.circular(15),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: AppColors.kPrimaryColor),
-            borderRadius: BorderRadius.circular(15),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.red),
-            borderRadius: BorderRadius.circular(15),
-          ),
-          border: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.black38),
-            borderRadius: BorderRadius.circular(15),
-          ),
+          border: InputBorder.none,
           contentPadding:
               EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
-          hintText: hintText,
-          hintStyle: const TextStyle(
-            fontSize: 14,
-            color: Colors.black,
-          ),
         ),
       ),
     );
