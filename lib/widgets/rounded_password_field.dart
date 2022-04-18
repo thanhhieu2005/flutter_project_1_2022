@@ -28,7 +28,7 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
     return TextFieldContainer(
       child: TextFormField(
         onChanged: widget.onChanged,

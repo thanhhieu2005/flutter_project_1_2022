@@ -65,6 +65,13 @@ class TextConfigs {
     color: AppColors.kBlackColor,
   );
 
+  static final kTextSubtitleBold = TextStyle(
+    fontSize: 20.sp,
+    fontFamily: kFontFamily,
+    color: AppColors.kBlackColor,
+    fontWeight: FontWeight.bold,
+  );
+
   static final kTextBody1KPrimaryBold = TextStyle(
     fontFamily: kFontFamily,
     fontSize: 20.sp,
