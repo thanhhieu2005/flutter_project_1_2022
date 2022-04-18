@@ -60,8 +60,9 @@ class TextConfigs {
   );
 
   static final kTextSubtitle = TextStyle(
-    fontSize: 20.sp,
     fontFamily: kFontFamily,
+    fontSize: 20.sp,
+    fontWeight: FontWeight.bold,
     color: AppColors.kBlackColor,
   );
 

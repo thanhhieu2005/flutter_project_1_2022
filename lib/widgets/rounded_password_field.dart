@@ -28,53 +28,48 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
 
   @override
   Widget build(BuildContext context) {
-    // Size size = MediaQuery.of(context).size;
-    return TextFieldContainer(
-      child: TextFormField(
-        onChanged: widget.onChanged,
-        obscureText: !_passwordVisibility,
-        textInputAction: TextInputAction.done,
-        // controller: widget.controller,
-        validator: (val) =>
-            val!.isNotEmpty ? null : "Password cannot be blank!",
-        keyboardType: TextInputType.emailAddress,
-        decoration: InputDecoration(
-          suffixIcon: IconButton(
-            icon: Padding(
-              padding: EdgeInsets.only(right: 20.w),
-              child: Icon(
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10.h),
+      padding: EdgeInsets.symmetric(horizontal: 10.w),
+      decoration: BoxDecoration(
+        shape: BoxShape.rectangle,
+        borderRadius: BorderRadius.circular(10),
+        color: AppColors.kColor1,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.1),
+            spreadRadius: 3,
+            blurRadius: 3,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Form(
+        autovalidateMode: AutovalidateMode.disabled,
+        child: TextFormField(
+          onChanged: widget.onChanged,
+          obscureText: !_passwordVisibility,
+          textInputAction: TextInputAction.done,
+          // controller: widget.controller,
+          validator: (val) =>
+              val!.isNotEmpty ? null : "Password cannot be blank!",
+          keyboardType: TextInputType.emailAddress,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            suffixIcon: IconButton(
+              icon: Icon(
                 _passwordVisibility ? Icons.visibility_off : Icons.visibility,
                 size: 20.h,
                 color: Colors.black,
               ),
+              onPressed: () {
+                setState(() {
+                  _passwordVisibility = !_passwordVisibility;
+                });
+              },
             ),
-            onPressed: () {
-              setState(() {
-                _passwordVisibility = !_passwordVisibility;
-              });
-            },
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.black38),
-            borderRadius: BorderRadius.circular(15),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: AppColors.kPrimaryColor),
-            borderRadius: BorderRadius.circular(15),
-          ),
-          errorBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.red),
-              borderRadius: BorderRadius.circular(15)),
-          border: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.black38),
-            borderRadius: BorderRadius.circular(15),
-          ),
-          contentPadding:
-              EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
-          hintText: widget.hintText,
-          hintStyle: const TextStyle(
-            fontSize: 14,
-            color: Colors.black,
+            contentPadding:
+                EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
           ),
         ),
       ),

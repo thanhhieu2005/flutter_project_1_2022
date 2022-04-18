@@ -18,5 +18,8 @@
     "logout": "Logout",
     "account": "Account",
     "change": "Change",
-    "yourPwd": "Your Password"
+    "yourPwd": "Your Password",
+    "create": "Create",
+    "newAccount": "New Account",
+    "backToSignIn": "Back To Sign In"
 }
