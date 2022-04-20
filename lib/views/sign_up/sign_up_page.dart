@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_project_1/services/auth_service.dart';
+import 'package:flutter_project_1/view_models/sign_up_provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
@@ -32,6 +33,7 @@ class SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
+    final signUpProvider = Provider.of<SignUpProvider>(context);
     return Scaffold(
       backgroundColor: AppColors.kBackgroundColor,
       body: SafeArea(
@@ -134,6 +136,7 @@ class SignUpPageState extends State<SignUpPage> {
                     style: TextConfigs.kTextSubtitle,
                   ),
                   RoundedPasswordField(
+                    controller: signUpProvider.pwdController,
                     onChanged: (value) {
                       authService.signUpPassword = value;
                     },
@@ -143,14 +146,17 @@ class SignUpPageState extends State<SignUpPage> {
                     style: TextConfigs.kTextSubtitle,
                   ),
                   RoundedPasswordField(
+                    controller: signUpProvider.pwdConfirmController,
+                    isConfirmPwd: true,
+                    pwdToConfirm: signUpProvider.pwdController.text,
                     onChanged: (value) {
-                      authService.signUpPassword = value;
+                      authService.confirmPwd = value;
                     },
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 15.h),
                     child: RoundedLinearButton(
-                        text: "Sign Up",
+                        text: "Create",
                         press: () async {
                           try {
                             _formKey.currentState?.validate();
@@ -184,7 +190,7 @@ class SignUpPageState extends State<SignUpPage> {
                         text: TextSpan(
                           style: TextConfigs.kText16BoldBlack,
                           children: [
-                            const TextSpan(text: "I agree with the "),
+                            const TextSpan(text: "I agree to comply with the "),
                             TextSpan(
                               text: "Policy",
                               style: TextConfigs.kText16BoldKprimary,

@@ -7,9 +7,10 @@ class AuthService {
   String loginEmail = "",
       loginPassword = "",
       signUpEmail = "",
-      signUpPassword = "";
+      signUpPassword = "",
+      confirmPwd = "";
   bool isloading = false;
-  late User currentUser;
+  User currentUser = User(uid: "", userName: "");
 
   final auth_service.FirebaseAuth _firebaseAuth =
       auth_service.FirebaseAuth.instance;
@@ -17,10 +18,7 @@ class AuthService {
     if (user == null) {
       return null;
     }
-    return User(
-        uid: currentUser.uid,
-        userName: currentUser.userName,
-        email: currentUser.email);
+    return User(uid: user.uid, email: user.email);
   }
 
   Stream<User?>? get user {
@@ -33,6 +31,7 @@ class AuthService {
     try {
       final credential = await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
+      clearTextController();
       return _userFromFirebase(credential.user);
     } catch (err) {
       isloading = false;
@@ -48,6 +47,7 @@ class AuthService {
       final credential = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
       addUserDataToFirebase(_userFromFirebase(credential.user)!);
+      clearTextController();
       return _userFromFirebase(credential.user);
     } catch (err) {
       isloading = false;
@@ -57,6 +57,7 @@ class AuthService {
   }
 
   Future signOut() async {
+    clearTextController();
     return await _firebaseAuth.signOut();
   }
 
@@ -78,5 +79,12 @@ class AuthService {
     } catch (e) {
       print("Error fail to load user data");
     }
+  }
+
+  void clearTextController() {
+    loginEmail = "";
+    loginPassword = "";
+    signUpEmail = "";
+    signUpPassword = "";
   }
 }
