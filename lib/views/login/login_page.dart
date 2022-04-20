@@ -10,6 +10,7 @@ import 'package:flutter_project_1/widgets/rounded_password_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
+import '../../view_models/login_provider.dart';
 import '../../widgets/custom_dialog.dart';
 
 class LoginPage extends StatefulWidget {
@@ -32,6 +33,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
+    final loginProvider = Provider.of<LoginProvider>(context);
     return Scaffold(
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 20.w),
@@ -45,11 +47,14 @@ class _LoginPageState extends State<LoginPage> {
                 onChanged: (value) {
                   authService.loginEmail = value;
                 }),
+            SizedBox(
+              height: 10.h,
+            ),
             RoundedPasswordField(
+              controller: loginProvider.loginPwdController,
               onChanged: (value) {
                 authService.loginPassword = value;
               },
-              hintText: "Password",
             ),
             SizedBox(
               height: 10.h,

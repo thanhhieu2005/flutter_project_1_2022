@@ -57,10 +57,10 @@ class CustomDialog extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        CircleAvatar(
+                        const CircleAvatar(
                           backgroundColor: AppColors.kPrimaryColor,
                           radius: 16,
-                          backgroundImage: AssetImage('assets/images/' + image),
+                          //backgroundImage: AssetImage('assets/icons/' + image),
                         ),
                         const SizedBox(
                           width: 10,
@@ -111,10 +111,10 @@ class CustomDialog extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        CircleAvatar(
+                        const CircleAvatar(
                           backgroundColor: AppColors.kPrimaryColor,
                           radius: 16,
-                          backgroundImage: AssetImage('assets/images/' + image),
+                          //backgroundImage: AssetImage('assets/icons/' + image),
                         ),
                         const SizedBox(
                           width: 10,

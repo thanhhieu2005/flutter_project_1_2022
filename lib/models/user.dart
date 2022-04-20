@@ -1,11 +1,11 @@
 class User {
   final String uid;
   final String? email;
-  final String userName;
+  final String? userName;
   User({
     required this.uid,
     this.email,
-    required this.userName,
+    this.userName,
   });
 
   Map<String, dynamic> toJson() => {'uid': uid, 'email': email};

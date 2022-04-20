@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project_1/widgets/text_field_container.dart';
+import 'package:flutter_project_1/view_models/sign_up_provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import '../configs/color_config.dart';
 
 class RoundedPasswordField extends StatefulWidget {
   final ValueChanged<String> onChanged;
-  final String hintText;
+  final String pwdToConfirm;
+  final bool isConfirmPwd;
+  final TextEditingController controller;
   // final TextEditingController controller;
   const RoundedPasswordField({
     Key? key,
     required this.onChanged,
-    this.hintText = "Password",
+    this.pwdToConfirm = "",
+    this.isConfirmPwd = false,
+    required this.controller,
     // required this.controller,
   }) : super(key: key);
 
@@ -29,50 +34,82 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10.h),
-      padding: EdgeInsets.symmetric(horizontal: 10.w),
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
         borderRadius: BorderRadius.circular(10),
-        color: AppColors.kColor1,
+        // color: AppColors.kColor1,
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.1),
-            spreadRadius: 3,
+            spreadRadius: 1,
             blurRadius: 3,
             offset: const Offset(0, 2),
           ),
         ],
       ),
-      child: Form(
-        autovalidateMode: AutovalidateMode.disabled,
-        child: TextFormField(
-          onChanged: widget.onChanged,
-          obscureText: !_passwordVisibility,
-          textInputAction: TextInputAction.done,
-          // controller: widget.controller,
-          validator: (val) =>
-              val!.isNotEmpty ? null : "Password cannot be blank!",
-          keyboardType: TextInputType.emailAddress,
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            suffixIcon: IconButton(
-              icon: Icon(
-                _passwordVisibility ? Icons.visibility_off : Icons.visibility,
-                size: 20.h,
-                color: Colors.black,
+      child: Form(child: Consumer<SignUpProvider>(
+        builder: (context, provider, child) {
+          return TextFormField(
+            controller: widget.controller,
+            onChanged: widget.onChanged,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            maxLines: 1,
+            obscureText: !_passwordVisibility,
+            textInputAction: TextInputAction.next,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return "Password cannot be blank!";
+              } else if (value.length < 6) {
+                return "Password must be more than 6 characters!";
+              } else {
+                if (widget.isConfirmPwd) {
+                  if (provider.pwdController.text != value) {
+                    return "Confirm password does not match!";
+                  } else {
+                    return null;
+                  }
+                }
+                return null;
+              }
+            },
+            // value!.isNotEmpty ? null : "Password cannot be blank!",
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              filled: true,
+              fillColor: AppColors.kColor1,
+              suffixIcon: IconButton(
+                icon: Padding(
+                  padding: EdgeInsets.only(right: 20.w),
+                  child: Icon(
+                    _passwordVisibility
+                        ? Icons.visibility_off
+                        : Icons.visibility,
+                    size: 16.h,
+                    color: Colors.black,
+                  ),
+                ),
+                onPressed: () {
+                  setState(() {
+                    _passwordVisibility = !_passwordVisibility;
+                  });
+                },
               ),
-              onPressed: () {
-                setState(() {
-                  _passwordVisibility = !_passwordVisibility;
-                });
-              },
+              enabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.white),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: AppColors.kPrimaryColor),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              errorBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.red),
+                  borderRadius: BorderRadius.circular(10)),
             ),
-            contentPadding:
-                EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
-          ),
-        ),
-      ),
+          );
+        },
+      )),
     );
   }
 }
