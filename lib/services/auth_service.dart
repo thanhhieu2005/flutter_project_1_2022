@@ -9,6 +9,7 @@ class AuthService {
       signUpEmail = "",
       signUpPassword = "";
   bool isloading = false;
+  late User currentUser;
 
   final auth_service.FirebaseAuth _firebaseAuth =
       auth_service.FirebaseAuth.instance;
@@ -16,7 +17,10 @@ class AuthService {
     if (user == null) {
       return null;
     }
-    return User(uid: user.uid, email: user.email);
+    return User(
+        uid: currentUser.uid,
+        userName: currentUser.userName,
+        email: currentUser.email);
   }
 
   Stream<User?>? get user {
@@ -59,5 +63,20 @@ class AuthService {
   Future addUserDataToFirebase(User user) async {
     CollectionReference users = FirebaseFirestore.instance.collection("Users");
     users.doc(user.uid).set(user.toJson());
+  }
+
+  Future getCurrentUserInfo(String uid) async {
+    try {
+      var collection = FirebaseFirestore.instance.collection("Users");
+      var docSnapshot = await collection.doc(uid).get();
+      if (docSnapshot.exists) {
+        Map<String, dynamic>? userData = docSnapshot.data();
+        if (userData != null) {
+          currentUser = User.fromJson(userData);
+        }
+      }
+    } catch (e) {
+      print("Error fail to load user data");
+    }
   }
 }

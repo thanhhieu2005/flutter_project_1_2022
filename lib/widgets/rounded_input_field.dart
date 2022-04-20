@@ -17,34 +17,42 @@ class RoundedInputField extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10.h),
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
-      decoration: BoxDecoration(
-        shape: BoxShape.rectangle,
-        borderRadius: BorderRadius.circular(10),
-        color: AppColors.kColor1,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            spreadRadius: 3,
-            blurRadius: 3,
-            offset: const Offset(0, 2),
+    return Stack(
+      children: [
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 10.h),
+          padding: EdgeInsets.symmetric(horizontal: 10.w),
+          decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.circular(10),
+            color: AppColors.kColor1,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.1),
+                spreadRadius: 3,
+                blurRadius: 3,
+                offset: const Offset(0, 2),
+              ),
+            ],
           ),
-        ],
-      ),
-      child: TextFormField(
-        // controller: controller,
-        textInputAction: TextInputAction.next,
-        onChanged: onChanged,
-        validator: (val) =>
-            val!.isNotEmpty ? null : inputName + "cannot be blank!",
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          contentPadding:
-              EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
         ),
-      ),
+        TextFormField(
+          // controller: controller,
+          textInputAction: TextInputAction.next,
+          onChanged: onChanged,
+          validator: (val) =>
+              val!.isNotEmpty ? null : inputName + " can not be blank!",
+          decoration: InputDecoration(
+            errorBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: Colors.red),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            border: InputBorder.none,
+            contentPadding:
+                EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
+          ),
+        ),
+      ],
     );
   }
 }
