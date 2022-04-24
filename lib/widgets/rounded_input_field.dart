@@ -4,15 +4,16 @@ import '../configs/color_config.dart';
 class RoundedInputField extends StatelessWidget {
   final String inputName;
   final IconData icon;
-  final ValueChanged<String> onChanged;
+  final TextEditingController controller;
   // final TextEditingController controller;
-  const RoundedInputField({
-    Key? key,
-    required this.inputName,
-    required this.icon,
-    required this.onChanged,
-    // required this.controller,
-  }) : super(key: key);
+  const RoundedInputField(
+      {Key? key,
+      required this.inputName,
+      required this.icon,
+      required this.controller
+      // required this.controller,
+      })
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,7 +32,7 @@ class RoundedInputField extends StatelessWidget {
       ),
       child: Form(
         child: TextFormField(
-          onChanged: onChanged,
+          controller: controller,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           maxLines: 1,
           textInputAction: TextInputAction.next,

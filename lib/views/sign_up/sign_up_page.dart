@@ -116,30 +116,25 @@ class SignUpPageState extends State<SignUpPage> {
                     style: TextConfigs.kTextSubtitle,
                   ),
                   RoundedInputField(
-                      inputName: "User Name",
-                      icon: Icons.person,
-                      onChanged: (value) {
-                        authService.signUpEmail = value;
-                      }),
+                    controller: signUpProvider.userNameController,
+                    inputName: "User Name",
+                    icon: Icons.person,
+                  ),
                   Text(
                     'Email',
                     style: TextConfigs.kTextSubtitle,
                   ),
                   RoundedInputField(
-                      inputName: "Email",
-                      icon: Icons.person,
-                      onChanged: (value) {
-                        authService.signUpEmail = value;
-                      }),
+                    controller: signUpProvider.emailController,
+                    inputName: "Email",
+                    icon: Icons.person,
+                  ),
                   Text(
                     'Password',
                     style: TextConfigs.kTextSubtitle,
                   ),
                   RoundedPasswordField(
                     controller: signUpProvider.pwdController,
-                    onChanged: (value) {
-                      authService.signUpPassword = value;
-                    },
                   ),
                   Text(
                     'Confirm Password',
@@ -149,9 +144,6 @@ class SignUpPageState extends State<SignUpPage> {
                     controller: signUpProvider.pwdConfirmController,
                     isConfirmPwd: true,
                     pwdToConfirm: signUpProvider.pwdController.text,
-                    onChanged: (value) {
-                      authService.confirmPwd = value;
-                    },
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 15.h),
@@ -160,9 +152,8 @@ class SignUpPageState extends State<SignUpPage> {
                         press: () async {
                           try {
                             _formKey.currentState?.validate();
-                            await authService.createUserWithEmailAndPassword(
-                                authService.signUpEmail,
-                                authService.signUpPassword);
+                            await signUpProvider.createAccountWithEmail();
+                            signUpProvider.clearTextController();
                             Navigator.pop(context);
                           } catch (error) {
                             showDialog(

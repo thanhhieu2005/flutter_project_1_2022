@@ -42,19 +42,15 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             RoundedInputField(
-                inputName: "Email",
-                icon: Icons.person,
-                onChanged: (value) {
-                  authService.loginEmail = value;
-                }),
+              controller: loginProvider.loginEmailController,
+              inputName: "Email",
+              icon: Icons.person,
+            ),
             SizedBox(
               height: 10.h,
             ),
             RoundedPasswordField(
               controller: loginProvider.loginPwdController,
-              onChanged: (value) {
-                authService.loginPassword = value;
-              },
             ),
             SizedBox(
               height: 10.h,
@@ -72,11 +68,11 @@ class _LoginPageState extends State<LoginPage> {
             RoundedLinearButton(
                 text: "Log In",
                 press: () async {
-                  if (authService.loginEmail.isNotEmpty &&
-                      authService.loginPassword.isNotEmpty) {
+                  if (loginProvider.loginEmailController.text.isNotEmpty &&
+                      loginProvider.loginPwdController.text.isNotEmpty) {
                     try {
-                      await authService.signInWithEmailAndPassword(
-                          authService.loginEmail, authService.loginPassword);
+                      await loginProvider.signInWithEmail();
+                      loginProvider.clearTextController();
                       Navigator.pushAndRemoveUntil(
                           context, NavigationBarView.route(), (route) => false);
                     } catch (err) {
