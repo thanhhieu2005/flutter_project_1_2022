@@ -40,7 +40,6 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             RoundedInputField(
-                hintText: "Email",
                 inputName: "Email",
                 icon: Icons.person,
                 onChanged: (value) {

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth_service;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_project_1/models/user.dart';
@@ -39,12 +40,24 @@ class AuthService {
   Future<User?> createUserWithEmailAndPassword(
       String email, String password) async {
     isloading = true;
-    final credential = await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email, password: password);
-    return _userFromFirebase(credential.user);
+    try {
+      final credential = await _firebaseAuth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      addUserDataToFirebase(_userFromFirebase(credential.user)!);
+      return _userFromFirebase(credential.user);
+    } catch (err) {
+      isloading = false;
+      var errorMessage = err.toString().replaceRange(0, 14, '').split(']')[1];
+      return Future.error(errorMessage);
+    }
   }
 
   Future signOut() async {
     return await _firebaseAuth.signOut();
+  }
+
+  Future addUserDataToFirebase(User user) async {
+    CollectionReference users = FirebaseFirestore.instance.collection("Users");
+    users.doc(user.uid).set(user.toJson());
   }
 }
