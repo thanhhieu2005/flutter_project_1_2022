@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_project_1/views/account/account_screen.dart';
+import 'package:flutter_project_1/views/account/sub_screens/avatar_user_widget.dart';
 import 'package:flutter_project_1/widgets/custom_back_button.dart';
 import 'package:flutter_project_1/widgets/custom_form_field.dart';
 import 'package:flutter_project_1/widgets/rounded_main_button.dart';
