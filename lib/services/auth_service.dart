@@ -2,13 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth_service;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_project_1/models/user.dart';
+import 'package:flutter_project_1/view_models/login_provider.dart';
 
 class AuthService {
-  String loginEmail = "",
-      loginPassword = "",
-      signUpEmail = "",
-      signUpPassword = "",
-      confirmPwd = "";
   bool isloading = false;
   User currentUser = User(uid: "", userName: "");
 
@@ -31,7 +27,6 @@ class AuthService {
     try {
       final credential = await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
-      clearTextController();
       return _userFromFirebase(credential.user);
     } catch (err) {
       isloading = false;
@@ -47,17 +42,18 @@ class AuthService {
       final credential = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
       addUserDataToFirebase(_userFromFirebase(credential.user)!);
-      clearTextController();
       return _userFromFirebase(credential.user);
-    } catch (err) {
+    } on auth_service.FirebaseAuthException catch (err) {
       isloading = false;
       var errorMessage = err.toString().replaceRange(0, 14, '').split(']')[1];
       return Future.error(errorMessage);
+    } catch (err) {
+      debugPrint(err.toString());
     }
+    return null;
   }
 
   Future signOut() async {
-    clearTextController();
     return await _firebaseAuth.signOut();
   }
 
@@ -77,14 +73,7 @@ class AuthService {
         }
       }
     } catch (e) {
-      print("Error fail to load user data");
+      debugPrint("Error fail to load user data");
     }
-  }
-
-  void clearTextController() {
-    loginEmail = "";
-    loginPassword = "";
-    signUpEmail = "";
-    signUpPassword = "";
   }
 }

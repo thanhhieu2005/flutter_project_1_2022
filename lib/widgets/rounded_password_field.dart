@@ -5,14 +5,12 @@ import 'package:provider/provider.dart';
 import '../configs/color_config.dart';
 
 class RoundedPasswordField extends StatefulWidget {
-  final ValueChanged<String> onChanged;
   final String pwdToConfirm;
   final bool isConfirmPwd;
   final TextEditingController controller;
   // final TextEditingController controller;
   const RoundedPasswordField({
     Key? key,
-    required this.onChanged,
     this.pwdToConfirm = "",
     this.isConfirmPwd = false,
     required this.controller,
@@ -51,7 +49,6 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
         builder: (context, provider, child) {
           return TextFormField(
             controller: widget.controller,
-            onChanged: widget.onChanged,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             maxLines: 1,
             obscureText: !_passwordVisibility,
