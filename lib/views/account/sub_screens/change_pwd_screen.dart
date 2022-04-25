@@ -67,68 +67,66 @@ class ChangePasswordScreen extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        child: SafeArea(
-          child: Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: 20.w,
-              vertical: 20.h,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 54.h,
+        child: Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: 20.w,
+            vertical: 20.h,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 54.h,
+              ),
+              Text(
+                'Current Password',
+                style: TextConfigs.kTextSubtitleBold,
+              ),
+              SizedBox(
+                height: 8.h,
+              ),
+              CurrentPasswordField(
+                onChanged: (value) {},
+              ),
+              SizedBox(
+                height: 16.h,
+              ),
+              Text(
+                'New Password',
+                style: TextConfigs.kTextSubtitleBold,
+              ),
+              SizedBox(
+                height: 8.h,
+              ),
+              NewPasswordField(
+                onChanged: (value) {},
+              ),
+              SizedBox(
+                height: 16.h,
+              ),
+              Text(
+                'Confirm New Password',
+                style: TextConfigs.kTextSubtitleBold,
+              ),
+              SizedBox(
+                height: 8.h,
+              ),
+              ConfirmPasswordField(
+                newPassword: newPwd.text,
+                onChanged: (String value) {},
+              ),
+              SizedBox(
+                height: 54.h,
+              ),
+              Center(
+                child: RoundedMainButton(
+                  text: 'Save',
+                  height: 56.h,
+                  width: 240.w,
+                  onTap: () {},
                 ),
-                Text(
-                  'Current Password',
-                  style: TextConfigs.kTextSubtitleBold,
-                ),
-                SizedBox(
-                  height: 8.h,
-                ),
-                CurrentPasswordField(
-                  onChanged: (value) {},
-                ),
-                SizedBox(
-                  height: 16.h,
-                ),
-                Text(
-                  'New Password',
-                  style: TextConfigs.kTextSubtitleBold,
-                ),
-                SizedBox(
-                  height: 8.h,
-                ),
-                NewPasswordField(
-                  onChanged: (value) {},
-                ),
-                SizedBox(
-                  height: 16.h,
-                ),
-                Text(
-                  'Confirm New Password',
-                  style: TextConfigs.kTextSubtitleBold,
-                ),
-                SizedBox(
-                  height: 8.h,
-                ),
-                ConfirmPasswordField(
-                  newPassword: newPwd.text,
-                  onChanged: (String value) {},
-                ),
-                SizedBox(
-                  height: 54.h,
-                ),
-                Center(
-                  child: RoundedMainButton(
-                    text: 'Save',
-                    height: 56.h,
-                    width: 240.w,
-                    onTap: () {},
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

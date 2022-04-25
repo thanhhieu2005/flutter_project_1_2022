@@ -23,49 +23,43 @@ class PersonalInfoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        elevation: 0,
-        backgroundColor: AppColors.kBackgroundColor,
-        leadingWidth: 48.w,
-        leading: Align(
-          alignment: Alignment.centerLeft,
-          child: CustomBackButton(
-            currentWidgetContext: context,
-          ),
-        ),
-        title: Align(
-          alignment: Alignment.centerRight,
-          child: Text(
-            AppLocalizations.of(context).account,
-            style: TextConfigs.kTextHeader1,
-          ),
-        ),
-      ),
       backgroundColor: AppColors.kBackgroundColor,
-      body: SingleChildScrollView(
-        child: SafeArea(
+      body: NestedScrollView(
+        floatHeaderSlivers: true,
+        headerSliverBuilder: (context, innerBoxIsScrolled) => [
+          SliverAppBar(
+            automaticallyImplyLeading: false,
+            elevation: 0,
+            floating: true,
+            backgroundColor: AppColors.kBackgroundColor,
+            leadingWidth: 48.w,
+            leading: Align(
+              alignment: Alignment.centerLeft,
+              child: CustomBackButton(
+                currentWidgetContext: context,
+              ),
+            ),
+            title: Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                AppLocalizations.of(context).account,
+                style: TextConfigs.kTextHeader1,
+              ),
+            ),
+          ),
+        ],
+        body: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 20.w,
-              vertical: 20.h,
+            padding: EdgeInsets.only(
+              left: 20.w,
+              right: 20.w,
+              bottom: 20.h,
+              top: 10.h,
+              // vertical: 20.h,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: [
-                //     CustomBackButton(
-                //       currentWidgetContext: context,
-                //     ),
-                //     Text(
-                //       AppLocalizations.of(context).account,
-                //       style: TextConfigs.kTextHeader1,
-                //     ),
-                //   ],
-                // ),
-
                 Text(
                   'Photo',
                   style: TextConfigs.kTextSubtitle,
