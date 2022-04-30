@@ -6,11 +6,13 @@ import '../configs/color_config.dart';
 class RoundedLinearButton extends StatelessWidget {
   final String text;
   final VoidCallback press;
+  final bool isAllCap;
   final Color color, textColor, startColor, endColor;
   const RoundedLinearButton({
     Key? key,
     required this.text,
     required this.press(),
+    this.isAllCap = true,
     this.color = AppColors.kPrimaryColor,
     required this.textColor,
     required this.startColor,
@@ -36,7 +38,7 @@ class RoundedLinearButton extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            text.toUpperCase(),
+            isAllCap ? text.toUpperCase() : text,
             style: TextStyle(
                 fontWeight: FontWeight.bold, fontSize: 20.sp, color: textColor),
           ),

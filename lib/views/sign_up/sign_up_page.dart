@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_project_1/services/auth_service.dart';
 import 'package:flutter_project_1/view_models/sign_up_provider.dart';
+import 'package:flutter_project_1/views/sign_up/confirm_email_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
@@ -151,10 +152,12 @@ class SignUpPageState extends State<SignUpPage> {
                         text: "Create",
                         press: () async {
                           try {
-                            _formKey.currentState?.validate();
-                            await signUpProvider.createAccountWithEmail();
-                            signUpProvider.clearTextController();
-                            Navigator.pop(context);
+                            // _formKey.currentState?.validate();
+                            // await signUpProvider.createAccountWithEmail();
+                            // signUpProvider.clearTextController();
+                            // Navigator.pop(context);
+                            Navigator.pushNamed(
+                                context, ConfirmEmailPage.nameRoute);
                           } catch (error) {
                             showDialog(
                               context: context,
