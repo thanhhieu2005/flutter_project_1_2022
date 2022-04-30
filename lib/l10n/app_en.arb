@@ -21,5 +21,7 @@
     "yourPwd": "Your Password",
     "create": "Create",
     "newAccount": "New Account",
-    "backToSignIn": "Back To Sign In"
+    "backToSignIn": "Back To Sign In",
+    "backToSignUp": "Back To Sign Up",
+    "pleaseEnter6DigitCode" : "Please enter the 6 digits code we sent you\nvia your email to continue"
 }

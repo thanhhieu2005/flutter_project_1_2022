@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,8 +11,26 @@ class TextConfigs {
     color: AppColors.kColor1,
   );
 
+  static final kText22White = TextStyle(
+    fontSize: 22.sp,
+    fontFamily: kFontFamily,
+    color: AppColors.kColor1,
+  );
+
+  static final kText22WhiteBold = TextStyle(
+      fontSize: 22.sp,
+      fontFamily: kFontFamily,
+      color: AppColors.kColor1,
+      fontWeight: FontWeight.bold);
+
   static final kText16Black = TextStyle(
     fontSize: 16.sp,
+    fontFamily: kFontFamily,
+    color: AppColors.kBlackColor,
+  );
+
+  static final kText14Black = TextStyle(
+    fontSize: 14.sp,
     fontFamily: kFontFamily,
     color: AppColors.kBlackColor,
   );

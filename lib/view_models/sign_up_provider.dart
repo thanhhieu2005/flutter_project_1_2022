@@ -11,6 +11,7 @@ class SignUpProvider extends ChangeNotifier {
     try {
       await AuthService().createUserWithEmailAndPassword(
           emailController.text, pwdController.text);
+      await AuthService().sendOtp(emailController.text);
     } catch (err) {
       throw Exception(err.toString());
     }

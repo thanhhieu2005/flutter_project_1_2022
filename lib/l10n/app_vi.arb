@@ -21,6 +21,8 @@
     "yourPwd": "Mật khẩu",
     "create": "Tạo",
     "newAccount": "Tài Khoản Mới",
-    "backToSignIn": "Quay Trở Lại Đăng Nhập"
+    "backToSignIn": "Quay Trở Lại Đăng Nhập",
+    "backToSignUp": "Quay Trở Lại Đăng Nhập",
+    "pleaseEnter6DigitCode": "Hãy nhập mã 6 chữ số vừa được gửi vào email\ncủa bạn để tiếp tục"
 }
 

@@ -6,6 +6,7 @@ import 'package:flutter_project_1/views/account/sub_screens/per_info_screen.dart
 import 'package:flutter_project_1/views/home/home_screen.dart';
 import 'package:flutter_project_1/views/login/login_page.dart';
 import 'package:flutter_project_1/views/navigation_bar_view/navigation_bar_view.dart';
+import 'package:flutter_project_1/views/sign_up/confirm_email_page.dart';
 import 'package:flutter_project_1/views/sign_up/sign_up_page.dart';
 
 class AppRoutes {
@@ -19,6 +20,8 @@ class AppRoutes {
         return CupertinoPageRoute(builder: (_) => const LoginPage());
       case SignUpPage.nameRoute:
         return CupertinoPageRoute(builder: (_) => const SignUpPage());
+      case ConfirmEmailPage.nameRoute:
+        return CupertinoPageRoute(builder: (_) => const ConfirmEmailPage());
       /* Account Screen */
       case AccountScreen.nameRoute:
         return CupertinoPageRoute(builder: (_) => const AccountScreen());
