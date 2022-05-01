@@ -1,32 +1,40 @@
 class User {
   final String uid;
-  final String? email;
+  final String email;
   final String? userName;
   final String? dateOfBirth;
   final String? avatarUrl;
   final String? gender;
+  final String? pwd;
+  final bool isConfirmEmail;
   User(
       {required this.uid,
-      this.email,
+      required this.email,
       this.userName,
       this.avatarUrl,
       this.dateOfBirth,
-      this.gender});
+      this.gender,
+      this.pwd,
+      this.isConfirmEmail = false});
 
-  Map<String, dynamic> toJson() => {
+  Map<String, Object?> toJson() => {
         'uid': uid,
         'email': email,
         'userName': userName ?? "",
         'avatarUrl': avatarUrl ?? "",
         'dateOfBirth': dateOfBirth ?? "",
-        'gender': gender ?? ""
+        'gender': gender ?? "",
+        'pwd': pwd,
+        'isConfirmEmail': isConfirmEmail,
       };
 
-  User.fromJson(Map<String, dynamic> json)
-      : userName = json['userName'],
-        email = json['email'],
-        uid = json['uid'],
-        avatarUrl = json['avatarUrl'],
-        dateOfBirth = json['dateOfBirth'],
-        gender = json['gender'];
+  User.fromJson(Map<String, Object?> json)
+      : userName = json['userName'] as String,
+        email = json['email'] as String,
+        uid = json['uid'] as String,
+        avatarUrl = json['avatarUrl'] as String,
+        dateOfBirth = json['dateOfBirth'] as String,
+        gender = json['gender'] as String,
+        pwd = json['pwd'] as String,
+        isConfirmEmail = json['isConfirmEmail'] as bool;
 }

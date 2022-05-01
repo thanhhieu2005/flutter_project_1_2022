@@ -3,6 +3,7 @@ import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_project_1/services/auth_service.dart';
 import 'package:flutter_project_1/views/navigation_bar_view/navigation_bar_view.dart';
+import 'package:flutter_project_1/views/sign_up/confirm_email_page.dart';
 import 'package:flutter_project_1/views/sign_up/sign_up_page.dart';
 import 'package:flutter_project_1/widgets/rounded_input_field.dart';
 import 'package:flutter_project_1/widgets/rounded_linear_button.dart';
@@ -71,10 +72,18 @@ class _LoginPageState extends State<LoginPage> {
                   if (loginProvider.loginEmailController.text.isNotEmpty &&
                       loginProvider.loginPwdController.text.isNotEmpty) {
                     try {
-                      await loginProvider.signInWithEmail();
+                      var isConfirmEmail =
+                          await loginProvider.signInWithEmail();
+                      if (isConfirmEmail) {
+                        Navigator.pushAndRemoveUntil(context,
+                            NavigationBarView.route(), (route) => false);
+                      } else {
+                        AuthService()
+                            .sendOtp(loginProvider.loginEmailController.text);
+                        Navigator.pushNamed(
+                            context, ConfirmEmailPage.nameRoute);
+                      }
                       loginProvider.clearTextController();
-                      Navigator.pushAndRemoveUntil(
-                          context, NavigationBarView.route(), (route) => false);
                     } catch (err) {
                       showDialog(
                         context: context,

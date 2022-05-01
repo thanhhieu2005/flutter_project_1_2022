@@ -11,12 +11,16 @@ class LoginProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future signInWithEmail() async {
+  Future<bool> signInWithEmail() async {
     try {
       await AuthService().signInWithEmailAndPassword(
           loginEmailController.text, loginPwdController.text);
+      if (!AuthService().currentUser.isConfirmEmail) {
+        return false;
+      }
     } catch (err) {
       throw Exception(err.toString());
     }
+    return true;
   }
 }
