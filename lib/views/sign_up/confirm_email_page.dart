@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
+import 'package:flutter_project_1/constants/global_constants.dart';
+import 'package:flutter_project_1/services/auth_service.dart';
+import 'package:flutter_project_1/view_models/sign_up_provider.dart';
 import 'package:flutter_project_1/views/login/login_page.dart';
+import 'package:flutter_project_1/views/navigation_bar_view/navigation_bar_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:pinput/pinput.dart';
+import 'package:provider/provider.dart';
 import '../../configs/text_config.dart';
+import '../../view_models/login_provider.dart';
+import '../../widgets/custom_dialog.dart';
 import '../../widgets/rounded_linear_button.dart';
 
 class ConfirmEmailPage extends StatefulWidget {
@@ -24,140 +33,146 @@ class ConfirmEmailPage extends StatefulWidget {
 class _ConfirmEmailPageState extends State<ConfirmEmailPage> {
   @override
   Widget build(BuildContext context) {
+    final signUpProvider = Provider.of<SignUpProvider>(context);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(
+            mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Container(
-                child: Stack(
-                  children: [
-                    CustomPaint(
-                      size: size / 3,
-                      painter: ProfileCardPainter(color: Colors.black),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: (size.height / 2) / 2),
-                      child: Center(
-                        child: CircleAvatar(
-                          maxRadius: 55.r,
-                          minRadius: 55.r,
-                          backgroundColor: AppColors.kBackgroundColor,
-                          child: Icon(
-                            Icons.mail,
-                            size: 65.sp,
-                            color: AppColors.kPrimaryColor.withOpacity(0.9),
-                          ),
+              Stack(
+                children: [
+                  CustomPaint(
+                    size: size / 3,
+                    painter: ProfileCardPainter(color: Colors.black),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: (size.height / 2) / 2),
+                    child: Center(
+                      child: CircleAvatar(
+                        maxRadius: 55.r,
+                        minRadius: 55.r,
+                        backgroundColor: AppColors.kBackgroundColor,
+                        child: Icon(
+                          Icons.mail,
+                          size: 65.sp,
+                          color: AppColors.kPrimaryColor.withOpacity(0.9),
                         ),
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(top: 15.h),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(left: 15.w, right: 15.w),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: AppColors.kLightBlue2.withOpacity(0.25),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.2),
-                                    spreadRadius: 3,
-                                    blurRadius: 4,
-                                    offset: const Offset(0, 2),
-                                  ),
-                                ],
-                              ),
-                              child: ClipOval(
-                                child: Material(
-                                  color: AppColors.kLightBlue2
-                                      .withOpacity(0.1), // Button color
-                                  child: InkWell(
-                                    splashColor: Colors.grey, // Splash color
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: SizedBox(
-                                      width: 42.w,
-                                      height: 42.h,
-                                      child: SvgPicture.asset(
-                                        "assets/icons/ic_back.svg",
-                                        fit: BoxFit.scaleDown,
-                                        color: AppColors.kBackgroundColor,
-                                      ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(top: 15.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(left: 15.w, right: 15.w),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: AppColors.kLightBlue2.withOpacity(0.25),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.2),
+                                  spreadRadius: 3,
+                                  blurRadius: 4,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: ClipOval(
+                              child: Material(
+                                color: AppColors.kLightBlue2
+                                    .withOpacity(0.1), // Button color
+                                child: InkWell(
+                                  splashColor: Colors.grey, // Splash color
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: SizedBox(
+                                    width: 42.w,
+                                    height: 42.h,
+                                    child: SvgPicture.asset(
+                                      "assets/icons/ic_back.svg",
+                                      fit: BoxFit.scaleDown,
+                                      color: AppColors.kBackgroundColor,
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                            Center(
-                              child: Text(
-                                AppLocalizations.of(context).backToSignUp,
-                                style: TextConfigs.kText16_1,
-                              ),
-                            )
-                          ],
-                        ),
+                          ),
+                          Center(
+                            child: Text(
+                              AppLocalizations.of(context).backToSignUp,
+                              style: TextConfigs.kText16_1,
+                            ),
+                          )
+                        ],
                       ),
                     ),
-                    Positioned(
-                      right: -35.w,
-                      top: 100.h,
-                      child: SvgPicture.asset(
-                        "assets/icons/img_send_background.svg",
-                        color: AppColors.kLightBlue3.withOpacity(0.25),
-                        width: 150.w,
-                        height: 150.h,
+                  ),
+                  Positioned(
+                    right: -35.w,
+                    top: 100.h,
+                    child: SvgPicture.asset(
+                      "assets/icons/img_send_background.svg",
+                      color: AppColors.kLightBlue3.withOpacity(0.25),
+                      width: 150.w,
+                      height: 150.h,
+                    ),
+                  ),
+                  Positioned.fill(
+                    child: Container(
+                      margin: EdgeInsets.only(top: size.height * 0.12),
+                      child: Column(
+                        children: [
+                          Text(
+                            "One Last Step",
+                            style: TextConfigs.kText22WhiteBold
+                                .copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          Text(
+                            "Let's Verify Your Email",
+                            style: TextConfigs.kText22White,
+                          )
+                        ],
                       ),
                     ),
-                    Positioned.fill(
-                      child: Container(
-                        margin: EdgeInsets.only(top: size.height * 0.12),
-                        child: Column(
-                          children: [
-                            Text(
-                              "One Last Step",
-                              style: TextConfigs.kText22WhiteBold
-                                  .copyWith(fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            Text(
-                              "Let's Verify Your Email",
-                              style: TextConfigs.kText22White,
-                            )
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                  )
+                ],
               ),
               Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    margin:
-                        EdgeInsets.symmetric(vertical: 25.h, horizontal: 20.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        _textFieldOTP(first: true, context: context),
-                        _textFieldOTP(context: context),
-                        _textFieldOTP(context: context),
-                        _textFieldOTP(context: context),
-                        _textFieldOTP(context: context),
-                        _textFieldOTP(context: context, last: true),
-                      ],
+                  Center(
+                    child: Container(
+                      margin: EdgeInsets.symmetric(vertical: 25.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Pinput(
+                            controller: signUpProvider.pinCodeController,
+                            defaultPinTheme: defaultPinTheme,
+                            focusedPinTheme: focusPinTheme,
+                            showCursor: false,
+                            length: 6,
+                            onCompleted: (value) {},
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   Text(
@@ -168,16 +183,43 @@ class _ConfirmEmailPageState extends State<ConfirmEmailPage> {
                   SizedBox(
                     height: 50.h,
                   ),
-                  RoundedLinearButton(
-                    press: () {},
-                    isAllCap: false,
-                    text: "Verify",
-                    textColor: Colors.white,
-                    startColor: AppColors.kPrimaryColor,
-                    endColor: AppColors.kPrimaryColor,
-                  )
                 ],
               ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 15.w),
+                    child: Consumer<AuthService>(
+                      builder: (context, provider, child) {
+                        return RoundedLinearButton(
+                          press: () {
+                            var isVerified = provider.verifyOtp(
+                                localCurrentUser.email,
+                                signUpProvider.pinCodeController.text);
+                            if (isVerified) {
+                              Navigator.pushAndRemoveUntil(context,
+                                  NavigationBarView.route(), (route) => false);
+                            } else {
+                              showDialog(
+                                context: context,
+                                builder: (context) => const CustomDialog(
+                                  title: "Invalid Code",
+                                  description: "Please try again!",
+                                  image: 'cancel.png',
+                                  hasDescription: true,
+                                ),
+                              );
+                            }
+                          },
+                          isAllCap: false,
+                          text: "Verify",
+                          textColor: Colors.white,
+                          startColor: AppColors.kPrimaryColor,
+                          endColor: AppColors.kPrimaryColor,
+                        );
+                      },
+                    )),
+              )
             ],
           ),
         ),
@@ -236,42 +278,26 @@ class ProfileCardPainter extends CustomPainter {
   }
 }
 
-Widget _textFieldOTP(
-    {bool first = false, bool last = false, required BuildContext context}) {
-  return SizedBox(
-    height: 80.h,
-    child: AspectRatio(
-      aspectRatio: 0.7,
-      child: Center(
-        child: TextField(
-          autofocus: true,
-          onChanged: (value) {
-            if (value.length == 1 && last == false) {
-              FocusScope.of(context).nextFocus();
-            }
-            if (value.isEmpty && first == false) {
-              FocusScope.of(context).previousFocus();
-            }
-          },
-          showCursor: false,
-          readOnly: false,
-          textAlign: TextAlign.center,
-          style: TextConfigs.kText16Black
-              .copyWith(fontWeight: FontWeight.bold, fontSize: 24.sp),
-          keyboardType: TextInputType.number,
-          maxLength: 1,
-          decoration: InputDecoration(
-            counter: const Offstage(),
-            enabledBorder: OutlineInputBorder(
-                borderSide: const BorderSide(width: 2, color: Colors.black12),
-                borderRadius: BorderRadius.circular(12)),
-            focusedBorder: OutlineInputBorder(
-                borderSide:
-                    const BorderSide(width: 2, color: AppColors.kPrimaryColor),
-                borderRadius: BorderRadius.circular(12)),
-          ),
-        ),
-      ),
-    ),
-  );
-}
+final defaultPinTheme = PinTheme(
+  width: 50.w,
+  height: 50.h,
+  textStyle: const TextStyle(
+      fontSize: 20, color: AppColors.kDarkBlue1, fontWeight: FontWeight.w600),
+  decoration: BoxDecoration(
+    color: AppColors.kBackgroundColor,
+    border: Border.all(color: Colors.grey),
+    borderRadius: BorderRadius.circular(10),
+  ),
+);
+
+final focusPinTheme = PinTheme(
+  width: 50.w,
+  height: 50.h,
+  textStyle: const TextStyle(
+      fontSize: 20, color: AppColors.kDarkBlue1, fontWeight: FontWeight.w600),
+  decoration: BoxDecoration(
+    color: AppColors.kBackgroundColor,
+    border: Border.all(color: AppColors.kDarkBlue1),
+    borderRadius: BorderRadius.circular(10),
+  ),
+);

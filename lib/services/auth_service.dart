@@ -5,14 +5,15 @@ import 'package:email_auth/email_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth_service;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_project_1/configs/app_config.dart';
+import 'package:flutter_project_1/constants/global_constants.dart';
 import 'package:flutter_project_1/models/user.dart';
-import 'package:flutter_project_1/view_models/login_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthService {
+class AuthService extends ChangeNotifier {
   String _token = "";
   bool isloading = false;
-  User currentUser = User(uid: "", userName: "");
+  User currentUser = User(email: "", uid: "", userName: "");
+  final emailAuth = EmailAuth(sessionName: "VAtraction");
 
   final auth_service.FirebaseAuth _firebaseAuth =
       auth_service.FirebaseAuth.instance;
@@ -22,7 +23,20 @@ class AuthService {
     if (user == null) {
       return null;
     }
-    return User(uid: user.uid, email: user.email);
+    return User(uid: user.uid, email: user.email!);
+  }
+
+  Future getUserFromFirebase(String? uid) async {
+    if (uid == null) {
+      return null;
+    }
+    await FirebaseFirestore.instance.collection("Users").doc(uid).get().then(
+          (DocumentSnapshot<Map<String, Object?>?> docSnapShot) => {
+            if (docSnapShot.exists)
+              {localCurrentUser = User.fromJson(docSnapShot.data()!)}
+          },
+        );
+    notifyListeners();
   }
 
   Stream<User?>? get user {
@@ -35,6 +49,7 @@ class AuthService {
     try {
       final credential = await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
+      await getUserFromFirebase(credential.user?.uid);
       return _userFromFirebase(credential.user);
     } catch (err) {
       isloading = false;
@@ -49,7 +64,6 @@ class AuthService {
     try {
       final credential = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
-      addUserDataToFirebase(_userFromFirebase(credential.user)!);
       return _userFromFirebase(credential.user);
     } on auth_service.FirebaseAuthException catch (err) {
       isloading = false;
@@ -59,6 +73,16 @@ class AuthService {
       debugPrint(err.toString());
     }
     return null;
+  }
+
+  void createLocalUser(String email, String userName, String pwd) {
+    currentUser = User(
+        email: email,
+        uid: "",
+        userName: userName,
+        pwd: pwd,
+        isConfirmEmail: false);
+    addUserDataToFirebase(currentUser);
   }
 
   Future signOut() async {
@@ -115,11 +139,16 @@ class AuthService {
   }
 
   Future<bool> sendOtp(String email) async {
-    final emailAuth = EmailAuth(sessionName: "VAtraction");
     bool result = await emailAuth.sendOtp(recipientMail: email);
     if (result) {
       return true;
     }
     return false;
+  }
+
+  bool verifyOtp(String recipientMail, String userOtp) {
+    bool result =
+        emailAuth.validateOtp(recipientMail: recipientMail, userOtp: userOtp);
+    return result;
   }
 }
