@@ -33,7 +33,10 @@ class AuthService extends ChangeNotifier {
     await FirebaseFirestore.instance.collection("Users").doc(uid).get().then(
           (DocumentSnapshot<Map<String, Object?>?> docSnapShot) => {
             if (docSnapShot.exists)
-              {localCurrentUser = User.fromJson(docSnapShot.data()!)}
+              {
+                localCurrentUser = User.fromJson(docSnapShot.data()!),
+                currentUser = localCurrentUser
+              }
           },
         );
     notifyListeners();
@@ -64,6 +67,7 @@ class AuthService extends ChangeNotifier {
     try {
       final credential = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
+      addUserDataToFirebase(localCurrentUser);
       return _userFromFirebase(credential.user);
     } on auth_service.FirebaseAuthException catch (err) {
       isloading = false;
@@ -75,14 +79,14 @@ class AuthService extends ChangeNotifier {
     return null;
   }
 
-  void createLocalUser(String email, String userName, String pwd) {
+  void createUserInfo(String email, String userName, String pwd) {
     currentUser = User(
         email: email,
         uid: "",
         userName: userName,
         pwd: pwd,
         isConfirmEmail: false);
-    addUserDataToFirebase(currentUser);
+    localCurrentUser = currentUser;
   }
 
   Future signOut() async {
@@ -151,4 +155,6 @@ class AuthService extends ChangeNotifier {
         emailAuth.validateOtp(recipientMail: recipientMail, userOtp: userOtp);
     return result;
   }
+
+  Future updateVerifyEmailStatus(String uid) async {}
 }

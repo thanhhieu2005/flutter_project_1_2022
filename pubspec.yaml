@@ -50,6 +50,7 @@ dependencies:
   http: ^0.13.4
   email_auth: ^1.0.0
   pinput: ^2.2.7
+  modal_progress_hud_nsn: ^0.1.0-nullsafety-1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

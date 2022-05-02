@@ -12,7 +12,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import '../../configs/text_config.dart';
-import '../../view_models/login_provider.dart';
 import '../../widgets/custom_dialog.dart';
 import '../../widgets/rounded_linear_button.dart';
 
@@ -34,6 +33,7 @@ class _ConfirmEmailPageState extends State<ConfirmEmailPage> {
   @override
   Widget build(BuildContext context) {
     final signUpProvider = Provider.of<SignUpProvider>(context);
+    final isCreateAccount = ModalRoute.of(context)!.settings.arguments as bool;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
@@ -193,12 +193,17 @@ class _ConfirmEmailPageState extends State<ConfirmEmailPage> {
                       builder: (context, provider, child) {
                         return RoundedLinearButton(
                           press: () {
+                            globalIsLoading = true;
                             var isVerified = provider.verifyOtp(
                                 localCurrentUser.email,
                                 signUpProvider.pinCodeController.text);
                             if (isVerified) {
+                              if (isCreateAccount) {
+                                signUpProvider.createAccountWithEmail();
+                              }
                               Navigator.pushAndRemoveUntil(context,
                                   NavigationBarView.route(), (route) => false);
+                              signUpProvider.clearPinCodeController();
                             } else {
                               showDialog(
                                 context: context,
@@ -210,6 +215,7 @@ class _ConfirmEmailPageState extends State<ConfirmEmailPage> {
                                 ),
                               );
                             }
+                            globalIsLoading = false;
                           },
                           isAllCap: false,
                           text: "Verify",
