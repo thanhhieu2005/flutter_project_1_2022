@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_project_1/services/auth_service.dart';
 
+import '../constants/global_constants.dart';
+
 class SignUpProvider extends ChangeNotifier {
   final pwdController = TextEditingController();
   final pwdConfirmController = TextEditingController();
@@ -13,12 +15,14 @@ class SignUpProvider extends ChangeNotifier {
       await AuthService().createUserWithEmailAndPassword(
           emailController.text, pwdController.text);
     } catch (err) {
+      globalIsLoading = false;
       throw Exception(err.toString());
     }
+    globalIsLoading = false;
   }
 
   void createLocalUser() {
-    AuthService().createLocalUser(
+    AuthService().createUserInfo(
         emailController.text, userNameController.text, pwdController.text);
   }
 
@@ -26,15 +30,7 @@ class SignUpProvider extends ChangeNotifier {
     try {
       await AuthService().sendOtp(emailController.text);
     } catch (err) {
-      throw Exception(err.toString());
-    }
-  }
-
-  bool verifyOtp() {
-    try {
-      return AuthService()
-          .verifyOtp(emailController.text, pinCodeController.text);
-    } catch (err) {
+      globalIsLoading = false;
       throw Exception(err.toString());
     }
   }
@@ -44,5 +40,9 @@ class SignUpProvider extends ChangeNotifier {
     pwdConfirmController.clear();
     emailController.clear();
     userNameController.clear();
+  }
+
+  void clearPinCodeController() {
+    pinCodeController.clear();
   }
 }

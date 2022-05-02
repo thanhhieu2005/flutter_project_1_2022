@@ -21,7 +21,9 @@ class AppRoutes {
       case SignUpPage.nameRoute:
         return CupertinoPageRoute(builder: (_) => const SignUpPage());
       case ConfirmEmailPage.nameRoute:
-        return CupertinoPageRoute(builder: (_) => const ConfirmEmailPage());
+        return CupertinoPageRoute(
+            builder: (_) => const ConfirmEmailPage(),
+            settings: const RouteSettings(arguments: false));
       /* Account Screen */
       case AccountScreen.nameRoute:
         return CupertinoPageRoute(builder: (_) => const AccountScreen());

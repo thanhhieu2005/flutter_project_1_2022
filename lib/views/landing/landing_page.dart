@@ -24,7 +24,7 @@ class LandingPage extends StatelessWidget {
           if (user != null && !user.isConfirmEmail) {
             localCurrentUser = user;
             authService.sendOtp(user.email);
-            return const ConfirmEmailPage();
+            return const LoginPage();
           }
           return user == null ? const LoginPage() : const NavigationBarView();
         } else {
