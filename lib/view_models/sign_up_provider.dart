@@ -13,7 +13,7 @@ class SignUpProvider extends ChangeNotifier {
   Future createAccountWithEmail() async {
     try {
       await AuthService().createUserWithEmailAndPassword(
-          emailController.text, pwdController.text);
+          localCurrentUser.email, localCurrentUser.pwd);
     } catch (err) {
       globalIsLoading = false;
       throw Exception(err.toString());

@@ -12,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthService extends ChangeNotifier {
   String _token = "";
   bool isloading = false;
-  User currentUser = User(email: "", uid: "", userName: "");
+  User currentUser = User(email: "", uid: "", userName: "", pwd: "");
   final emailAuth = EmailAuth(sessionName: "VAtraction");
 
   final auth_service.FirebaseAuth _firebaseAuth =
@@ -23,7 +23,7 @@ class AuthService extends ChangeNotifier {
     if (user == null) {
       return null;
     }
-    return User(uid: user.uid, email: user.email!);
+    return User(uid: user.uid, email: user.email!, pwd: "");
   }
 
   Future getUserFromFirebase(String? uid) async {
@@ -67,6 +67,7 @@ class AuthService extends ChangeNotifier {
     try {
       final credential = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
+      localCurrentUser.uid = credential.user?.uid;
       addUserDataToFirebase(localCurrentUser);
       return _userFromFirebase(credential.user);
     } on auth_service.FirebaseAuthException catch (err) {

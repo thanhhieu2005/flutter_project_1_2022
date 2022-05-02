@@ -16,8 +16,10 @@ import '../../widgets/custom_dialog.dart';
 import '../../widgets/rounded_linear_button.dart';
 
 class ConfirmEmailPage extends StatefulWidget {
-  const ConfirmEmailPage({Key? key}) : super(key: key);
+  const ConfirmEmailPage({Key? key, this.isCreateAccount = false})
+      : super(key: key);
   static const String nameRoute = '/confirmEmail';
+  final bool isCreateAccount;
   static Route route() {
     return MaterialPageRoute(
       builder: (_) => const ConfirmEmailPage(),
