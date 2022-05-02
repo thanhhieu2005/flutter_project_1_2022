@@ -1,11 +1,11 @@
 class User {
-  final String uid;
+  String? uid;
   final String email;
   final String? userName;
   final String? dateOfBirth;
   final String? avatarUrl;
   final String? gender;
-  final String? pwd;
+  final String pwd;
   final bool isConfirmEmail;
   User(
       {required this.uid,
@@ -14,7 +14,7 @@ class User {
       this.avatarUrl,
       this.dateOfBirth,
       this.gender,
-      this.pwd,
+      required this.pwd,
       this.isConfirmEmail = false});
 
   Map<String, Object?> toJson() => {
