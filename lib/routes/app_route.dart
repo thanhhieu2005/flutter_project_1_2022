@@ -4,6 +4,7 @@ import 'package:flutter_project_1/views/account/account_screen.dart';
 import 'package:flutter_project_1/views/account/sub_screens/change_pwd_screen.dart';
 import 'package:flutter_project_1/views/account/sub_screens/per_info_screen.dart';
 import 'package:flutter_project_1/views/home/home_screen.dart';
+import 'package:flutter_project_1/views/home/sub_screens/post_details.dart';
 import 'package:flutter_project_1/views/login/login_page.dart';
 import 'package:flutter_project_1/views/navigation_bar_view/navigation_bar_view.dart';
 import 'package:flutter_project_1/views/sign_up/confirm_email_page.dart';
@@ -35,6 +36,9 @@ class AppRoutes {
       /* Home Screen */
       case HomeScreen.nameRoute:
         return HomeScreen.route();
+      // Sub Screen of Account Screen
+      case PostDetail.nameRoute:
+        return PostDetail.route();
       default:
         return _errorRoute();
     }

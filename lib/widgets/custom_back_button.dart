@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomBackButton extends StatelessWidget {
   final BuildContext currentWidgetContext;
+  final Color backgroundColor, iconColor;
   const CustomBackButton({
     Key? key,
     required this.currentWidgetContext,
+    required this.backgroundColor,
+    required this.iconColor,
   }) : super(key: key);
 
   @override
@@ -22,7 +24,7 @@ class CustomBackButton extends StatelessWidget {
         // width: 40.w,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: AppColors.kColor1,
+          color: backgroundColor,
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.2),
@@ -33,7 +35,10 @@ class CustomBackButton extends StatelessWidget {
           ],
         ),
         child: Center(
-          child: SvgPicture.asset("assets/icons/ic_back.svg"),
+          child: SvgPicture.asset(
+            "assets/icons/ic_back.svg",
+            color: iconColor,
+          ),
         ),
       ),
     );

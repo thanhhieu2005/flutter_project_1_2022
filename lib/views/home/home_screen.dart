@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_project_1/models/category_model.dart';
+import 'package:flutter_project_1/views/home/sub_screens/post_details.dart';
 import 'package:flutter_project_1/views/home/widgets/category_card.dart';
-import 'package:flutter_project_1/views/home/widgets/new_discovery_card.dart';
-import 'package:flutter_project_1/views/home/widgets/notify_button.dart';
 import 'package:flutter_project_1/views/home/widgets/popular_card.dart';
+import 'package:flutter_project_1/views/home/widgets/notify_button.dart';
+import 'package:flutter_project_1/views/home/widgets/new_discovery_card.dart';
 import 'package:flutter_project_1/views/home/widgets/search_widget.dart';
 import 'package:flutter_project_1/views/home/widgets/row_title_seeall.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -112,24 +113,6 @@ class HomeScreen extends StatelessWidget {
                 ),
                 RowTitleSeeAll(
                   onTapSeeAll: () {},
-                  title: 'New Discovey',
-                ),
-                SizedBox(
-                  height: 16.h,
-                ),
-                // Làm List view builder
-                NewDiscoveryCard(
-                  linkImage: 'https://picsum.photos/250?image=9',
-                  titleCard: 'Nha Trang',
-                  address: 'Khanh Hoa, Viet Nam',
-                  pointEvaluation: '4.8',
-                  onClick: () {},
-                ),
-                SizedBox(
-                  height: 24.h,
-                ),
-                RowTitleSeeAll(
-                  onTapSeeAll: () {},
                   title: 'Popular Destination',
                 ),
                 SizedBox(
@@ -137,6 +120,26 @@ class HomeScreen extends StatelessWidget {
                 ),
                 // Làm List view builder
                 PopularCard(
+                  linkImage: 'https://picsum.photos/250?image=9',
+                  titleCard: 'Nha Trang',
+                  address: 'Khanh Hoa, Viet Nam',
+                  pointEvaluation: '4.8',
+                  onClick: () {
+                    Navigator.pushNamed(context, PostDetail.nameRoute);
+                  },
+                ),
+                SizedBox(
+                  height: 24.h,
+                ),
+                RowTitleSeeAll(
+                  onTapSeeAll: () {},
+                  title: 'New Discovey',
+                ),
+                SizedBox(
+                  height: 16.h,
+                ),
+                // Làm List view builder
+                NewDiscoveryCard(
                   linkImage: 'https://picsum.photos/250?image=9',
                   address: 'Ha Long Bay',
                   titleCard: 'Quang Ninh',

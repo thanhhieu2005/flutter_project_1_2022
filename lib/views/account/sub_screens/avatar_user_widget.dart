@@ -30,14 +30,14 @@ class AvatarUserWidget extends StatelessWidget {
         // ignore: prefer_const_constructors
         image: DecorationImage(
           image: NetworkImage(linkImage),
-          fit: BoxFit.cover,
+          fit: BoxFit.fill,
         ),
         borderRadius: const BorderRadius.all(
           Radius.circular(65),
         ),
         border: Border.all(
           color: AppColors.kColor1,
-          width: 6.0,
+          width: 3.0,
         ),
       ),
     );
