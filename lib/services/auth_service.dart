@@ -152,6 +152,7 @@ class AuthService extends ChangeNotifier {
   }
 
   bool verifyOtp(String recipientMail, String userOtp) {
+    isloading = true;
     bool result =
         emailAuth.validateOtp(recipientMail: recipientMail, userOtp: userOtp);
     return result;

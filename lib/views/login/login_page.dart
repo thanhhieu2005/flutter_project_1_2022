@@ -39,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final loginProvider = Provider.of<LoginProvider>(context);
     return ModalProgressHUD(
-      inAsyncCall: globalIsLoading,
+      inAsyncCall: loginProvider.isLoading,
       color: AppColors.kPrimaryColor,
       child: Scaffold(
         body: Container(
@@ -75,7 +75,6 @@ class _LoginPageState extends State<LoginPage> {
               RoundedLinearButton(
                   text: "Log In",
                   press: () async {
-                    globalIsLoading = true;
                     if (loginProvider.loginEmailController.text.isNotEmpty &&
                         loginProvider.loginPwdController.text.isNotEmpty) {
                       try {
@@ -84,7 +83,9 @@ class _LoginPageState extends State<LoginPage> {
                         if (isConfirmEmail) {
                           Navigator.pushAndRemoveUntil(context,
                               NavigationBarView.route(), (route) => false);
+                          loginProvider.clearTextController();
                         } else {
+                          loginProvider.isLoading = false;
                           AuthService()
                               .sendOtp(loginProvider.loginEmailController.text);
                           Navigator.pushNamed(
@@ -93,6 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                           loginProvider.clearTextController();
                         }
                       } catch (err) {
+                        loginProvider.isLoading = false;
                         showDialog(
                           context: context,
                           builder: (context) => CustomDialog(

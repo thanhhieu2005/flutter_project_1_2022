@@ -4,6 +4,7 @@ import 'package:flutter_project_1/services/auth_service.dart';
 import '../constants/global_constants.dart';
 
 class LoginProvider extends ChangeNotifier {
+  bool isLoading = false;
   final loginEmailController = TextEditingController();
   final loginPwdController = TextEditingController();
 
@@ -14,6 +15,7 @@ class LoginProvider extends ChangeNotifier {
   }
 
   Future<bool> signInWithEmail() async {
+    isLoading = true;
     try {
       await AuthService().signInWithEmailAndPassword(
           loginEmailController.text, loginPwdController.text);
@@ -21,10 +23,11 @@ class LoginProvider extends ChangeNotifier {
         return false;
       }
     } catch (err) {
-      globalIsLoading = false;
+      isLoading = false;
       throw Exception(err.toString());
     }
-    globalIsLoading = false;
+    isLoading = false;
+    notifyListeners();
     return true;
   }
 

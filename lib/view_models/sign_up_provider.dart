@@ -4,6 +4,7 @@ import 'package:flutter_project_1/services/auth_service.dart';
 import '../constants/global_constants.dart';
 
 class SignUpProvider extends ChangeNotifier {
+  bool isLoading = false;
   final pwdController = TextEditingController();
   final pwdConfirmController = TextEditingController();
   final emailController = TextEditingController();
@@ -15,10 +16,11 @@ class SignUpProvider extends ChangeNotifier {
       await AuthService().createUserWithEmailAndPassword(
           localCurrentUser.email, localCurrentUser.pwd);
     } catch (err) {
-      globalIsLoading = false;
+      isLoading = false;
       throw Exception(err.toString());
     }
-    globalIsLoading = false;
+    isLoading = false;
+    notifyListeners();
   }
 
   void createLocalUser() {
@@ -27,10 +29,12 @@ class SignUpProvider extends ChangeNotifier {
   }
 
   Future sendOtp() async {
+    isLoading = true;
     try {
       await AuthService().sendOtp(emailController.text);
+      isLoading = false;
     } catch (err) {
-      globalIsLoading = false;
+      isLoading = false;
       throw Exception(err.toString());
     }
   }
