@@ -37,7 +37,7 @@ class SignUpPageState extends State<SignUpPage> {
     final authService = Provider.of<AuthService>(context);
     final signUpProvider = Provider.of<SignUpProvider>(context);
     return ModalProgressHUD(
-      inAsyncCall: globalIsLoading,
+      inAsyncCall: signUpProvider.isLoading,
       color: AppColors.kPrimaryColor,
       child: Scaffold(
         backgroundColor: AppColors.kBackgroundColor,
@@ -156,7 +156,7 @@ class SignUpPageState extends State<SignUpPage> {
                           text: "Create",
                           press: () async {
                             try {
-                              globalIsLoading = true;
+                              signUpProvider.isLoading = true;
                               _formKey.currentState?.validate();
                               signUpProvider.createLocalUser();
                               signUpProvider.sendOtp();
@@ -165,7 +165,6 @@ class SignUpPageState extends State<SignUpPage> {
                                   context, ConfirmEmailPage.nameRoute,
                                   arguments: true);
                             } catch (error) {
-                              globalIsLoading = false;
                               showDialog(
                                 context: context,
                                 builder: (context) => CustomDialog(
