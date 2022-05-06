@@ -39,6 +39,8 @@ class ChangePasswordScreen extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: CustomBackButton(
               currentWidgetContext: context,
+              backgroundColor: AppColors.kColor1,
+              iconColor: AppColors.kColor0,
             ),
           ),
           flexibleSpace: SafeArea(

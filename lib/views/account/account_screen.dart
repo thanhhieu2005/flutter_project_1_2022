@@ -88,7 +88,7 @@ class AccountScreen extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(
-                                    color: AppColors.kGreen1,
+                                    color: AppColors.kColor6,
                                     width: 1.0,
                                   ),
                                 ),

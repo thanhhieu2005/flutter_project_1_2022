@@ -73,7 +73,7 @@ class TextConfigs {
     fontSize: 12.sp,
     fontFamily: kFontFamily,
     fontWeight: FontWeight.w500,
-    color: AppColors.kGreen1,
+    color: AppColors.kColor6,
   );
 
   static final kTextSubtitle = TextStyle(

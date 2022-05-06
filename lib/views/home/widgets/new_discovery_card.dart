@@ -2,18 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class NewDiscoveryCard extends StatelessWidget {
-  final String linkImage, titleCard, address, pointEvaluation;
-
+  final String linkImage, titleCard, address;
   final VoidCallback onClick;
   const NewDiscoveryCard({
     Key? key,
     required this.linkImage,
     required this.titleCard,
     required this.address,
-    required this.pointEvaluation,
     required this.onClick,
   }) : super(key: key);
 
@@ -22,8 +19,8 @@ class NewDiscoveryCard extends StatelessWidget {
     return InkWell(
       onTap: onClick,
       child: Container(
-        height: 200.h,
-        width: 250.w,
+        height: 160.h,
+        width: 160.w,
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(
             Radius.circular(10),
@@ -36,22 +33,24 @@ class NewDiscoveryCard extends StatelessWidget {
         child: Stack(
           children: [
             Positioned(
-              bottom: 15.h,
-              right: 10.w,
-              left: 10.w,
+              bottom: 0,
               child: Container(
-                height: 64.h,
-                width: 180.w,
-                decoration: const BoxDecoration(
+                height: 56.h,
+                width: 160.w,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.grey.shade200,
+                  ),
                   color: AppColors.kColor1,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(15),
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10),
                   ),
                 ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: 20.w,
-                    vertical: 12.h,
+                    vertical: 8.h,
+                    horizontal: 16.w,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,43 +74,6 @@ class NewDiscoveryCard extends StatelessWidget {
                             fontWeight: FontWeight.w400,
                             fontSize: 14.sp,
                           ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: 60.h,
-              right: 20.w,
-              child: Container(
-                height: 24.h,
-                width: 64.w,
-                decoration: BoxDecoration(
-                  color: AppColors.kColor1,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(8),
-                  ),
-                  border: Border.all(
-                    color: Colors.grey.shade200,
-                  ),
-                ),
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SvgPicture.asset(
-                        "assets/icons/ic_star.svg",
-                        color: AppColors.kColor4,
-                      ),
-                      Text(
-                        pointEvaluation,
-                        style: TextConfigs.kText12W500Green1.copyWith(
-                          color: AppColors.kColor0,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ],

@@ -91,17 +91,6 @@ class _NavigationBarViewState extends State<NavigationBarView> {
                   ),
                   NavigationDestination(
                     icon: SvgPicture.asset(
-                      "assets/icons/ic_favorite.svg",
-                      color: AppColors.kColor2,
-                    ),
-                    selectedIcon: SvgPicture.asset(
-                      "assets/icons/ic_favorite.svg",
-                      color: AppColors.kLightBlue3,
-                    ),
-                    label: 'Favorite',
-                  ),
-                  NavigationDestination(
-                    icon: SvgPicture.asset(
                       "assets/icons/ic_discovery.svg",
                       color: AppColors.kColor2,
                     ),
@@ -110,6 +99,17 @@ class _NavigationBarViewState extends State<NavigationBarView> {
                       color: AppColors.kLightBlue3,
                     ),
                     label: 'Discovery',
+                  ),
+                  NavigationDestination(
+                    icon: SvgPicture.asset(
+                      "assets/icons/ic_favorite.svg",
+                      color: AppColors.kColor2,
+                    ),
+                    selectedIcon: SvgPicture.asset(
+                      "assets/icons/ic_favorite.svg",
+                      color: AppColors.kLightBlue3,
+                    ),
+                    label: 'Favorite',
                   ),
                   NavigationDestination(
                     icon: SvgPicture.asset(

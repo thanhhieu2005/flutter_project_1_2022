@@ -36,6 +36,8 @@ class PersonalInfoScreen extends StatelessWidget {
             leading: Align(
               alignment: Alignment.centerLeft,
               child: CustomBackButton(
+                backgroundColor: AppColors.kColor1,
+                iconColor: AppColors.kColor0,
                 currentWidgetContext: context,
               ),
             ),
