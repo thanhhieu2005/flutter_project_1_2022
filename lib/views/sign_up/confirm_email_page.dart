@@ -195,15 +195,16 @@ class _ConfirmEmailPageState extends State<ConfirmEmailPage> {
                       child: Consumer<AuthService>(
                         builder: (context, provider, child) {
                           return RoundedLinearButton(
-                            press: () {
-                              signUpProvider.isLoading = true;
-                              var isVerified = provider.verifyOtp(
+                            press: () async {
+                              var isVerified = await provider.verifyOtp(
                                   localCurrentUser.email,
                                   signUpProvider.pinCodeController.text);
                               if (isVerified) {
                                 if (isCreateAccount) {
                                   signUpProvider.createAccountWithEmail();
                                 }
+                                await signUpProvider.updateVerifyEmailStatus(
+                                    localCurrentUser.uid!);
                                 Navigator.pushAndRemoveUntil(
                                     context,
                                     NavigationBarView.route(),

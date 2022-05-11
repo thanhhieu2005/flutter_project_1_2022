@@ -151,14 +151,24 @@ class AuthService extends ChangeNotifier {
     return false;
   }
 
-  bool verifyOtp(String recipientMail, String userOtp) {
+  Future<bool> verifyOtp(String recipientMail, String userOtp) async {
     isloading = true;
     bool result =
         emailAuth.validateOtp(recipientMail: recipientMail, userOtp: userOtp);
+    if (result) {
+      localCurrentUser.isConfirmEmail = true;
+      SharedPreferences sharedPref = await SharedPreferences.getInstance();
+      sharedPref.setString("user", jsonEncode(localCurrentUser.toJson()));
+    }
     return result;
   }
 
-  Future updateVerifyEmailStatus(String uid) async {}
+  Future updateVerifyEmailStatus(String uid) async {
+    FirebaseFirestore.instance
+        .collection("Users")
+        .doc(uid)
+        .update({'isConfirmEmail': true});
+  }
 
   Future<User> getLocalUserSharePref() async {
     SharedPreferences pref = await SharedPreferences.getInstance();

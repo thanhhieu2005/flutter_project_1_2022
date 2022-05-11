@@ -6,7 +6,7 @@ class User {
   final String? avatarUrl;
   final String? gender;
   final String pwd;
-  final bool isConfirmEmail;
+  bool isConfirmEmail;
   User(
       {required this.uid,
       required this.email,

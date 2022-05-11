@@ -44,9 +44,8 @@ class LandingPageState extends State<LandingPage> {
       builder: (_, AsyncSnapshot<User?> snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           final User? user = snapshot.data;
-          if (user != null && !localCurrentUser.isConfirmEmail) {
-            localCurrentUser = user;
-            authService.sendOtp(user.email);
+          if (!localCurrentUser.isConfirmEmail) {
+            authService.sendOtp(localCurrentUser.email);
             return const LoginPage();
           }
           return user == null ? const LoginPage() : const NavigationBarView();
