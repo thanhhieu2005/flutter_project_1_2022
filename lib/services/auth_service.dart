@@ -159,4 +159,13 @@ class AuthService extends ChangeNotifier {
   }
 
   Future updateVerifyEmailStatus(String uid) async {}
+
+  Future<User> getLocalUserSharePref() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    Map<String, dynamic> userJson = {};
+    if (pref.getString('user') != null) {
+      userJson = jsonDecode(pref.getString('user')!);
+    }
+    return User.fromJson(userJson);
+  }
 }

@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_project_1/services/auth_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants/global_constants.dart';
 
@@ -19,6 +22,8 @@ class LoginProvider extends ChangeNotifier {
     try {
       await AuthService().signInWithEmailAndPassword(
           loginEmailController.text, loginPwdController.text);
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString("user", jsonEncode(localCurrentUser.toJson()));
       if (!localCurrentUser.isConfirmEmail) {
         return false;
       }

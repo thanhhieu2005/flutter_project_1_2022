@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_project_1/services/auth_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants/global_constants.dart';
 
@@ -15,6 +18,8 @@ class SignUpProvider extends ChangeNotifier {
     try {
       await AuthService().createUserWithEmailAndPassword(
           localCurrentUser.email, localCurrentUser.pwd);
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString("localUser", jsonEncode(localCurrentUser.toJson()));
     } catch (err) {
       isLoading = false;
       throw Exception(err.toString());
