@@ -5,10 +5,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SearchWidget extends StatefulWidget {
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
+  final TextEditingController? textController;
+  final Function(String)? onChange;
+  final bool readOnly;
   const SearchWidget({
     Key? key,
-    required this.onTap,
+    this.onTap,
+    this.textController,
+    this.onChange,
+    required this.readOnly,
   }) : super(key: key);
 
   @override
@@ -20,6 +26,11 @@ class _SearchWidgetState extends State<SearchWidget> {
   Widget build(BuildContext context) {
     return Form(
       child: TextFormField(
+        controller: widget.textController,
+        readOnly: widget.readOnly,
+        onTap: widget.onTap,
+        showCursor: !widget.readOnly,
+        onChanged: widget.onChange,
         decoration: InputDecoration(
           filled: true,
           fillColor: AppColors.kLightBlue4,
@@ -38,7 +49,7 @@ class _SearchWidgetState extends State<SearchWidget> {
             fontStyle: FontStyle.italic,
           ),
           prefixIcon: InkWell(
-            onTap: widget.onTap,
+            // onTap: widget.onTap,
             child: Padding(
               padding: EdgeInsets.all(12.h),
               child: SvgPicture.asset(

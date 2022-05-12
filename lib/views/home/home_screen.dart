@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_project_1/models/category_model.dart';
-import 'package:flutter_project_1/views/home/sub_screens/post_details.dart';
+import 'package:flutter_project_1/views/home/sub_screens/post_detail_custom.dart';
+import 'package:flutter_project_1/views/home/sub_screens/search_screen.dart';
 import 'package:flutter_project_1/views/home/widgets/category_card.dart';
 import 'package:flutter_project_1/views/home/widgets/popular_card.dart';
 import 'package:flutter_project_1/views/home/widgets/notify_button.dart';
@@ -12,7 +13,7 @@ import 'package:flutter_project_1/views/home/widgets/row_title_seeall.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeScreen extends StatelessWidget {
-  static const String nameRoute = '/home_screeen';
+  static const String nameRoute = '/home_screen';
   static Route route() {
     return MaterialPageRoute(
       builder: (_) => const HomeScreen(),
@@ -86,7 +87,10 @@ class HomeScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SearchWidget(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, SearchScreen.nameRoute);
+                  },
+                  readOnly: true,
                 ),
                 SizedBox(
                   height: 16.h,
@@ -120,13 +124,12 @@ class HomeScreen extends StatelessWidget {
                 ),
                 // Làm List view builder
                 PopularCard(
-                  linkImage: 'https://picsum.photos/250?image=9',
-                  titleCard: 'Nha Trang',
-                  address: 'Khanh Hoa, Viet Nam',
+                  linkImage:
+                      'https://haycafe.vn/wp-content/uploads/2022/01/Hinh-anh-Ha-Long.jpg',
+                  titleCard: 'Ha Long bay',
+                  address: 'Quang Ninh, Viet Nam',
                   pointEvaluation: '4.8',
-                  onClick: () {
-                    Navigator.pushNamed(context, PostDetail.nameRoute);
-                  },
+                  onClick: () {},
                 ),
                 SizedBox(
                   height: 24.h,
@@ -140,10 +143,13 @@ class HomeScreen extends StatelessWidget {
                 ),
                 // Làm List view builder
                 NewDiscoveryCard(
-                  linkImage: 'https://picsum.photos/250?image=9',
+                  linkImage:
+                      'https://haycafe.vn/wp-content/uploads/2022/01/Hinh-anh-Ha-Long.jpg',
                   address: 'Ha Long Bay',
                   titleCard: 'Quang Ninh',
-                  onClick: () {},
+                  onClick: () {
+                    Navigator.pushNamed(context, PostDetailCustom.nameRoute);
+                  },
                 ),
               ],
             ),
