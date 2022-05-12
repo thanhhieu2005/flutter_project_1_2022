@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project_1/configs/EdgeInset_config.dart';
+import 'package:flutter_project_1/configs/edgeInset_config.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -51,8 +51,9 @@ class SharerPostWidget extends StatelessWidget {
                   onTap: onClick,
                   child: Text(
                     'Sharer',
-                    style: TextConfigs.kTextSubtitleBold.copyWith(
+                    style: TextConfigs.kText16Black.copyWith(
                       color: AppColors.kDarkBlue1,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
@@ -63,7 +64,7 @@ class SharerPostWidget extends StatelessWidget {
             padding: EdgeInsets.only(right: 20.w),
             child: Text(
               'Thanh Hieu',
-              style: TextConfigs.kTextSubtitleBold.copyWith(
+              style: TextConfigs.kText16Black.copyWith(
                 color: AppColors.kColor0,
                 fontWeight: FontWeight.w500,
                 decoration: TextDecoration.underline,
