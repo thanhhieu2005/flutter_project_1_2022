@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class EdgeInsetsConfig {
   static final kOnlyLTR_20 = EdgeInsets.only(
     left: 20.w,
-    top: 10.h,
+    top: 20.h,
     right: 20.w,
   );
 }

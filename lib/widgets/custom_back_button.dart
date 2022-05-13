@@ -5,11 +5,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 class CustomBackButton extends StatelessWidget {
   final BuildContext currentWidgetContext;
   final Color backgroundColor, iconColor;
+  final double? height, width;
   const CustomBackButton({
     Key? key,
     required this.currentWidgetContext,
     required this.backgroundColor,
     required this.iconColor,
+    this.height,
+    this.width,
   }) : super(key: key);
 
   @override
@@ -20,8 +23,8 @@ class CustomBackButton extends StatelessWidget {
         margin: EdgeInsets.only(
           left: 12.w,
         ),
-        // height: 40.h,
-        // width: 40.w,
+        height: height,
+        width: width,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: backgroundColor,
