@@ -33,7 +33,7 @@ class LandingPageState extends State<LandingPage> {
     if (pref.getString('user') != null) {
       userJson = jsonDecode(pref.getString('user')!);
     }
-    localCurrentUser = User.fromJson(userJson);
+    localCurrentUser = VatractionUser.fromJson(userJson);
   }
 
   @override
@@ -41,9 +41,9 @@ class LandingPageState extends State<LandingPage> {
     final authService = Provider.of<AuthService>(context);
     return StreamBuilder(
       stream: authService.user,
-      builder: (_, AsyncSnapshot<User?> snapshot) {
+      builder: (_, AsyncSnapshot<VatractionUser?> snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
-          final User? user = snapshot.data;
+          final VatractionUser? user = snapshot.data;
           if (user != null && !localCurrentUser.isConfirmEmail) {
             localCurrentUser = user;
             authService.sendOtp(user.email);
