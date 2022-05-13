@@ -19,7 +19,7 @@ class SignUpProvider extends ChangeNotifier {
       await AuthService().createUserWithEmailAndPassword(
           localCurrentUser.email, localCurrentUser.pwd);
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString("localUser", jsonEncode(localCurrentUser.toJson()));
+      await prefs.setString("user", jsonEncode(localCurrentUser.toJson()));
     } catch (err) {
       isLoading = false;
       throw Exception(err.toString());
@@ -53,5 +53,13 @@ class SignUpProvider extends ChangeNotifier {
 
   void clearPinCodeController() {
     pinCodeController.clear();
+  }
+
+  Future updateVerifyEmailStatus(String uid) async {
+    try {
+      await AuthService().updateVerifyEmailStatus(uid);
+    } catch (err) {
+      throw Exception(err);
+    }
   }
 }

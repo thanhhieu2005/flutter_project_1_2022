@@ -43,10 +43,16 @@ class LandingPageState extends State<LandingPage> {
       stream: authService.user,
       builder: (_, AsyncSnapshot<VatractionUser?> snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
+<<<<<<< HEAD
+          final User? user = snapshot.data;
+          if (!localCurrentUser.isConfirmEmail) {
+            authService.sendOtp(localCurrentUser.email);
+=======
           final VatractionUser? user = snapshot.data;
           if (user != null && !localCurrentUser.isConfirmEmail) {
             localCurrentUser = user;
             authService.sendOtp(user.email);
+>>>>>>> 3f40c072208e3026d3eddeb0f7256bbbb56c8c94
             return const LoginPage();
           }
           return user == null ? const LoginPage() : const NavigationBarView();

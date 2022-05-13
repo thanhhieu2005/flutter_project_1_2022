@@ -6,8 +6,13 @@ class VatractionUser {
   final String? avatarUrl;
   final String? gender;
   final String pwd;
+<<<<<<< HEAD
+  bool isConfirmEmail;
+  User(
+=======
   final bool isConfirmEmail;
   VatractionUser(
+>>>>>>> 3f40c072208e3026d3eddeb0f7256bbbb56c8c94
       {required this.uid,
       required this.email,
       this.userName,
