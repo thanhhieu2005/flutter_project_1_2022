@@ -12,18 +12,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthService extends ChangeNotifier {
   String _token = "";
   bool isloading = false;
-  User currentUser = User(email: "", uid: "", userName: "", pwd: "");
+  VatractionUser currentUser =
+      VatractionUser(email: "", uid: "", userName: "", pwd: "");
   final emailAuth = EmailAuth(sessionName: "VAtraction");
 
   final auth_service.FirebaseAuth _firebaseAuth =
       auth_service.FirebaseAuth.instance;
 
   get http => null;
-  User? _userFromFirebase(auth_service.User? user) {
+  VatractionUser? _userFromFirebase(auth_service.User? user) {
     if (user == null) {
       return null;
     }
-    return User(uid: user.uid, email: user.email!, pwd: "");
+    return VatractionUser(uid: user.uid, email: user.email!, pwd: "");
   }
 
   Future getUserFromFirebase(String? uid) async {
@@ -34,7 +35,7 @@ class AuthService extends ChangeNotifier {
           (DocumentSnapshot<Map<String, Object?>?> docSnapShot) => {
             if (docSnapShot.exists)
               {
-                localCurrentUser = User.fromJson(docSnapShot.data()!),
+                localCurrentUser = VatractionUser.fromJson(docSnapShot.data()!),
                 currentUser = localCurrentUser
               }
           },
@@ -42,11 +43,11 @@ class AuthService extends ChangeNotifier {
     notifyListeners();
   }
 
-  Stream<User?>? get user {
+  Stream<VatractionUser?>? get user {
     return _firebaseAuth.authStateChanges().map(_userFromFirebase);
   }
 
-  Future<User?> signInWithEmailAndPassword(
+  Future<VatractionUser?> signInWithEmailAndPassword(
       String email, String password) async {
     isloading = true;
     try {
@@ -61,7 +62,7 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-  Future<User?> createUserWithEmailAndPassword(
+  Future<VatractionUser?> createUserWithEmailAndPassword(
       String email, String password) async {
     isloading = true;
     try {
@@ -81,7 +82,7 @@ class AuthService extends ChangeNotifier {
   }
 
   void createUserInfo(String email, String userName, String pwd) {
-    currentUser = User(
+    currentUser = VatractionUser(
         email: email,
         uid: "",
         userName: userName,
@@ -94,7 +95,7 @@ class AuthService extends ChangeNotifier {
     return await _firebaseAuth.signOut();
   }
 
-  Future addUserDataToFirebase(User user) async {
+  Future addUserDataToFirebase(VatractionUser user) async {
     CollectionReference users = FirebaseFirestore.instance.collection("Users");
     users.doc(user.uid).set(user.toJson());
   }
@@ -106,7 +107,7 @@ class AuthService extends ChangeNotifier {
       if (docSnapshot.exists) {
         Map<String, dynamic>? userData = docSnapshot.data();
         if (userData != null) {
-          currentUser = User.fromJson(userData);
+          currentUser = VatractionUser.fromJson(userData);
         }
       }
     } catch (e) {
@@ -170,12 +171,12 @@ class AuthService extends ChangeNotifier {
         .update({'isConfirmEmail': true});
   }
 
-  Future<User> getLocalUserSharePref() async {
+  Future<VatractionUser> getLocalUserSharePref() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     Map<String, dynamic> userJson = {};
     if (pref.getString('user') != null) {
       userJson = jsonDecode(pref.getString('user')!);
     }
-    return User.fromJson(userJson);
+    return VatractionUser.fromJson(userJson);
   }
 }
