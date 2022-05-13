@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_project_1/views/account/account_screen.dart';
+import 'package:flutter_project_1/views/discovery/discovery_screen.dart';
 import 'package:flutter_project_1/views/home/home_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -27,16 +28,7 @@ class _NavigationBarViewState extends State<NavigationBarView> {
   // screen
   final mainScreen = [
     const HomeScreen(),
-    const Center(
-      // ignore: prefer_const_constructors
-      child: Text(
-        'Discovery Screen',
-        // ignore: unnecessary_const
-        style: const TextStyle(
-          fontSize: 50,
-        ),
-      ),
-    ),
+    const DiscoveryScreen(),
     const Center(
       // ignore: prefer_const_constructors
       child: Text(

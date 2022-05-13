@@ -1,4 +1,4 @@
-class User {
+class VatractionUser {
   String? uid;
   final String email;
   final String? userName;
@@ -7,7 +7,7 @@ class User {
   final String? gender;
   final String pwd;
   final bool isConfirmEmail;
-  User(
+  VatractionUser(
       {required this.uid,
       required this.email,
       this.userName,
@@ -28,7 +28,7 @@ class User {
         'isConfirmEmail': isConfirmEmail,
       };
 
-  User.fromJson(Map<String, Object?> json)
+  VatractionUser.fromJson(Map<String, Object?> json)
       : userName = json['userName'] as String,
         email = json['email'] as String,
         uid = json['uid'] as String,

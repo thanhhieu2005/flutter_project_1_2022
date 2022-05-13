@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project_1/views/account/account_screen.dart';
 import 'package:flutter_project_1/views/account/sub_screens/change_pwd_screen.dart';
 import 'package:flutter_project_1/views/account/sub_screens/per_info_screen.dart';
+import 'package:flutter_project_1/views/discovery/discovery_screen.dart';
 import 'package:flutter_project_1/views/home/home_screen.dart';
 import 'package:flutter_project_1/views/home/sub_screens/post_detail_custom.dart';
 import 'package:flutter_project_1/views/login/login_page.dart';
@@ -27,6 +28,7 @@ class AppRoutes {
         return CupertinoPageRoute(
             builder: (_) => const ConfirmEmailPage(),
             settings: RouteSettings(arguments: settings.arguments));
+
       /* Account Screen */
       case AccountScreen.nameRoute:
         return CupertinoPageRoute(builder: (_) => const AccountScreen());
@@ -35,6 +37,7 @@ class AppRoutes {
         return PersonalInfoScreen.route();
       case ChangePasswordScreen.nameRoute:
         return ChangePasswordScreen.route();
+
       /* Home Screen */
       case HomeScreen.nameRoute:
         return HomeScreen.route();
@@ -43,6 +46,11 @@ class AppRoutes {
         return SearchScreen.route();
       case PostDetailCustom.nameRoute:
         return PostDetailCustom.route();
+
+      /* Discovery Screen */
+      case DiscoveryScreen.nameRoute:
+        return DiscoveryScreen.route();
+
       default:
         return _errorRoute();
     }

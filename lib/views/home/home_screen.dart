@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_project_1/models/category_model.dart';
+import 'package:flutter_project_1/view_models/post_provider.dart';
 import 'package:flutter_project_1/views/home/sub_screens/post_detail_custom.dart';
 import 'package:flutter_project_1/views/home/sub_screens/search_screen.dart';
 import 'package:flutter_project_1/views/home/widgets/category_card.dart';
@@ -11,13 +12,14 @@ import 'package:flutter_project_1/views/home/widgets/new_discovery_card.dart';
 import 'package:flutter_project_1/views/home/widgets/search_widget.dart';
 import 'package:flutter_project_1/views/home/widgets/row_title_seeall.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String nameRoute = '/home_screen';
   static Route route() {
     return MaterialPageRoute(
-      builder: (_) => const HomeScreen(),
       settings: const RouteSettings(name: nameRoute),
+      builder: (_) => const HomeScreen(),
     );
   }
 
@@ -29,7 +31,6 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: AppColors.kBackgroundColor,
       body: NestedScrollView(
         floatHeaderSlivers: true,
-        // physics: NeverScrollableScrollPhysics(),
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           SliverAppBar(
             expandedHeight: 90.h,
@@ -78,13 +79,14 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
         body: SingleChildScrollView(
-          child: Padding(
+          child: Container(
             padding: EdgeInsets.symmetric(
               horizontal: 20.w,
               vertical: 20.h,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
               children: [
                 SearchWidget(
                   onTap: () {
@@ -96,25 +98,28 @@ class HomeScreen extends StatelessWidget {
                   height: 16.h,
                 ),
                 // List category -> sau đổi thành list.builder
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: List.generate(
-                      home_categories.length,
-                      (index) => Padding(
-                        padding: EdgeInsets.only(right: 16.w),
-                        child: CategoryCard(
-                          icon: home_categories[index].icon,
-                          title: home_categories[index].title,
-                          onClick: () {},
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 24.h,
-                ),
+                // Expanded(
+                //   child: SingleChildScrollView(
+                //     physics: const BouncingScrollPhysics(),
+                //     scrollDirection: Axis.horizontal,
+                //     child: Row(
+                //       children: List.generate(
+                //         home_categories.length,
+                //         (index) => Padding(
+                //           padding: EdgeInsets.only(right: 16.w),
+                //           child: CategoryCard(
+                //             icon: home_categories[index].icon,
+                //             title: home_categories[index].title,
+                //             onClick: () {},
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                // SizedBox(
+                //   height: 24.h,
+                // ),
                 RowTitleSeeAll(
                   onTapSeeAll: () {},
                   title: 'Popular Destination',
@@ -122,15 +127,28 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(
                   height: 16.h,
                 ),
-                // Làm List view builder
-                PopularCard(
-                  linkImage:
-                      'https://haycafe.vn/wp-content/uploads/2022/01/Hinh-anh-Ha-Long.jpg',
-                  titleCard: 'Ha Long bay',
-                  address: 'Quang Ninh, Viet Nam',
-                  pointEvaluation: '4.8',
-                  onClick: () {},
-                ),
+                Consumer<PostProvider>(builder: (context, provider, child) {
+                  var item = provider.popularPost;
+                  return Expanded(
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemBuilder: (BuildContext context, int index) {
+                        return PopularCard(
+                          linkImage: item[index].images.first,
+                          titleCard: item[index].postName,
+                          address: item[index].postName,
+                          pointEvaluation: item[index].rate.toString(),
+                          onClick: () {},
+                        );
+                      },
+                      separatorBuilder: (context, index) => SizedBox(
+                        width: 4.w,
+                      ),
+                      itemCount: item.length,
+                    ),
+                  );
+                }),
                 SizedBox(
                   height: 24.h,
                 ),

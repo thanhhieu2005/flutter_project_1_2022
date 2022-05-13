@@ -5,6 +5,7 @@ import 'package:flutter_project_1/routes/app_route.dart';
 import 'package:flutter_project_1/services/auth_service.dart';
 import 'package:flutter_project_1/view_models/locale_provider.dart';
 import 'package:flutter_project_1/view_models/login_provider.dart';
+import 'package:flutter_project_1/view_models/post_provider.dart';
 import 'package:flutter_project_1/view_models/sign_up_provider.dart';
 import 'package:flutter_project_1/views/landing/landing_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,6 +27,9 @@ class VAtractionApp extends StatelessWidget {
               providers: [
                 ChangeNotifierProvider<AuthService>(
                   create: (_) => AuthService(),
+                ),
+                ChangeNotifierProvider<PostProvider>(
+                  create: (_) => PostProvider(),
                 ),
                 ChangeNotifierProvider<SignUpProvider>(
                   create: (_) => SignUpProvider(),
