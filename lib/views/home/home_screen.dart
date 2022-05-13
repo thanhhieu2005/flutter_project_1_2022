@@ -79,7 +79,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
         body: SingleChildScrollView(
-          child: Container(
+          child: Padding(
             padding: EdgeInsets.symmetric(
               horizontal: 20.w,
               vertical: 20.h,
@@ -98,28 +98,26 @@ class HomeScreen extends StatelessWidget {
                   height: 16.h,
                 ),
                 // List category -> sau đổi thành list.builder
-                // Expanded(
-                //   child: SingleChildScrollView(
-                //     physics: const BouncingScrollPhysics(),
-                //     scrollDirection: Axis.horizontal,
-                //     child: Row(
-                //       children: List.generate(
-                //         home_categories.length,
-                //         (index) => Padding(
-                //           padding: EdgeInsets.only(right: 16.w),
-                //           child: CategoryCard(
-                //             icon: home_categories[index].icon,
-                //             title: home_categories[index].title,
-                //             onClick: () {},
-                //           ),
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // ),
-                // SizedBox(
-                //   height: 24.h,
-                // ),
+                SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: List.generate(
+                      home_categories.length,
+                      (index) => Padding(
+                        padding: EdgeInsets.only(right: 16.w),
+                        child: CategoryCard(
+                          icon: home_categories[index].icon,
+                          title: home_categories[index].title,
+                          onClick: () {},
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 24.h,
+                ),
                 RowTitleSeeAll(
                   onTapSeeAll: () {},
                   title: 'Popular Destination',
@@ -129,24 +127,25 @@ class HomeScreen extends StatelessWidget {
                 ),
                 Consumer<PostProvider>(builder: (context, provider, child) {
                   var item = provider.popularPost;
-                  return Expanded(
-                    child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      itemBuilder: (BuildContext context, int index) {
-                        return PopularCard(
-                          linkImage: item[index].images.first,
-                          titleCard: item[index].postName,
-                          address: item[index].postName,
-                          pointEvaluation: item[index].rate.toString(),
-                          onClick: () {},
-                        );
-                      },
-                      separatorBuilder: (context, index) => SizedBox(
-                        width: 4.w,
-                      ),
-                      itemCount: item.length,
+                  return SingleChildScrollView(
+                    child: Row(
+                      children: item
+                          .map((e) => [
+                                PopularCard(
+                                  linkImage: e.images.first,
+                                  titleCard: e.postName,
+                                  address: e.postName,
+                                  pointEvaluation: e.rating.toString(),
+                                  onClick: () {},
+                                ),
+                                SizedBox(
+                                  width: 4.w,
+                                ),
+                              ])
+                          .expand((element) => element)
+                          .toList(),
                     ),
+                    scrollDirection: Axis.horizontal,
                   );
                 }),
                 SizedBox(
