@@ -30,6 +30,7 @@ class VAtractionApp extends StatelessWidget {
                 ),
                 ChangeNotifierProvider<PostProvider>(
                   create: (_) => PostProvider(),
+                  lazy: false,
                 ),
                 ChangeNotifierProvider<SignUpProvider>(
                   create: (_) => SignUpProvider(),

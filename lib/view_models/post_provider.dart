@@ -13,7 +13,7 @@ class PostProvider extends ChangeNotifier {
   void getPopularPost() async {
     var allPost = await PostRepo.getAllPost();
     for (Post e in allPost) {
-      if (e.rate >= 3.5) {
+      if (e.rating >= 3.5) {
         _popularPost.add(e);
       } else {
         continue;

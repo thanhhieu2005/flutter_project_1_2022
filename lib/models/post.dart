@@ -10,7 +10,7 @@ class Post {
   final String? road;
   final List<String> images;
   final int type;
-  final double rate;
+  final double rating;
 
   Post({
     required this.idPost,
@@ -22,7 +22,7 @@ class Post {
     this.road,
     required this.images,
     required this.type,
-    required this.rate,
+    required this.rating,
   });
 
   Map<String, dynamic> toMap() {
@@ -36,7 +36,7 @@ class Post {
       'road': road,
       'images': images,
       'type': type,
-      'rate': rate,
+      'rating': rating,
     };
   }
 
@@ -51,7 +51,7 @@ class Post {
       road: map['road'],
       images: List<String>.from(map['images']),
       type: map['type']?.toInt() ?? 0,
-      rate: map['rate']?.toDouble() ?? 0.0,
+      rating: map['rating']?.toDouble() ?? 0.0,
     );
   }
 }
