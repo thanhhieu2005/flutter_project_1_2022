@@ -19,3 +19,11 @@ class AppColors {
   static const kLightBlue4 = Color(0xffC1F5FF);
   static const kLightBlue5 = Color(0xffDDF5FB);
 }
+
+class BoxShadowConfig {
+  static const kShadowGrey = BoxShadow(
+    color: Colors.grey,
+    blurRadius: 1,
+    offset: Offset(0, 1),
+  );
+}

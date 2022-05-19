@@ -14,6 +14,7 @@ class AuthService extends ChangeNotifier {
   bool isloading = false;
   VatractionUser currentUser =
       VatractionUser(email: "", uid: "", userName: "", pwd: "");
+
   final emailAuth = EmailAuth(sessionName: "VAtraction");
 
   final auth_service.FirebaseAuth _firebaseAuth =

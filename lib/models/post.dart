@@ -1,8 +1,6 @@
-import 'dart:convert';
-
 class Post {
   final String idPost;
-  final String idUser;
+  final String sharer;
   final String postName;
   final String description;
   final String province;
@@ -14,7 +12,7 @@ class Post {
 
   Post({
     required this.idPost,
-    required this.idUser,
+    required this.sharer,
     required this.postName,
     required this.description,
     required this.province,
@@ -28,7 +26,7 @@ class Post {
   Map<String, dynamic> toMap() {
     return {
       'idPost': idPost,
-      'idUser': idUser,
+      'sharer': sharer,
       'postName': postName,
       'description': description,
       'province': province,
@@ -43,7 +41,7 @@ class Post {
   factory Post.fromMap(Map<String, dynamic> map) {
     return Post(
       idPost: map['idPost'] ?? '',
-      idUser: map['idUser'] ?? '',
+      sharer: map['sharer'] ?? '',
       postName: map['postName'] ?? '',
       description: map['description'] ?? '',
       province: map['province'] ?? '',

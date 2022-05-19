@@ -38,23 +38,6 @@ class DiscoveryScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
-                top: 180.h,
-                left: 180.w,
-                right: 180.w,
-                child: Container(
-                  height: 40,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(20),
-                    color: AppColors.kColor1,
-                  ),
-                  child: const Icon(
-                    Icons.add,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
             ],
           ),
         ),

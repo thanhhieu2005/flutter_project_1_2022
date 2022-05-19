@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
+import 'package:flutter_project_1/view_models/post_provider.dart';
+import 'package:flutter_project_1/views/home/home_screen.dart';
 import 'package:flutter_project_1/views/home/sub_screens/widgets/comment_widget.dart';
 import 'package:flutter_project_1/views/home/sub_screens/widgets/evaluate_widget.dart';
 import 'package:flutter_project_1/views/home/sub_screens/widgets/post_images_widget.dart';
@@ -7,33 +9,35 @@ import 'package:flutter_project_1/views/home/sub_screens/widgets/info_des_widget
 import 'package:flutter_project_1/views/home/sub_screens/widgets/sharer_post_widget.dart';
 import 'package:flutter_project_1/widgets/custom_back_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import '../../../configs/color_config.dart';
 
-class PostDetailCustom extends StatefulWidget {
+class PostDetailScreen extends StatefulWidget {
   static const String nameRoute = '/post_detail_custom';
-  static Route route() {
+  static Route route(RouteSettings settings) {
+    PostDetailArgument args = settings.arguments as PostDetailArgument;
     return MaterialPageRoute(
-      builder: (_) => const PostDetailCustom(),
-      settings: const RouteSettings(name: nameRoute),
+      builder: (_) => ChangeNotifierProvider<PostProvider>.value(
+        value: args.provider,
+        child: const PostDetailScreen(),
+      ),
+      settings: settings,
     );
   }
 
-  const PostDetailCustom({Key? key}) : super(key: key);
+  const PostDetailScreen({Key? key}) : super(key: key);
 
   @override
-  State<PostDetailCustom> createState() => _PostDetailCustomState();
+  State<PostDetailScreen> createState() => _PostDetailScreenState();
 }
 
-class _PostDetailCustomState extends State<PostDetailCustom> {
-  final List<String> urlImages = [
-    'https://haycafe.vn/wp-content/uploads/2022/01/Hinh-anh-Ha-Long.jpg',
-    'https://dambritourist.vn/tai-anh-vinh-ha-long/imager_5_15190_700.jpg',
-    'https://dambritourist.vn/tai-anh-vinh-ha-long/imager_7_15190_700.jpg'
-  ];
-
+class _PostDetailScreenState extends State<PostDetailScreen> {
   @override
   Widget build(BuildContext context) {
+    PostDetailArgument args =
+        ModalRoute.of(context)!.settings.arguments as PostDetailArgument;
+    final post = args.post;
     return Scaffold(
       body: SizedBox(
         height: 1.sh,
@@ -44,10 +48,9 @@ class _PostDetailCustomState extends State<PostDetailCustom> {
               child: Container(
                 width: double.maxFinite,
                 height: 300.h,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage(
-                        'https://haycafe.vn/wp-content/uploads/2022/01/Hinh-anh-Ha-Long.jpg'),
+                    image: NetworkImage(post.images.first),
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -95,10 +98,13 @@ class _PostDetailCustomState extends State<PostDetailCustom> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const InfoDestinationWidget(
-                          address: 'Quang Ninh, Viet Nam',
-                          locationDiscovery: 'Ha Long Bay',
-                          rating: 5,
+                        InfoDestinationWidget(
+                          province: post.province,
+                          postName: post.postName,
+                          rating: post.rating,
+                          district: post.district,
+                          road: post.road,
+                          type: post.type,
                         ),
                         SizedBox(
                           height: 24.h,
@@ -121,7 +127,7 @@ class _PostDetailCustomState extends State<PostDetailCustom> {
                                 height: 8.h,
                               ),
                               Text(
-                                'description aaaaaaaaaaaaa\n a\n a\n a\n ',
+                                post.description.replaceAll("   ", '\n'),
                                 style: TextConfigs.kText16_1.copyWith(
                                   color: AppColors.kColor0,
                                 ),
@@ -130,9 +136,9 @@ class _PostDetailCustomState extends State<PostDetailCustom> {
                           ),
                         ),
                         SizedBox(
-                          height: 8.h,
+                          height: 16.h,
                         ),
-                        PostImagesWidget(urlImages: urlImages),
+                        PostImagesWidget(urlImages: post.images),
                         SizedBox(
                           height: 8.h,
                         ),
@@ -152,6 +158,7 @@ class _PostDetailCustomState extends State<PostDetailCustom> {
                         ),
                         SharerPostWidget(
                           onClick: () {},
+                          sharer: args.provider.sharer!,
                         ),
                       ],
                     ),

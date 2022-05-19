@@ -21,15 +21,6 @@ class _EvaluateWidgetState extends State<EvaluateWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Text(
-          //   'Evaluate',
-          //   style: TextConfigs.kTextSubtitleBold.copyWith(
-          //     color: AppColors.kDarkBlue1,
-          //   ),
-          // ),
-          // SizedBox(
-          //   height: 8.h,
-          // ),
           Padding(
             padding: EdgeInsets.only(
               left: 24.w,
@@ -37,30 +28,6 @@ class _EvaluateWidgetState extends State<EvaluateWidget> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Column(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     Text(
-                //       '4.0',
-                //       style: TextConfigs.kText24_1.copyWith(
-                //         fontWeight: FontWeight.w700,
-                //         color: AppColors.kDarkBlue1,
-                //         fontSize: 48.sp,
-                //       ),
-                //     ),
-                //     Padding(
-                //       padding: EdgeInsets.only(
-                //         left: 32.w,
-                //       ),
-                //       child: Text(
-                //         '/5.0',
-                //         style: TextConfigs.kText16Bold_1.copyWith(
-                //           color: AppColors.kColor0,
-                //         ),
-                //       ),
-                //     ),
-                //   ],
-                // ),
                 Column(
                   children: [
                     Text(

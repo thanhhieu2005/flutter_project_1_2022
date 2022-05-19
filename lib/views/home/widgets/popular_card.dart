@@ -5,16 +5,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class PopularCard extends StatelessWidget {
-  final String linkImage, titleCard, address, pointEvaluation;
+  final String linkImage, titleCard, district, province, pointEvaluation;
+  final String? road;
 
   final VoidCallback onClick;
   const PopularCard({
     Key? key,
     required this.linkImage,
     required this.titleCard,
-    required this.address,
+    required this.district,
     required this.pointEvaluation,
     required this.onClick,
+    required this.province,
+    this.road,
   }) : super(key: key);
 
   @override
@@ -70,7 +73,9 @@ class PopularCard extends StatelessWidget {
                       ),
                       Expanded(
                         child: Text(
-                          address,
+                          road == ''
+                              ? district + ', ' + province
+                              : road! + ', ' + district + ', ' + province,
                           style: TextConfigs.kText16Black.copyWith(
                             fontWeight: FontWeight.w400,
                             fontSize: 14.sp,
