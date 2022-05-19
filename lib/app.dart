@@ -40,7 +40,7 @@ class VAtractionApp extends StatelessWidget {
                 ),
               ],
               child: MaterialApp(
-                title: 'Flutter Demo',
+                title: 'Vatraction App',
                 theme: ThemeData(
                   primarySwatch: Colors.blue,
                 ),

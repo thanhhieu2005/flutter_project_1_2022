@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_project_1/views/account/account_screen.dart';
+import 'package:flutter_project_1/views/create_post/create_post_screen.dart';
 import 'package:flutter_project_1/views/discovery/discovery_screen.dart';
 import 'package:flutter_project_1/views/home/home_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class NavigationBarView extends StatefulWidget {
-  static const id = "HomeScreen";
+  static const id = "/navigation_bar_view";
   static Route route() {
     return MaterialPageRoute(
       builder: (_) => const NavigationBarView(),
@@ -25,10 +26,31 @@ class NavigationBarView extends StatefulWidget {
 class _NavigationBarViewState extends State<NavigationBarView> {
   int currentIndex = 0;
 
+  Route _createRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          const CreatePostScreen(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(0.0, 1.0);
+        const end = Offset.zero;
+        const curve = Curves.ease;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
+  }
+
   // screen
   final mainScreen = [
     const HomeScreen(),
     const DiscoveryScreen(),
+    const Center(),
     const Center(
       // ignore: prefer_const_constructors
       child: Text(
@@ -91,6 +113,29 @@ class _NavigationBarViewState extends State<NavigationBarView> {
                       color: AppColors.kLightBlue3,
                     ),
                     label: 'Discovery',
+                  ),
+                  InkWell(
+                    onTap: () => {
+                      Navigator.push(
+                        context,
+                        _createRoute(),
+                      ),
+                    },
+                    child: Container(
+                      height: 36.h,
+                      width: 30.w,
+                      padding: EdgeInsets.all(4.h),
+                      margin: EdgeInsets.only(left: 8.w, right: 8.w),
+                      decoration: const BoxDecoration(
+                        // borderRadius: BorderRadius.circular(10),
+                        shape: BoxShape.circle,
+                        color: AppColors.kLightBlue3,
+                      ),
+                      child: SvgPicture.asset(
+                        "assets/icons/ic_add.svg",
+                        color: AppColors.kColor1,
+                      ),
+                    ),
                   ),
                   NavigationDestination(
                     icon: SvgPicture.asset(

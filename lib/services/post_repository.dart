@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_project_1/models/post.dart';
+import 'package:flutter_project_1/models/user.dart';
 
 class PostRepo {
   static getAllPost() async {
@@ -9,5 +10,16 @@ class PostRepo {
     listAllPost
         .addAll(snapshot.docs.map((e) => Post.fromMap(e.data())).toList());
     return listAllPost;
+  }
+
+  static getUserById(String uid) async {
+    var snapshot =
+        await FirebaseFirestore.instance.collection('Users').doc(uid).get();
+    if (snapshot.exists) {
+      Map<String, dynamic>? userData = snapshot.data();
+      return VatractionUser.fromJson(userData!);
+    } else {
+      return null;
+    }
   }
 }

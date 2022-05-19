@@ -1,28 +1,39 @@
 class Category {
-  final String icon, title;
+  final String icon, title, thumb, intro;
+  final int type;
 
   Category({
     required this.icon,
     required this.title,
+    required this.thumb,
+    required this.intro,
+    required this.type,
   });
 }
 
-// ignore: non_constant_identifier_names
-List<Category> home_categories = [
-  Category(
-    icon: "assets/icons/ic_beach.svg",
-    title: "Beach",
-  ),
-  Category(
-    icon: "assets/icons/ic_mountain.svg",
-    title: "Mountain",
-  ),
-  Category(
-    icon: "assets/icons/ic_island.svg",
-    title: "Island",
-  ),
-  Category(
-    icon: "assets/icons/ic_city.svg",
-    title: "City",
-  ),
-];
+
+// enum TypePost { Beach, Mountain, Island, City }
+
+// extension TypePostExtension on TypePost {
+//   int get value {
+//     final values = {
+//       TypePost.Beach: 1,
+//       TypePost.Mountain: 2,
+//       TypePost.Island: 3,
+//       TypePost.City: 4
+//     };
+
+//     return values[this]!;
+//   }
+
+//   static TypePost fromInt(int value) {
+//     final values = {
+//       1: TypePost.Beach,
+//       2: TypePost.Mountain,
+//       3: TypePost.Island,
+//       4: TypePost.City
+//     };
+
+//     return values[value]!;
+//   }
+// }

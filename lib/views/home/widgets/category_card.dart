@@ -18,7 +18,7 @@ class CategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
-      onPressed: () {},
+      onPressed: onClick,
       style: OutlinedButton.styleFrom(
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
