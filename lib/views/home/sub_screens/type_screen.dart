@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
-import 'package:flutter_project_1/models/post.dart';
+import 'package:flutter_project_1/models/argument_model.dart';
 import 'package:flutter_project_1/view_models/post_provider.dart';
-import 'package:flutter_project_1/views/home/home_screen.dart';
+import 'package:flutter_project_1/views/home/sub_screens/post_detail_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 import '../../../configs/color_config.dart';
 import '../../../widgets/custom_back_button.dart';
+import '../../../widgets/post_card.dart';
 
 class TypeScreen extends StatelessWidget {
   static const String nameRoute = '/type_screen';
@@ -31,6 +32,7 @@ class TypeScreen extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as TypeScreenArgument;
     final category = args.category;
     final posts = args.provider.typePost;
+    final provider = args.provider;
     return Scaffold(
       backgroundColor: AppColors.kBackgroundColor,
       body: CustomScrollView(
@@ -78,7 +80,17 @@ class TypeScreen extends StatelessWidget {
               (context, index) {
                 return posts.isNotEmpty
                     ? PostCard(
-                        onClick: () {},
+                        onClick: () async {
+                          await Provider.of<PostProvider>(context,
+                                  listen: false)
+                              .getUserById(posts[index].sharer);
+                          Navigator.pushNamed(
+                            context,
+                            PostDetailScreen.nameRoute,
+                            arguments:
+                                PostDetailArgument(provider, posts[index]),
+                          );
+                        },
                         post: posts[index],
                       )
                     : Container(
@@ -93,7 +105,7 @@ class TypeScreen extends StatelessWidget {
                                 width: 48.h,
                               ),
                               Text(
-                                'Chưa có dữ liệu',
+                                'Chưa có điểm du lịch',
                                 style: TextConfigs.kText24_1
                                     .copyWith(color: Colors.black),
                               ),
@@ -106,123 +118,6 @@ class TypeScreen extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class PostCard extends StatelessWidget {
-  const PostCard({
-    Key? key,
-    required this.post,
-    required this.onClick,
-  }) : super(key: key);
-
-  final Post post;
-  final VoidCallback onClick;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onClick,
-      child: Container(
-        margin: EdgeInsets.fromLTRB(20.w, 10.h, 20.w, 0),
-        height: 90.h,
-        width: 1.sw,
-        decoration: BoxDecoration(
-            shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.white,
-            boxShadow: const [
-              BoxShadowConfig.kShadowGrey,
-            ]),
-        child: Stack(
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Flexible(
-                  child: Container(
-                    margin:
-                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-                    // height: 60.h,
-                    width: 100.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      image: DecorationImage(
-                        image: NetworkImage(post.images.first),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16.h),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Flexible(
-                        child: Text(
-                          post.postName,
-                          style: TextConfigs.kTextSubtitle.copyWith(
-                            color: AppColors.kColor0,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 12.h,
-                      ),
-                      Flexible(
-                        child: Text(
-                          post.road == ''
-                              ? post.district + ', ' + post.province
-                              : post.road! +
-                                  ', ' +
-                                  post.district +
-                                  ', ' +
-                                  post.province,
-                          style: TextConfigs.kText16Black,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            Positioned(
-              right: 16.w,
-              // top: 10.h,
-              child: Container(
-                height: 40.h,
-                width: 64.w,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(10),
-                  ),
-                  color: AppColors.kColor4,
-                  // boxShadow: [
-                  //   BoxShadowConfig.kShadowGrey,
-                  // ],
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      '4',
-                      style: TextConfigs.kTextSubtitle.copyWith(
-                        color: AppColors.kColor1,
-                      ),
-                    ),
-                    SvgPicture.asset("assets/icons/ic_star.svg"),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

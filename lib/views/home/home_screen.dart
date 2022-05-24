@@ -18,6 +18,8 @@ import 'package:flutter_project_1/views/home/widgets/row_title_seeall.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
+import '../../models/argument_model.dart';
+
 class HomeScreen extends StatelessWidget {
   static const String nameRoute = '/home_screen';
   static Route route() {
@@ -206,18 +208,4 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-class PostDetailArgument {
-  final PostProvider provider;
-  final Post post;
-
-  PostDetailArgument(this.provider, this.post);
-}
-
-class TypeScreenArgument {
-  final PostProvider provider;
-  final Category category;
-
-  TypeScreenArgument(this.provider, this.category);
 }
