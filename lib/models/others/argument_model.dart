@@ -1,5 +1,5 @@
-import 'package:flutter_project_1/models/category_model.dart';
-import 'package:flutter_project_1/models/post.dart';
+import 'package:flutter_project_1/models/others/category_model.dart';
+import 'package:flutter_project_1/models/posts/post.dart';
 import 'package:flutter_project_1/view_models/post_provider.dart';
 
 class PostDetailArgument {

@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
+import 'package:flutter_project_1/view_models/create_post_provider.dart';
 import 'package:flutter_project_1/views/account/account_screen.dart';
 import 'package:flutter_project_1/views/create_post/create_post_screen.dart';
 import 'package:flutter_project_1/views/discovery/discovery_screen.dart';
 import 'package:flutter_project_1/views/home/home_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+
+import '../../view_models/post_provider.dart';
 
 class NavigationBarView extends StatefulWidget {
   static const id = "/navigation_bar_view";
@@ -28,8 +32,12 @@ class _NavigationBarViewState extends State<NavigationBarView> {
 
   Route _createRoute() {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) =>
-          const CreatePostScreen(),
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return ChangeNotifierProvider<CreatePostProvider>(
+          create: (context) => CreatePostProvider(),
+          child: const CreatePostScreen(),
+        );
+      },
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(0.0, 1.0);
         const end = Offset.zero;
@@ -48,7 +56,11 @@ class _NavigationBarViewState extends State<NavigationBarView> {
 
   // screen
   final mainScreen = [
-    const HomeScreen(),
+    ChangeNotifierProvider<PostProvider>(
+      create: (_) => PostProvider(),
+      lazy: false,
+      child: const HomeScreen(),
+    ),
     const DiscoveryScreen(),
     const Center(),
     const Center(
@@ -77,6 +89,7 @@ class _NavigationBarViewState extends State<NavigationBarView> {
             width: 1.sw,
             child: NavigationBarTheme(
               data: NavigationBarThemeData(
+                indicatorColor: AppColors.kColor1,
                 labelTextStyle: MaterialStateProperty.all(
                   TextConfigs.kText12W500Green1.copyWith(
                     color: AppColors.kColor0,
@@ -164,58 +177,6 @@ class _NavigationBarViewState extends State<NavigationBarView> {
             ),
           ),
         ),
-        // BottomNavigationBar(
-        //   type: BottomNavigationBarType.fixed,
-        //   backgroundColor: AppColors.kColor1,
-        //   // iconSize: 32.h,
-        //   showUnselectedLabels: false,
-        //   showSelectedLabels: false,
-        //   currentIndex: currentIndex,
-        //   onTap: (index) => setState(() => currentIndex = index),
-        //   // ignore: prefer_const_literals_to_create_immutables
-        //   items: [
-        //     BottomNavigationBarItem(
-        //         icon: SvgPicture.asset(
-        //           "assets/icons/ic_homepage.svg",
-        //           color: AppColors.kColor2,
-        //         ),
-        //         activeIcon: SvgPicture.asset(
-        //           "assets/icons/ic_homepage.svg",
-        //           color: AppColors.kLightBlue3,
-        //         ),
-        //         label: ''),
-        //     BottomNavigationBarItem(
-        //         icon: SvgPicture.asset(
-        //           "assets/icons/ic_discovery.svg",
-        //           color: AppColors.kColor2,
-        //         ),
-        //         activeIcon: SvgPicture.asset(
-        //           "assets/icons/ic_discovery.svg",
-        //           color: AppColors.kLightBlue3,
-        //         ),
-        //         label: ''),
-        //     BottomNavigationBarItem(
-        //         icon: SvgPicture.asset(
-        //           "assets/icons/ic_favorite.svg",
-        //           color: AppColors.kColor2,
-        //         ),
-        //         activeIcon: SvgPicture.asset(
-        //           "assets/icons/ic_favorite.svg",
-        //           color: AppColors.kLightBlue3,
-        //         ),
-        //         label: ''),
-        //     BottomNavigationBarItem(
-        //         icon: SvgPicture.asset(
-        //           "assets/icons/ic_user.svg",
-        //           color: AppColors.kColor2,
-        //         ),
-        //         activeIcon: SvgPicture.asset(
-        //           "assets/icons/ic_user.svg",
-        //           color: AppColors.kLightBlue3,
-        //         ),
-        //         label: ''),
-        //   ],
-        // ),
       ],
     );
   }

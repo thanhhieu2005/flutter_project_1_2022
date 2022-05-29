@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
-import 'package:flutter_project_1/models/argument_model.dart';
+import 'package:flutter_project_1/models/others/argument_model.dart';
 import 'package:flutter_project_1/view_models/post_provider.dart';
 import 'package:flutter_project_1/views/home/sub_screens/post_detail_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

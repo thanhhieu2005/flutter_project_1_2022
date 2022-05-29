@@ -10,7 +10,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../models/user.dart';
+import '../../models/users/user.dart';
 import '../sign_up/confirm_email_page.dart';
 
 class LandingPage extends StatefulWidget {
