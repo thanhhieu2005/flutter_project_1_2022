@@ -28,10 +28,10 @@ class VAtractionApp extends StatelessWidget {
                 ChangeNotifierProvider<AuthService>(
                   create: (_) => AuthService(),
                 ),
-                ChangeNotifierProvider<PostProvider>(
-                  create: (_) => PostProvider(),
-                  lazy: false,
-                ),
+                // ChangeNotifierProvider<PostProvider>(
+                //   create: (_) => PostProvider(),
+                //   lazy: false,
+                // ),
                 ChangeNotifierProvider<SignUpProvider>(
                   create: (_) => SignUpProvider(),
                 ),

@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart' as auth_service;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_project_1/configs/app_config.dart';
 import 'package:flutter_project_1/constants/global_constants.dart';
-import 'package:flutter_project_1/models/user.dart';
+import 'package:flutter_project_1/models/users/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService extends ChangeNotifier {

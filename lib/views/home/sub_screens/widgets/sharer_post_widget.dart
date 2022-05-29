@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/edgeInset_config.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
-import 'package:flutter_project_1/models/user.dart';
+import 'package:flutter_project_1/models/users/user.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

@@ -32,8 +32,8 @@ class AppRoutes {
             settings: RouteSettings(arguments: settings.arguments));
 
       // Create new post screen
-      case CreatePostScreen.nameRoute:
-        return CreatePostScreen.route();
+      // case CreatePostScreen.nameRoute:
+      //   return CreatePostScreen.route();
 
       /* Account Screen */
       case AccountScreen.nameRoute:
