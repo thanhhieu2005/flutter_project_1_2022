@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_project_1/configs/image_config.dart';
-import 'package:flutter_project_1/models/category_model.dart';
-import 'package:flutter_project_1/models/post.dart';
-import 'package:flutter_project_1/models/user.dart';
+import 'package:flutter_project_1/models/others/category_model.dart';
+import 'package:flutter_project_1/models/posts/post.dart';
+import 'package:flutter_project_1/models/users/user.dart';
 import 'package:flutter_project_1/services/post_repository.dart';
 
 class PostProvider extends ChangeNotifier {

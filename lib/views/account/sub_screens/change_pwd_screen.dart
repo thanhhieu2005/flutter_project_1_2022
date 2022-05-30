@@ -48,7 +48,7 @@ class ChangePasswordScreen extends StatelessWidget {
               alignment: Alignment.centerRight,
               child: Padding(
                 padding: EdgeInsets.only(
-                  right: 8.w,
+                  right: 12.w,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
