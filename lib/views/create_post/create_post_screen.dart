@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/models/address/district_model.dart';
 import 'package:flutter_project_1/models/address/province_model.dart';
+import 'package:flutter_project_1/models/posts/post.dart';
 import 'package:flutter_project_1/view_models/create_post_provider.dart';
 import 'package:flutter_project_1/views/create_post/widgets/container_dropdown.dart';
 import 'package:flutter_project_1/views/create_post/widgets/input_field_custom.dart';
@@ -57,13 +58,17 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text(
-                            'Create',
-                            style: TextConfigs.kTextHeader1,
+                          Expanded(
+                            child: Text(
+                              'Create',
+                              style: TextConfigs.kTextHeader1,
+                            ),
                           ),
-                          Text(
-                            'New Discovery',
-                            style: TextConfigs.kTextHeader1,
+                          Expanded(
+                            child: Text(
+                              'New Discovery',
+                              style: TextConfigs.kTextHeader1,
+                            ),
                           ),
                         ],
                       ),
@@ -211,6 +216,21 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                     isRequired: true,
                     title: "Type of Destination ",
                   ),
+                  Consumer<CreatePostProvider>(
+                      builder: (context, provider, child) {
+                    return ContainerDropdown(
+                      dropDownWidget: DropdownButtonHideUnderline(
+                        child: DropdownButton<PostType>(
+                            items: ListDropdownType.listType,
+                            value: provider.getPostType(),
+                            onChanged: (PostType? value) {
+                              setState(() {
+                                provider.setPostType(value);
+                              });
+                            }),
+                      ),
+                    );
+                  }),
                 ],
               ),
             ),

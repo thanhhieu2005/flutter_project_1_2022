@@ -6,20 +6,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../configs/edgeInset_config.dart';
+import '../../../../models/posts/post.dart';
 
 class InfoDestinationWidget extends StatelessWidget {
-  final String postName, province, district;
-  final double rating;
-  final String? road;
-  final int type;
+  final Post post;
   const InfoDestinationWidget({
     Key? key,
-    required this.postName,
-    required this.province,
-    required this.district,
-    required this.rating,
-    this.road,
-    required this.type,
+    required this.post,
   }) : super(key: key);
 
   @override
@@ -33,7 +26,7 @@ class InfoDestinationWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                postName,
+                post.postName,
                 style: TextConfigs.kText24_1.copyWith(
                   color: AppColors.kColor0,
                   fontWeight: FontWeight.w700,
@@ -46,7 +39,7 @@ class InfoDestinationWidget extends StatelessWidget {
               Row(
                 children: [
                   RatingBarIndicator(
-                    rating: rating,
+                    rating: post.rating,
                     itemCount: 5,
                     itemSize: 24.w,
                     direction: Axis.horizontal,
@@ -59,7 +52,7 @@ class InfoDestinationWidget extends StatelessWidget {
                     width: 8.w,
                   ),
                   Text(
-                    '(' + rating.toString() + ')',
+                    '(' + post.rating.toString() + ')',
                     style: TextConfigs.kText16_1.copyWith(
                       color: AppColors.kTextColor1,
                     ),
@@ -77,9 +70,13 @@ class InfoDestinationWidget extends StatelessWidget {
                     color: AppColors.kDarkBlue1,
                   ),
                   Text(
-                    road == ''
-                        ? district + ', ' + province
-                        : road! + ', ' + district + ', ' + province,
+                    post.road == ''
+                        ? post.district + ', ' + post.province
+                        : post.road! +
+                            ', ' +
+                            post.district +
+                            ', ' +
+                            post.province,
                     style: TextConfigs.kText16Black.copyWith(
                       color: AppColors.kTextColor1,
                       fontWeight: FontWeight.w500,
@@ -106,11 +103,11 @@ class InfoDestinationWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  type == 1
+                  post.type == PostType.beach
                       ? 'Beach'
-                      : type == 2
+                      : post.type == PostType.mountain
                           ? 'Mountain'
-                          : type == 3
+                          : post.type == PostType.island
                               ? 'Island'
                               : 'City',
                   style: TextConfigs.kText14Black,
@@ -119,11 +116,11 @@ class InfoDestinationWidget extends StatelessWidget {
                   width: 8.w,
                 ),
                 SvgPicture.asset(
-                  type == 1
+                  post.type == PostType.beach
                       ? 'assets/icons/ic_beach.svg'
-                      : type == 2
+                      : post.type == PostType.mountain
                           ? 'assets/icons/ic_mountain.svg'
-                          : type == 3
+                          : post.type == PostType.island
                               ? 'assets/icons/ic_island.svg'
                               : 'assets/icons/ic_city.svg',
                   width: 24.w,

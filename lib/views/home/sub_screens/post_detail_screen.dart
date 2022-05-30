@@ -99,12 +99,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         InfoDestinationWidget(
-                          province: post.province,
-                          postName: post.postName,
-                          rating: post.rating,
-                          district: post.district,
-                          road: post.road,
-                          type: post.type,
+                          post: post,
                         ),
                         SizedBox(
                           height: 24.h,

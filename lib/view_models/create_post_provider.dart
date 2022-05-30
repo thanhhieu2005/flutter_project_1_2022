@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_project_1/models/address/district_model.dart';
 import 'package:flutter_project_1/models/address/province_model.dart';
 import 'package:flutter_project_1/models/address/wards_model.dart';
+import 'package:flutter_project_1/models/posts/post.dart';
 import 'package:flutter_project_1/services/data_provider.dart';
 
 class CreatePostProvider extends ChangeNotifier {
@@ -14,6 +15,8 @@ class CreatePostProvider extends ChangeNotifier {
   Province? _selectedProvince;
   District? _selectedDistrict;
   Wards? _selectedWards;
+
+  PostType? _postType;
 
   CreatePostProvider() {
     getProvinceApi();
@@ -80,5 +83,15 @@ class CreatePostProvider extends ChangeNotifier {
   void setSelectedWards(value) {
     _selectedWards = value;
     notifyListeners();
+  }
+
+  /* Get Post Type */
+  void setPostType(value) {
+    _postType = value;
+    notifyListeners();
+  }
+
+  PostType? getPostType() {
+    return _postType;
   }
 }
