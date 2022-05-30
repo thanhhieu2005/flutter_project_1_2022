@@ -23,5 +23,11 @@
     "newAccount": "New Account",
     "backToSignIn": "Back To Sign In",
     "backToSignUp": "Back To Sign Up",
-    "pleaseEnter6DigitCode" : "Please enter the 6 digits code we sent you\nvia your email to continue"
+    "pleaseEnter6DigitCode" : "Please enter the 6 digits code we sent you\nvia your email to continue",
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "alreadyHaveAccount": "Already have an account ?",
+    "findInterest": "Find Interested",
+    "placeToDiscover": "Place to Discover",
+    "weShareAll": "We share all place like tourist attraction, tour guides, places review, etc"
 }
