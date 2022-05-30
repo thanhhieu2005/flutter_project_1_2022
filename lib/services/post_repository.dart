@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_project_1/models/post.dart';
-import 'package:flutter_project_1/models/user.dart';
+import 'package:flutter_project_1/models/posts/post.dart';
+import 'package:flutter_project_1/models/users/user.dart';
 
 class PostRepo {
   static getAllPost() async {

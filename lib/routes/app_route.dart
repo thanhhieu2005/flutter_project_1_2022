@@ -35,8 +35,8 @@ class AppRoutes {
         return CupertinoPageRoute(builder: (_) => const WelcomePage());
 
       // Create new post screen
-      case CreatePostScreen.nameRoute:
-        return CreatePostScreen.route();
+      // case CreatePostScreen.nameRoute:
+      //   return CreatePostScreen.route();
 
       /* Account Screen */
       case AccountScreen.nameRoute:

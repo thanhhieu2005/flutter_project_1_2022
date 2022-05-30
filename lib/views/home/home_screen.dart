@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
-import 'package:flutter_project_1/models/category_model.dart';
-import 'package:flutter_project_1/models/post.dart';
 import 'package:flutter_project_1/view_models/post_provider.dart';
 import 'package:flutter_project_1/views/home/sub_screens/post_detail_screen.dart';
 import 'package:flutter_project_1/views/home/sub_screens/search_screen.dart';
@@ -15,6 +13,8 @@ import 'package:flutter_project_1/views/home/widgets/search_widget.dart';
 import 'package:flutter_project_1/views/home/widgets/row_title_seeall.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+
+import '../../models/others/argument_model.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String nameRoute = '/home_screen';
@@ -42,38 +42,35 @@ class HomeScreen extends StatelessWidget {
             backgroundColor: AppColors.kBackgroundColor,
             flexibleSpace: FlexibleSpaceBar(
               background: SafeArea(
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 16.w,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                'Discovery',
-                                style: TextConfigs.kTextHeader1,
-                              ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'Discovery',
+                              style: TextConfigs.kTextHeader1,
                             ),
-                            Expanded(
-                              child: Text(
-                                'Vietnam',
-                                style: TextConfigs.kTextHeader1,
-                              ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              'Vietnam',
+                              style: TextConfigs.kTextHeader1,
                             ),
-                          ],
-                        ),
-                        NotifyButton(
-                          onClick: () {},
-                        ),
-                      ],
-                    ),
+                          ),
+                        ],
+                      ),
+                      NotifyButton(
+                        onClick: () {},
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -88,7 +85,7 @@ class HomeScreen extends StatelessWidget {
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
+              // mainAxisSize: MainAxisSize.max,
               children: [
                 SearchWidget(
                   onTap: () {
@@ -204,18 +201,4 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-class PostDetailArgument {
-  final PostProvider provider;
-  final Post post;
-
-  PostDetailArgument(this.provider, this.post);
-}
-
-class TypeScreenArgument {
-  final PostProvider provider;
-  final Category category;
-
-  TypeScreenArgument(this.provider, this.category);
 }
