@@ -4,7 +4,7 @@ import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../configs/edgeInset_config.dart';
 import '../../../../models/posts/post.dart';
 
@@ -104,12 +104,12 @@ class InfoDestinationWidget extends StatelessWidget {
               children: [
                 Text(
                   post.type == PostType.beach
-                      ? 'Beach'
+                      ? AppLocalizations.of(context).beach
                       : post.type == PostType.mountain
-                          ? 'Mountain'
+                          ? AppLocalizations.of(context).mountain
                           : post.type == PostType.island
-                              ? 'Island'
-                              : 'City',
+                              ? AppLocalizations.of(context).island
+                              : AppLocalizations.of(context).city,
                   style: TextConfigs.kText14Black,
                 ),
                 SizedBox(

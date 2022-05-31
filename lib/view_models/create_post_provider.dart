@@ -18,6 +18,8 @@ class CreatePostProvider extends ChangeNotifier {
 
   PostType? _postType;
 
+  bool _checkTerms = false;
+
   CreatePostProvider() {
     getProvinceApi();
   }
@@ -93,5 +95,14 @@ class CreatePostProvider extends ChangeNotifier {
 
   PostType? getPostType() {
     return _postType;
+  }
+
+  void setCheckTerms(value) {
+    _checkTerms = value;
+    notifyListeners();
+  }
+
+  bool getCheckTerms() {
+    return _checkTerms;
   }
 }

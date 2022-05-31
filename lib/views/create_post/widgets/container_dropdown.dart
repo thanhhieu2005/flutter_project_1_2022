@@ -14,7 +14,7 @@ class ContainerDropdown extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(vertical: 6.h, horizontal: 12.w),
-      constraints: BoxConstraints(minHeight: 72.h),
+      constraints: BoxConstraints(minHeight: 56.h),
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
         color: AppColors.kColor1,

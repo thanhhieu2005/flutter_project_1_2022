@@ -24,7 +24,7 @@ class InputTitleWidget extends StatelessWidget {
           children: <TextSpan>[
             isRequired
                 ? TextSpan(
-                    text: '*',
+                    text: ' *',
                     style: TextConfigs.kTextSubtitle.copyWith(
                       color: AppColors.kColor3,
                     ),

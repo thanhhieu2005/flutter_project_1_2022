@@ -5,6 +5,7 @@ import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_project_1/models/users/user.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SharerPostWidget extends StatelessWidget {
   final VoidCallback onClick;
@@ -53,7 +54,7 @@ class SharerPostWidget extends StatelessWidget {
                 InkWell(
                   onTap: onClick,
                   child: Text(
-                    'Sharer',
+                    AppLocalizations.of(context).sharer,
                     style: TextConfigs.kText16Black.copyWith(
                       color: AppColors.kDarkBlue1,
                       fontWeight: FontWeight.w500,

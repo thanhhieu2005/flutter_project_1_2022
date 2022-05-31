@@ -3,15 +3,16 @@ import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/models/address/district_model.dart';
 import 'package:flutter_project_1/models/address/province_model.dart';
 import 'package:flutter_project_1/models/posts/post.dart';
-import 'package:flutter_project_1/view_models/create_post_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:flutter_project_1/views/create_post/widgets/container_dropdown.dart';
 import 'package:flutter_project_1/views/create_post/widgets/input_field_custom.dart';
 import 'package:flutter_project_1/views/create_post/widgets/input_title.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-
 import '../../configs/text_config.dart';
 import '../../models/address/wards_model.dart';
+import '../../view_models/create_post_provider.dart';
 import '../../widgets/custom_back_button.dart';
 
 class CreatePostScreen extends StatefulWidget {
@@ -60,13 +61,13 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                         children: [
                           Expanded(
                             child: Text(
-                              'Create',
+                              AppLocalizations.of(context).create,
                               style: TextConfigs.kTextHeader1,
                             ),
                           ),
                           Expanded(
                             child: Text(
-                              'New Discovery',
+                              AppLocalizations.of(context).newDiscover,
                               style: TextConfigs.kTextHeader1,
                             ),
                           ),
@@ -89,8 +90,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const InputTitleWidget(
-                    title: 'Destination Name ',
+                  InputTitleWidget(
+                    title: AppLocalizations.of(context).destionationName,
                     isRequired: true,
                   ),
                   const InputFieldCreatePost(
@@ -99,9 +100,9 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                     isRequired: true,
                   ),
                   SizedBox(height: 16.h),
-                  const InputTitleWidget(
+                  InputTitleWidget(
                     isRequired: true,
-                    title: 'Province ',
+                    title: AppLocalizations.of(context).province,
                   ),
                   Consumer<CreatePostProvider>(
                       builder: (context, provider, child) {
@@ -127,9 +128,9 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                     );
                   }),
                   SizedBox(height: 16.h),
-                  const InputTitleWidget(
+                  InputTitleWidget(
                     isRequired: true,
-                    title: 'District ',
+                    title: AppLocalizations.of(context).district,
                   ),
                   Consumer<CreatePostProvider>(
                       builder: (context, provider, child) {
@@ -155,9 +156,9 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                     );
                   }),
                   SizedBox(height: 16.h),
-                  const InputTitleWidget(
+                  InputTitleWidget(
                     isRequired: true,
-                    title: 'Wards ',
+                    title: AppLocalizations.of(context).wards,
                   ),
                   Consumer<CreatePostProvider>(
                       builder: (context, provider, child) {
@@ -183,9 +184,9 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                     );
                   }),
                   SizedBox(height: 16.h),
-                  const InputTitleWidget(
+                  InputTitleWidget(
                     isRequired: false,
-                    title: "Road ",
+                    title: AppLocalizations.of(context).road,
                   ),
                   const InputFieldCreatePost(
                     keyboardType: TextInputType.text,
@@ -193,16 +194,16 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                     isRequired: false,
                   ),
                   SizedBox(height: 16.h),
-                  const InputTitleWidget(
+                  InputTitleWidget(
                     isRequired: true,
-                    title: 'Image ',
+                    title: AppLocalizations.of(context).images,
                   ),
                   SizedBox(
                     height: 16.h,
                   ),
-                  const InputTitleWidget(
+                  InputTitleWidget(
                     isRequired: true,
-                    title: "Description ",
+                    title: AppLocalizations.of(context).description,
                   ),
                   const InputFieldCreatePost(
                     keyboardType: TextInputType.multiline,
@@ -212,16 +213,16 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                   SizedBox(
                     height: 16.h,
                   ),
-                  const InputTitleWidget(
+                  InputTitleWidget(
                     isRequired: true,
-                    title: "Type of Destination ",
+                    title: AppLocalizations.of(context).typeDestination,
                   ),
                   Consumer<CreatePostProvider>(
                       builder: (context, provider, child) {
                     return ContainerDropdown(
                       dropDownWidget: DropdownButtonHideUnderline(
                         child: DropdownButton<PostType>(
-                            items: ListDropdownType.listType,
+                            items: SettingPostType.listType,
                             value: provider.getPostType(),
                             onChanged: (PostType? value) {
                               setState(() {
@@ -231,6 +232,35 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                       ),
                     );
                   }),
+                  SizedBox(
+                    height: 32.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Consumer<CreatePostProvider>(
+                          builder: (context, provider, child) {
+                        return Checkbox(
+                            activeColor: AppColors.kPrimaryColor,
+                            checkColor: AppColors.kColor1,
+                            value: provider.getCheckTerms(),
+                            onChanged: (bool? value) {
+                              setState(() {
+                                provider.setCheckTerms(value);
+                              });
+                            });
+                      }),
+                      SizedBox(
+                        height: 8.w,
+                      ),
+                      Flexible(
+                        child: Text(
+                          AppLocalizations.of(context).termsApp,
+                          style: TextConfigs.kText14Black,
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),

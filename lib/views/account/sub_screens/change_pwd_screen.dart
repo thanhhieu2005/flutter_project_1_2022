@@ -81,7 +81,7 @@ class ChangePasswordScreen extends StatelessWidget {
                 height: 54.h,
               ),
               Text(
-                'Current Password',
+                AppLocalizations.of(context).currPwd,
                 style: TextConfigs.kTextSubtitleBold,
               ),
               SizedBox(
@@ -94,7 +94,7 @@ class ChangePasswordScreen extends StatelessWidget {
                 height: 16.h,
               ),
               Text(
-                'New Password',
+                AppLocalizations.of(context).newPwd,
                 style: TextConfigs.kTextSubtitleBold,
               ),
               SizedBox(
@@ -107,7 +107,7 @@ class ChangePasswordScreen extends StatelessWidget {
                 height: 16.h,
               ),
               Text(
-                'Confirm New Password',
+                AppLocalizations.of(context).confirmPwd,
                 style: TextConfigs.kTextSubtitleBold,
               ),
               SizedBox(
@@ -122,7 +122,7 @@ class ChangePasswordScreen extends StatelessWidget {
               ),
               Center(
                 child: RoundedMainButton(
-                  text: 'Save',
+                  text: AppLocalizations.of(context).save,
                   height: 56.h,
                   width: 240.w,
                   onTap: () {},

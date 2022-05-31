@@ -30,7 +30,7 @@ class AvatarUserWidget extends StatelessWidget {
         // ignore: prefer_const_constructors
         image: DecorationImage(
           image: NetworkImage(linkImage),
-          fit: BoxFit.fill,
+          fit: BoxFit.contain,
         ),
         borderRadius: const BorderRadius.all(
           Radius.circular(65),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_project_1/view_models/create_post_provider.dart';
+import 'package:flutter_project_1/view_models/post_provider.dart';
 import 'package:flutter_project_1/views/account/account_screen.dart';
 import 'package:flutter_project_1/views/create_post/create_post_screen.dart';
 import 'package:flutter_project_1/views/discovery/discovery_screen.dart';
@@ -9,8 +10,6 @@ import 'package:flutter_project_1/views/home/home_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-
-import '../../view_models/post_provider.dart';
 
 class NavigationBarView extends StatefulWidget {
   static const id = "/navigation_bar_view";

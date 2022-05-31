@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
-import 'package:flutter_project_1/view_models/post_provider.dart';
 import 'package:flutter_project_1/views/home/sub_screens/widgets/comment_widget.dart';
 import 'package:flutter_project_1/views/home/sub_screens/widgets/evaluate_widget.dart';
 import 'package:flutter_project_1/views/home/sub_screens/widgets/post_images_widget.dart';
@@ -9,9 +8,10 @@ import 'package:flutter_project_1/views/home/sub_screens/widgets/sharer_post_wid
 import 'package:flutter_project_1/widgets/custom_back_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../configs/color_config.dart';
 import '../../../models/others/argument_model.dart';
+import '../../../view_models/post_provider.dart';
 
 class PostDetailScreen extends StatefulWidget {
   static const String nameRoute = '/post_detail_custom';
@@ -113,7 +113,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
-                                'Description',
+                                AppLocalizations.of(context).description,
                                 style: TextConfigs.kText24_1.copyWith(
                                   color: AppColors.kPrimaryColor,
                                 ),

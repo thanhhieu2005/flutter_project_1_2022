@@ -12,6 +12,7 @@ class PostProvider extends ChangeNotifier {
   VatractionUser? sharer;
 
   final List<Category> categories = [
+    // Setting again in class SettingPostType => to setting title and intro to Category
     Category(
       icon: "assets/icons/ic_beach.svg",
       title: "Beach",

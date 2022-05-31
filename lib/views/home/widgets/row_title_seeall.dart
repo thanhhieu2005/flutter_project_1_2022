@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RowTitleSeeAll extends StatelessWidget {
   final VoidCallback onTapSeeAll;
@@ -26,7 +27,7 @@ class RowTitleSeeAll extends StatelessWidget {
         InkWell(
           onTap: onTapSeeAll,
           child: Text(
-            'See All',
+            AppLocalizations.of(context).seeAll,
             style: TextConfigs.kTextSubtitle.copyWith(
               fontWeight: FontWeight.w500,
               color: AppColors.kPrimaryColor,

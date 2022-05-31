@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../configs/text_config.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Post {
   final String idPost;
@@ -84,7 +85,7 @@ extension PostTypeExtension on PostType {
   }
 }
 
-class ListDropdownType {
+class SettingPostType {
   static List<DropdownMenuItem<PostType>> listType = [
     DropdownMenuItem(
       child: Text(
@@ -115,4 +116,42 @@ class ListDropdownType {
       value: PostType.city,
     ),
   ];
+
+  static String setTitleType(PostType postType, BuildContext context) {
+    String type = "";
+    switch (postType) {
+      case PostType.beach:
+        type = AppLocalizations.of(context).beach;
+        break;
+      case PostType.mountain:
+        type = AppLocalizations.of(context).mountain;
+        break;
+      case PostType.island:
+        type = AppLocalizations.of(context).island;
+        break;
+      case PostType.city:
+        type = AppLocalizations.of(context).city;
+        break;
+    }
+    return type;
+  }
+
+  static String getIntroType(PostType postType, BuildContext context) {
+    String type = "";
+    switch (postType) {
+      case PostType.beach:
+        type = AppLocalizations.of(context).introBeach;
+        break;
+      case PostType.mountain:
+        type = AppLocalizations.of(context).introMountain;
+        break;
+      case PostType.island:
+        type = AppLocalizations.of(context).introIsland;
+        break;
+      case PostType.city:
+        type = AppLocalizations.of(context).introCity;
+        break;
+    }
+    return type;
+  }
 }
