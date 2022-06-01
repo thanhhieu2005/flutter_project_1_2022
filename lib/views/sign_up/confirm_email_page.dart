@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/constants/global_constants.dart';
 import 'package:flutter_project_1/services/auth_service.dart';
-import 'package:flutter_project_1/view_models/sign_up_provider.dart';
+import 'package:flutter_project_1/view_models/login/sign_up_provider.dart';
 import 'package:flutter_project_1/views/navigation_bar_view/navigation_bar_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';

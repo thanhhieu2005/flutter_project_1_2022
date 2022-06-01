@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_project_1/models/others/argument_model.dart';
-import 'package:flutter_project_1/view_models/post_provider.dart';
+import 'package:flutter_project_1/models/posts/post.dart';
 import 'package:flutter_project_1/views/home/sub_screens/post_detail_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../configs/color_config.dart';
+import '../../../view_models/post_provider.dart';
 import '../../../widgets/custom_back_button.dart';
 import '../../../widgets/post_card.dart';
 
@@ -57,7 +58,7 @@ class TypeScreen extends StatelessWidget {
               title: Align(
                 alignment: Alignment.bottomRight,
                 child: Text(
-                  category.intro,
+                  SettingPostType.getIntroType(category.type, context),
                   style: TextConfigs.kText24_1.copyWith(
                     color: AppColors.kColor1,
                   ),
@@ -105,7 +106,7 @@ class TypeScreen extends StatelessWidget {
                                 width: 48.h,
                               ),
                               Text(
-                                'Chưa có điểm du lịch',
+                                AppLocalizations.of(context).noDestinationNoti,
                                 style: TextConfigs.kText24_1
                                     .copyWith(color: Colors.black),
                               ),

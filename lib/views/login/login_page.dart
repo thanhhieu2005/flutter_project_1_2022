@@ -13,7 +13,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 
-import '../../view_models/login_provider.dart';
+import '../../view_models/login/login_provider.dart';
 import '../../widgets/custom_dialog.dart';
 
 class LoginPage extends StatefulWidget {

@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_project_1/services/auth_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../constants/global_constants.dart';
+import '../../constants/global_constants.dart';
 
 class SignUpProvider extends ChangeNotifier {
   bool isLoading = false;

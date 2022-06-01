@@ -4,6 +4,7 @@ import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EvaluateWidget extends StatefulWidget {
   const EvaluateWidget({Key? key}) : super(key: key);
@@ -31,7 +32,7 @@ class _EvaluateWidgetState extends State<EvaluateWidget> {
                 Column(
                   children: [
                     Text(
-                      'Touch to Evaluate',
+                      AppLocalizations.of(context).evaluation,
                       style: TextConfigs.kTextSubtitle.copyWith(
                         fontWeight: FontWeight.w400,
                       ),

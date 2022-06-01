@@ -12,33 +12,34 @@ class PostProvider extends ChangeNotifier {
   VatractionUser? sharer;
 
   final List<Category> categories = [
+    // Setting again in class SettingPostType => to setting title and intro to Category
     Category(
       icon: "assets/icons/ic_beach.svg",
       title: "Beach",
       thumb: ImageConfig.thumbBeach,
       intro: 'Khám Phá Biển',
-      type: 1,
+      type: PostType.beach,
     ),
     Category(
       icon: "assets/icons/ic_mountain.svg",
       title: "Mountain",
       thumb: ImageConfig.thumbMountain,
       intro: 'Núi Non Hùng Vĩ',
-      type: 2,
+      type: PostType.mountain,
     ),
     Category(
       icon: "assets/icons/ic_island.svg",
       title: "Island",
       thumb: ImageConfig.thumbIsland,
       intro: 'Vi Vu Đảo Ngọc',
-      type: 3,
+      type: PostType.island,
     ),
     Category(
       icon: "assets/icons/ic_city.svg",
       title: "City",
       thumb: ImageConfig.thumbCity,
       intro: 'Khám Phá Phố Thị',
-      type: 4,
+      type: PostType.city,
     ),
   ];
 
@@ -59,11 +60,11 @@ class PostProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getPostByType(int findType) async {
+  Future<void> getPostByType(PostType type) async {
     _typePost.clear();
     var allPost = await PostRepo.getAllPost();
     for (Post e in allPost) {
-      if (e.type == findType) {
+      if (e.type == type) {
         _typePost.add(e);
       } else {
         continue;

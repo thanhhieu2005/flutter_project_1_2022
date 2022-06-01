@@ -14,17 +14,13 @@ class ContainerDropdown extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(vertical: 6.h, horizontal: 12.w),
+      constraints: BoxConstraints(minHeight: 56.h),
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
         color: AppColors.kColor1,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 1,
-            blurRadius: 2,
-            offset: const Offset(0, 1),
-          ),
+        boxShadow: const [
+          BoxShadowConfig.kShadowGrey,
         ],
       ),
       child: dropDownWidget,

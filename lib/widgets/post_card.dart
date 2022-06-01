@@ -21,12 +21,13 @@ class PostCard extends StatelessWidget {
     return InkWell(
       onTap: onClick,
       child: Container(
+        constraints: BoxConstraints(minHeight: 120.h),
         margin: EdgeInsets.fromLTRB(20.w, 10.h, 20.w, 0),
         height: 90.h,
         width: 1.sw,
         decoration: BoxDecoration(
             shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(15),
             color: Colors.white,
             boxShadow: const [
               BoxShadowConfig.kShadowGrey,
@@ -41,7 +42,7 @@ class PostCard extends StatelessWidget {
                     margin:
                         EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
                     // height: 60.h,
-                    width: 100.h,
+                    constraints: BoxConstraints(maxWidth: 120.w),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       image: DecorationImage(
@@ -52,9 +53,12 @@ class PostCard extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16.h),
+                  padding:
+                      EdgeInsets.symmetric(vertical: 16.h, horizontal: 12.w),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Flexible(
                         child: Text(
@@ -70,14 +74,8 @@ class PostCard extends StatelessWidget {
                       ),
                       Flexible(
                         child: Text(
-                          post.road == ''
-                              ? post.district + ', ' + post.province
-                              : post.road! +
-                                  ', ' +
-                                  post.district +
-                                  ', ' +
-                                  post.province,
-                          style: TextConfigs.kText16Black,
+                          post.district + ', ' + post.province,
+                          style: TextConfigs.kText14Black,
                         ),
                       )
                     ],
