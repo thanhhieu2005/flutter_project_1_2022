@@ -63,4 +63,10 @@
     "comment": "Comment",
     "evaluation": "Touch to Evaluate",
     "sharer": "Sharer"
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "alreadyHaveAccount": "Already have an account ?",
+    "findInterest": "Find Interested",
+    "placeToDiscover": "Place to Discover",
+    "weShareAll": "We share all place like tourist attraction, tour guides, places review, etc"
 }

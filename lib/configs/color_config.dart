@@ -18,6 +18,7 @@ class AppColors {
   static const kLightBlue3 = Color(0xff4FDCF6);
   static const kLightBlue4 = Color(0xffC1F5FF);
   static const kLightBlue5 = Color(0xffDDF5FB);
+  static const kTextSecondary = Color(0xff9C9C9C);
 }
 
 class BoxShadowConfig {

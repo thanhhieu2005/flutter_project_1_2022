@@ -33,14 +33,13 @@ class RoundedLinearButton extends StatelessWidget {
             startColor,
           ]),
           borderRadius: const BorderRadius.all(
-            Radius.circular(29),
+            Radius.circular(15),
           ),
         ),
         child: Center(
           child: Text(
             isAllCap ? text.toUpperCase() : text,
-            style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 20.sp, color: textColor),
+            style: TextStyle(fontSize: 20.sp, color: textColor),
           ),
         ),
       ),
