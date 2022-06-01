@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
+import 'package:flutter_project_1/constants/global_constants.dart';
 import 'package:flutter_project_1/services/auth_service.dart';
 import 'package:flutter_project_1/view_models/locale_provider.dart';
 import 'package:flutter_project_1/views/account/sub_screens/avatar_user_widget.dart';
@@ -31,6 +32,8 @@ class AccountScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
     final currentHour = DateTime.now().hour;
+    final currentUser = localCurrentUser;
+    var displayName = currentUser.userName!.split(" ");
     return Scaffold(
       backgroundColor: AppColors.kBackgroundColor,
       body: SingleChildScrollView(
@@ -48,7 +51,7 @@ class AccountScreen extends StatelessWidget {
                     AvatarUserWidget(
                       height: 80.h,
                       width: 80.h,
-                      linkImage: 'https://picsum.photos/250?image=9',
+                      linkImage: currentUser.avatarUrl!,
                     ),
                     SizedBox(
                       width: 16.w,
@@ -68,10 +71,11 @@ class AccountScreen extends StatelessWidget {
                                       : AppLocalizations.of(context)
                                           .goodEvening,
                               style: TextConfigs.kText24_1,
-                              children: const <TextSpan>[
+                              children: <TextSpan>[
                                 TextSpan(
-                                  text: 'Hieu',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  text: displayName.last,
+                                  style: TextConfigs.kText24_1
+                                      .copyWith(fontWeight: FontWeight.w700),
                                 ),
                               ],
                             ),

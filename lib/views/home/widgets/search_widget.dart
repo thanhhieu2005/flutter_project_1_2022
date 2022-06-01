@@ -3,6 +3,7 @@ import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchWidget extends StatefulWidget {
   final VoidCallback? onTap;
@@ -43,7 +44,7 @@ class _SearchWidgetState extends State<SearchWidget> {
             borderSide: const BorderSide(color: Colors.white),
             borderRadius: BorderRadius.circular(10),
           ),
-          hintText: "Search",
+          hintText: AppLocalizations.of(context).search,
           hintStyle: TextConfigs.kText16_1.copyWith(
             color: AppColors.kDarkBlue1,
             fontStyle: FontStyle.italic,

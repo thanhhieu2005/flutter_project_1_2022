@@ -4,9 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TextFormFieldCustom extends StatelessWidget {
   final TextInputType inputType;
+  final TextEditingController controller;
+  final bool readOnly;
   const TextFormFieldCustom({
     Key? key,
     required this.inputType,
+    required this.controller,
+    required this.readOnly,
   }) : super(key: key);
 
   @override
@@ -14,10 +18,6 @@ class TextFormFieldCustom extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       decoration: BoxDecoration(
-        // border: Border.all(
-        //   width: 1,
-        //   // color: Colors.grey,
-        // ),
         shape: BoxShape.rectangle,
         borderRadius: BorderRadius.circular(10),
         color: AppColors.kColor1,
@@ -31,8 +31,10 @@ class TextFormFieldCustom extends StatelessWidget {
         ],
       ),
       child: Form(
-        autovalidateMode: AutovalidateMode.disabled,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         child: TextFormField(
+          readOnly: readOnly,
+          controller: controller,
           maxLines: 1,
           keyboardType: inputType,
           decoration: const InputDecoration(

@@ -1,6 +1,8 @@
+import 'package:flutter_project_1/models/posts/post.dart';
+
 class Category {
   final String icon, title, thumb, intro;
-  final int type;
+  final PostType type;
 
   Category({
     required this.icon,

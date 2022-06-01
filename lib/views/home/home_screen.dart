@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
-import 'package:flutter_project_1/view_models/post_provider.dart';
+import 'package:flutter_project_1/models/posts/post.dart';
 import 'package:flutter_project_1/views/home/sub_screens/post_detail_screen.dart';
 import 'package:flutter_project_1/views/home/sub_screens/search_screen.dart';
 import 'package:flutter_project_1/views/home/sub_screens/type_screen.dart';
@@ -13,8 +13,9 @@ import 'package:flutter_project_1/views/home/widgets/search_widget.dart';
 import 'package:flutter_project_1/views/home/widgets/row_title_seeall.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../models/others/argument_model.dart';
+import '../../view_models/post_provider.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String nameRoute = '/home_screen';
@@ -55,13 +56,13 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              'Discovery',
+                              AppLocalizations.of(context).titleHome,
                               style: TextConfigs.kTextHeader1,
                             ),
                           ),
                           Expanded(
                             child: Text(
-                              'Vietnam',
+                              AppLocalizations.of(context).vietnam,
                               style: TextConfigs.kTextHeader1,
                             ),
                           ),
@@ -107,7 +108,8 @@ class HomeScreen extends StatelessWidget {
                           .map((e) => [
                                 CategoryCard(
                                   icon: e.icon,
-                                  title: e.title,
+                                  title: SettingPostType.setTitleType(
+                                      e.type, context),
                                   onClick: () async {
                                     await Provider.of<PostProvider>(context,
                                             listen: false)
@@ -134,7 +136,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 RowTitleSeeAll(
                   onTapSeeAll: () {},
-                  title: 'Popular Destination',
+                  title: AppLocalizations.of(context).popularDesti,
                 ),
                 SizedBox(
                   height: 16.h,
@@ -179,7 +181,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 RowTitleSeeAll(
                   onTapSeeAll: () {},
-                  title: 'New Discovey',
+                  title: AppLocalizations.of(context).newDesti,
                 ),
                 SizedBox(
                   height: 16.h,

@@ -4,13 +4,11 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_project_1/routes/app_route.dart';
 import 'package:flutter_project_1/services/auth_service.dart';
 import 'package:flutter_project_1/view_models/locale_provider.dart';
-import 'package:flutter_project_1/view_models/login_provider.dart';
-import 'package:flutter_project_1/view_models/post_provider.dart';
-import 'package:flutter_project_1/view_models/sign_up_provider.dart';
+import 'package:flutter_project_1/view_models/login/login_provider.dart';
+import 'package:flutter_project_1/view_models/login/sign_up_provider.dart';
 import 'package:flutter_project_1/views/landing/landing_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-
 import 'l10n/support_locale.dart';
 
 class VAtractionApp extends StatelessWidget {
