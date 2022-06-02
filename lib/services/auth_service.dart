@@ -69,7 +69,7 @@ class AuthService extends ChangeNotifier {
     try {
       final credential = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
-      localCurrentUser.uid = credential.user?.uid;
+      localCurrentUser = localCurrentUser.copyWith(uid: credential.user?.uid);
       addUserDataToFirebase(localCurrentUser);
       return _userFromFirebase(credential.user);
     } on auth_service.FirebaseAuthException catch (err) {
@@ -158,7 +158,7 @@ class AuthService extends ChangeNotifier {
     bool result =
         emailAuth.validateOtp(recipientMail: recipientMail, userOtp: userOtp);
     if (result) {
-      localCurrentUser.isConfirmEmail = true;
+      localCurrentUser = localCurrentUser.copyWith(isConfirmEmail: true);
       SharedPreferences sharedPref = await SharedPreferences.getInstance();
       sharedPref.setString("user", jsonEncode(localCurrentUser.toJson()));
     }

@@ -68,11 +68,14 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CustomBackButton(
-                      currentWidgetContext: context,
+                      onTapBack: () {
+                        Navigator.pop(context);
+                      },
                       backgroundColor: AppColors.kColor1,
                       iconColor: AppColors.kColor0,
                       height: 32.w,
                       width: 32.w,
+                      isCircleRounded: true,
                     ),
                   ],
                 ),

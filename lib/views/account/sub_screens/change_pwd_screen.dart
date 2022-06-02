@@ -37,10 +37,18 @@ class ChangePasswordScreen extends StatelessWidget {
           leadingWidth: 48.w,
           leading: Align(
             alignment: Alignment.centerLeft,
-            child: CustomBackButton(
-              currentWidgetContext: context,
-              backgroundColor: AppColors.kColor1,
-              iconColor: AppColors.kColor0,
+            child: Padding(
+              padding: EdgeInsets.only(
+                top: 12.h,
+              ),
+              child: CustomBackButton(
+                onTapBack: () {
+                  Navigator.pop(context);
+                },
+                backgroundColor: AppColors.kColor1,
+                iconColor: AppColors.kColor0,
+                isCircleRounded: false,
+              ),
             ),
           ),
           flexibleSpace: SafeArea(
@@ -49,6 +57,7 @@ class ChangePasswordScreen extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.only(
                   right: 12.w,
+                  top: 12.h,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,

@@ -45,9 +45,12 @@ class TypeScreen extends StatelessWidget {
             elevation: 0,
             leadingWidth: 48.w,
             leading: CustomBackButton(
-              currentWidgetContext: context,
+              onTapBack: () {
+                Navigator.pop(context);
+              },
               backgroundColor: AppColors.kColor1,
               iconColor: AppColors.kColor0,
+              isCircleRounded: true,
             ),
             flexibleSpace: FlexibleSpaceBar(
               titlePadding: EdgeInsets.only(

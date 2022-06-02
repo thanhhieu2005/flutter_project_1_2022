@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
+import 'package:flutter_project_1/view_models/account/account_provider.dart';
 import 'package:flutter_project_1/view_models/create_post_provider.dart';
 import 'package:flutter_project_1/view_models/post_provider.dart';
 import 'package:flutter_project_1/views/account/account_screen.dart';
@@ -72,7 +73,10 @@ class _NavigationBarViewState extends State<NavigationBarView> {
         ),
       ),
     ),
-    const AccountScreen(),
+    ChangeNotifierProvider<AccountProvider>(
+      create: (_) => AccountProvider(),
+      child: const AccountScreen(),
+    ),
   ];
   @override
   Widget build(BuildContext context) {
@@ -96,6 +100,7 @@ class _NavigationBarViewState extends State<NavigationBarView> {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
+                labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
               ),
               child: NavigationBar(
                 height: 60.h,

@@ -11,6 +11,7 @@ import 'package:flutter_project_1/views/home/widgets/notify_button.dart';
 import 'package:flutter_project_1/views/home/widgets/new_discovery_card.dart';
 import 'package:flutter_project_1/views/home/widgets/search_widget.dart';
 import 'package:flutter_project_1/views/home/widgets/row_title_seeall.dart';
+import 'package:flutter_project_1/widgets/title_appbar_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -50,23 +51,10 @@ class HomeScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
+                      TitleAppBarWidget(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              AppLocalizations.of(context).titleHome,
-                              style: TextConfigs.kTextHeader1,
-                            ),
-                          ),
-                          Expanded(
-                            child: Text(
-                              AppLocalizations.of(context).vietnam,
-                              style: TextConfigs.kTextHeader1,
-                            ),
-                          ),
-                        ],
+                        aboveText: AppLocalizations.of(context).titleHome,
+                        underText: AppLocalizations.of(context).vietnam,
                       ),
                       NotifyButton(
                         onClick: () {},

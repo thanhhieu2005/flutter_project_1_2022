@@ -21,7 +21,7 @@ class RowTitleSeeAll extends StatelessWidget {
         Text(
           title,
           style: TextConfigs.kTextSubtitle.copyWith(
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w600,
           ),
         ),
         InkWell(
