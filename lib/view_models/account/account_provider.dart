@@ -50,8 +50,7 @@ class AccountProvider extends ChangeNotifier {
     localCurrentUser = newInfoUser;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString("user", jsonEncode(localCurrentUser.toJson()));
-    var a = prefs.getString("user");
-    print(a);
+    prefs.getString("user");
     notifyListeners();
   }
 

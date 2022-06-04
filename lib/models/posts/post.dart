@@ -14,6 +14,7 @@ class Post {
   final List<String> images;
   final PostType type;
   final double rating;
+  final PostStatus status;
 
   Post({
     required this.postId,
@@ -26,6 +27,7 @@ class Post {
     required this.images,
     required this.type,
     required this.rating,
+    required this.status,
   });
 
   Map<String, dynamic> toMap() {
@@ -40,6 +42,7 @@ class Post {
       'images': images,
       'type': type,
       'rating': rating,
+      'status': status,
     };
   }
 
@@ -55,6 +58,7 @@ class Post {
       images: List<String>.from(map['images']),
       type: PostTypeExtension.fromInt(map['type']),
       rating: map['rating']?.toDouble() ?? 0.0,
+      status: PostStatusExtension.fromInt(map['status']),
     );
   }
 }
@@ -79,6 +83,30 @@ extension PostTypeExtension on PostType {
       2: PostType.mountain,
       3: PostType.island,
       4: PostType.city,
+    };
+
+    return values[value]!;
+  }
+}
+
+enum PostStatus { pending, approve, decline }
+
+extension PostStatusExtension on PostStatus {
+  int get value {
+    final values = {
+      PostStatus.pending: 1,
+      PostStatus.approve: 2,
+      PostStatus.decline: 3,
+    };
+
+    return values[this]!;
+  }
+
+  static PostStatus fromInt(int value) {
+    final values = {
+      1: PostStatus.pending,
+      2: PostStatus.approve,
+      3: PostStatus.decline,
     };
 
     return values[value]!;

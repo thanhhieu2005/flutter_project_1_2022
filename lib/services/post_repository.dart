@@ -1,8 +1,17 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_project_1/models/posts/post.dart';
 import 'package:flutter_project_1/models/users/user.dart';
+import 'package:flutter_project_1/services/account_repository.dart';
 
 class PostRepo {
+  static final _collectionPost = FirebaseFirestore.instance.collection('Posts');
+
+  static Stream<QuerySnapshot> onPostDataChange() {
+    return _collectionPost.snapshots();
+  }
+
   static getAllPost() async {
     List<Post> listAllPost = [];
     var snapshot = await FirebaseFirestore.instance.collection('Posts').get();
@@ -32,5 +41,19 @@ class PostRepo {
     } else {
       return null;
     }
+  }
+
+  static Future<List<String>> uploadListFileImage(
+      List<File> _listImages, String namePost) async {
+    var imageUrls = await Future.wait(
+      _listImages.map(
+        (image) => AccountRepo.uploadFile(
+          folderPath: namePost,
+          fileName: image.path,
+          avatarFile: image,
+        ),
+      ),
+    );
+    return imageUrls;
   }
 }

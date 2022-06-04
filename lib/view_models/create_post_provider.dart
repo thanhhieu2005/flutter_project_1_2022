@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_project_1/models/address/district_model.dart';
 import 'package:flutter_project_1/models/address/province_model.dart';
 import 'package:flutter_project_1/models/address/wards_model.dart';
 import 'package:flutter_project_1/models/posts/post.dart';
 import 'package:flutter_project_1/services/data_provider.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CreatePostProvider extends ChangeNotifier {
   bool isLoad = true;
@@ -16,9 +20,15 @@ class CreatePostProvider extends ChangeNotifier {
   District? _selectedDistrict;
   Wards? _selectedWards;
 
+  final List<File> _listImage = [];
+
   PostType? _postType;
 
   bool _checkTerms = false;
+
+  TextEditingController desNameController = TextEditingController();
+  TextEditingController roadController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
 
   CreatePostProvider() {
     getProvinceApi();
@@ -104,5 +114,42 @@ class CreatePostProvider extends ChangeNotifier {
 
   bool getCheckTerms() {
     return _checkTerms;
+  }
+
+  // get list image
+  List<File> get listImage {
+    return _listImage;
+  }
+
+  Future deleteImage(int index) async {
+    _listImage.removeAt(index);
+    notifyListeners();
+  }
+
+  Future pickImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+
+      _listImage.add(File(image.path));
+      notifyListeners();
+    } on PlatformException catch (e) {
+      // ignore: avoid_print
+      print('$e');
+    }
+  }
+
+  bool checkSubmitStatus() {
+    if (desNameController.text.isNotEmpty ||
+        descriptionController.text.isNotEmpty ||
+        _listProvince.isNotEmpty ||
+        _listDistrict.isNotEmpty ||
+        _listWards.isNotEmpty ||
+        _listImage.isNotEmpty ||
+        _checkTerms == true) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
