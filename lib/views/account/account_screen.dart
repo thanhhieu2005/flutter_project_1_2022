@@ -3,8 +3,9 @@ import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_project_1/constants/global_constants.dart';
 import 'package:flutter_project_1/services/auth_service.dart';
+import 'package:flutter_project_1/view_models/account/account_provider.dart';
 import 'package:flutter_project_1/view_models/locale_provider.dart';
-import 'package:flutter_project_1/views/account/sub_screens/avatar_user_widget.dart';
+import 'package:flutter_project_1/views/account/widgets/avatar_user_widget.dart';
 import 'package:flutter_project_1/views/account/sub_screens/change_pwd_screen.dart';
 import 'package:flutter_project_1/views/account/sub_screens/per_info_screen.dart';
 import 'package:flutter_project_1/views/account/widgets/setting_app_item.dart';
@@ -15,7 +16,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class AccountScreen extends StatelessWidget {
+class AccountScreen extends StatefulWidget {
   static const String nameRoute = '/account_screeen';
   static Route route() {
     return MaterialPageRoute(
@@ -29,11 +30,23 @@ class AccountScreen extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<AccountScreen> createState() => _AccountScreenState();
+}
+
+class _AccountScreenState extends State<AccountScreen> {
+  // late AccountProvider accountProvider;
+  // late String displayName;
+  // @override
+  // void didChangeDependencies() {
+  //   accountProvider = Provider.of<AccountProvider>(context, listen: false);
+  //   accountProvider.getCurrUser();
+  //   super.didChangeDependencies();
+  // }
+
+  @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
-    final currentHour = DateTime.now().hour;
-    final currentUser = localCurrentUser;
-    var displayName = currentUser.userName!.split(" ");
+    final accountProvider = context.watch<AccountProvider>();
     return Scaffold(
       backgroundColor: AppColors.kBackgroundColor,
       body: SingleChildScrollView(
@@ -51,7 +64,7 @@ class AccountScreen extends StatelessWidget {
                     AvatarUserWidget(
                       height: 80.h,
                       width: 80.h,
-                      linkImage: currentUser.avatarUrl!,
+                      linkImage: accountProvider.getCurrUser().avatarUrl!,
                     ),
                     SizedBox(
                       width: 16.w,
@@ -61,24 +74,22 @@ class AccountScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          RichText(
-                            text: TextSpan(
-                              text: currentHour >= 5 && currentHour <= 11
-                                  ? AppLocalizations.of(context).goodMorning
-                                  : currentHour > 11 && currentHour < 19
-                                      ? AppLocalizations.of(context)
-                                          .goodAfternoon
-                                      : AppLocalizations.of(context)
-                                          .goodEvening,
-                              style: TextConfigs.kText24_1,
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: displayName.last,
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                accountProvider.setUpTimezone(context),
+                                style: TextConfigs.kText24_1,
+                              ),
+                              Consumer<AccountProvider>(
+                                  builder: (context, provider, child) {
+                                return Text(
+                                  provider.setUpDisplayName(),
                                   style: TextConfigs.kText24_1
                                       .copyWith(fontWeight: FontWeight.w700),
-                                ),
-                              ],
-                            ),
+                                );
+                              }),
+                            ],
                           ),
                           SizedBox(
                             height: 6.h,
@@ -134,7 +145,8 @@ class AccountScreen extends StatelessWidget {
                 name: AppLocalizations.of(context).personalInfo,
                 colorItem: AppColors.kBlackColor,
                 onTap: () {
-                  Navigator.pushNamed(context, PersonalInfoScreen.nameRoute);
+                  Navigator.pushNamed(context, PersonalInfoScreen.nameRoute,
+                      arguments: accountProvider);
                 },
                 visibility: true,
               ),

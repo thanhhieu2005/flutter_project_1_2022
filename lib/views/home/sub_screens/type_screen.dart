@@ -33,7 +33,7 @@ class TypeScreen extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as TypeScreenArgument;
     final category = args.category;
     final posts = args.provider.typePost;
-    final provider = args.provider;
+    // final provider = args.provider;
     return Scaffold(
       backgroundColor: AppColors.kBackgroundColor,
       body: CustomScrollView(
@@ -45,9 +45,12 @@ class TypeScreen extends StatelessWidget {
             elevation: 0,
             leadingWidth: 48.w,
             leading: CustomBackButton(
-              currentWidgetContext: context,
+              onTapBack: () {
+                Navigator.pop(context);
+              },
               backgroundColor: AppColors.kColor1,
               iconColor: AppColors.kColor0,
+              isCircleRounded: true,
             ),
             flexibleSpace: FlexibleSpaceBar(
               titlePadding: EdgeInsets.only(
@@ -88,8 +91,7 @@ class TypeScreen extends StatelessWidget {
                           Navigator.pushNamed(
                             context,
                             PostDetailScreen.nameRoute,
-                            arguments:
-                                PostDetailArgument(provider, posts[index]),
+                            arguments: PostDetailArgument(posts[index], args.provider.sharer!),
                           );
                         },
                         post: posts[index],

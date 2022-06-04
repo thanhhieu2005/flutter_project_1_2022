@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
+import 'package:flutter_project_1/view_models/post/post_detail_provider.dart';
 import 'package:flutter_project_1/views/home/sub_screens/widgets/comment_widget.dart';
 import 'package:flutter_project_1/views/home/sub_screens/widgets/evaluate_widget.dart';
 import 'package:flutter_project_1/views/home/sub_screens/widgets/post_images_widget.dart';
@@ -11,15 +12,15 @@ import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../configs/color_config.dart';
 import '../../../models/others/argument_model.dart';
-import '../../../view_models/post_provider.dart';
 
 class PostDetailScreen extends StatefulWidget {
   static const String nameRoute = '/post_detail_custom';
   static Route route(RouteSettings settings) {
     PostDetailArgument args = settings.arguments as PostDetailArgument;
+
     return MaterialPageRoute(
-      builder: (_) => ChangeNotifierProvider<PostProvider>.value(
-        value: args.provider,
+      builder: (_) => ChangeNotifierProvider<PostDetailProvider>(
+        create: (_) => PostDetailProvider(),
         child: const PostDetailScreen(),
       ),
       settings: settings,
@@ -35,9 +36,8 @@ class PostDetailScreen extends StatefulWidget {
 class _PostDetailScreenState extends State<PostDetailScreen> {
   @override
   Widget build(BuildContext context) {
-    PostDetailArgument args =
+    PostDetailArgument postDetailArgument =
         ModalRoute.of(context)!.settings.arguments as PostDetailArgument;
-    final post = args.post;
     return Scaffold(
       body: SizedBox(
         height: 1.sh,
@@ -45,16 +45,19 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
         child: Stack(
           children: [
             Positioned(
-              child: Container(
-                width: double.maxFinite,
-                height: 300.h,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(post.images.first),
-                    fit: BoxFit.fill,
+              child: Consumer<PostDetailProvider>(
+                  builder: (context, provider, child) {
+                return Container(
+                  width: double.maxFinite,
+                  height: 300.h,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(postDetailArgument.post.images.first),
+                      fit: BoxFit.fill,
+                    ),
                   ),
-                ),
-              ),
+                );
+              }),
             ),
             Positioned(
               // left: 8.w,
@@ -68,11 +71,14 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CustomBackButton(
-                      currentWidgetContext: context,
+                      onTapBack: () {
+                        Navigator.pop(context);
+                      },
                       backgroundColor: AppColors.kColor1,
                       iconColor: AppColors.kColor0,
                       height: 32.w,
                       width: 32.w,
+                      isCircleRounded: true,
                     ),
                   ],
                 ),
@@ -99,7 +105,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         InfoDestinationWidget(
-                          post: post,
+                          post: postDetailArgument.post,
                         ),
                         SizedBox(
                           height: 24.h,
@@ -122,7 +128,8 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                                 height: 8.h,
                               ),
                               Text(
-                                post.description.replaceAll("   ", '\n'),
+                                postDetailArgument.post.description
+                                    .replaceAll("   ", '\n'),
                                 style: TextConfigs.kText16_1.copyWith(
                                   color: AppColors.kColor0,
                                 ),
@@ -133,7 +140,8 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                         SizedBox(
                           height: 16.h,
                         ),
-                        PostImagesWidget(urlImages: post.images),
+                        PostImagesWidget(
+                            urlImages: postDetailArgument.post.images),
                         SizedBox(
                           height: 8.h,
                         ),
@@ -151,10 +159,13 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                         SizedBox(
                           height: 16.h,
                         ),
-                        SharerPostWidget(
-                          onClick: () {},
-                          sharer: args.provider.sharer!,
-                        ),
+                        Consumer<PostDetailProvider>(
+                            builder: (context, provider, child) {
+                          return SharerPostWidget(
+                            onClick: () {},
+                            sharer: postDetailArgument.sharer,
+                          );
+                        }),
                       ],
                     ),
                   ),

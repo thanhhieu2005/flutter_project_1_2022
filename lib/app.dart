@@ -8,6 +8,7 @@ import 'package:flutter_project_1/view_models/login/login_provider.dart';
 import 'package:flutter_project_1/view_models/login/sign_up_provider.dart';
 import 'package:flutter_project_1/views/landing/landing_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'l10n/support_locale.dart';
 
@@ -20,16 +21,12 @@ class VAtractionApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
         designSize: const Size(414, 736),
-        builder: () {
+        builder: (context, child) {
           return MultiProvider(
               providers: [
                 ChangeNotifierProvider<AuthService>(
                   create: (_) => AuthService(),
                 ),
-                // ChangeNotifierProvider<PostProvider>(
-                //   create: (_) => PostProvider(),
-                //   lazy: false,
-                // ),
                 ChangeNotifierProvider<SignUpProvider>(
                   create: (_) => SignUpProvider(),
                 ),
@@ -41,6 +38,7 @@ class VAtractionApp extends StatelessWidget {
                 title: 'Vatraction App',
                 theme: ThemeData(
                   primarySwatch: Colors.blue,
+                  fontFamily: GoogleFonts.roboto().fontFamily,
                 ),
                 onGenerateRoute: AppRoutes.onGenerateRoute,
                 // ignore: prefer_const_literals_to_create_immutables

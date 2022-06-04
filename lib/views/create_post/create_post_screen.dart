@@ -8,6 +8,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_project_1/views/create_post/widgets/container_dropdown.dart';
 import 'package:flutter_project_1/views/create_post/widgets/input_field_custom.dart';
 import 'package:flutter_project_1/views/create_post/widgets/input_title.dart';
+import 'package:flutter_project_1/widgets/title_appbar_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import '../../configs/text_config.dart';
@@ -52,26 +53,16 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                           width: 40.w,
                           backgroundColor: AppColors.kColor1,
                           iconColor: AppColors.kColor0,
-                          currentWidgetContext: context,
+                          onTapBack: () {
+                            Navigator.pop(context);
+                          },
+                          isCircleRounded: false,
                         ),
                       ),
-                      Column(
+                      TitleAppBarWidget(
                         crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              AppLocalizations.of(context).create,
-                              style: TextConfigs.kTextHeader1,
-                            ),
-                          ),
-                          Expanded(
-                            child: Text(
-                              AppLocalizations.of(context).newDiscover,
-                              style: TextConfigs.kTextHeader1,
-                            ),
-                          ),
-                        ],
+                        aboveText: AppLocalizations.of(context).create,
+                        underText: AppLocalizations.of(context).newDiscover,
                       ),
                     ],
                   ),

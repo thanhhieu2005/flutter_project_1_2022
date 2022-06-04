@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/views/account/account_screen.dart';
+import 'package:flutter_project_1/views/account/sub_screens/change_avatar_screen.dart';
 import 'package:flutter_project_1/views/account/sub_screens/change_pwd_screen.dart';
 import 'package:flutter_project_1/views/account/sub_screens/per_info_screen.dart';
 import 'package:flutter_project_1/views/create_post/create_post_screen.dart';
@@ -43,9 +44,11 @@ class AppRoutes {
         return CupertinoPageRoute(builder: (_) => const AccountScreen());
       // Sub Screen of Account Screen
       case PersonalInfoScreen.nameRoute:
-        return PersonalInfoScreen.route();
+        return PersonalInfoScreen.route(settings);
       case ChangePasswordScreen.nameRoute:
         return ChangePasswordScreen.route();
+      case ChangeAvatarScreen.nameRoute:
+        return ChangeAvatarScreen.route(settings);
 
       /* Home Screen */
       case HomeScreen.nameRoute:

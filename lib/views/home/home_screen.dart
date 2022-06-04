@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
-import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_project_1/models/posts/post.dart';
 import 'package:flutter_project_1/views/home/sub_screens/post_detail_screen.dart';
 import 'package:flutter_project_1/views/home/sub_screens/search_screen.dart';
@@ -11,6 +10,7 @@ import 'package:flutter_project_1/views/home/widgets/notify_button.dart';
 import 'package:flutter_project_1/views/home/widgets/new_discovery_card.dart';
 import 'package:flutter_project_1/views/home/widgets/search_widget.dart';
 import 'package:flutter_project_1/views/home/widgets/row_title_seeall.dart';
+import 'package:flutter_project_1/widgets/title_appbar_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -50,23 +50,10 @@ class HomeScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
+                      TitleAppBarWidget(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              AppLocalizations.of(context).titleHome,
-                              style: TextConfigs.kTextHeader1,
-                            ),
-                          ),
-                          Expanded(
-                            child: Text(
-                              AppLocalizations.of(context).vietnam,
-                              style: TextConfigs.kTextHeader1,
-                            ),
-                          ),
-                        ],
+                        aboveText: AppLocalizations.of(context).titleHome,
+                        underText: AppLocalizations.of(context).vietnam,
                       ),
                       NotifyButton(
                         onClick: () {},
@@ -142,7 +129,7 @@ class HomeScreen extends StatelessWidget {
                   height: 16.h,
                 ),
                 Consumer<PostProvider>(builder: (context, provider, child) {
-                  var item = provider.popularPost;
+                  var item = provider.fivePopularPost;
                   return SingleChildScrollView(
                     child: Row(
                       children: item
@@ -159,8 +146,8 @@ class HomeScreen extends StatelessWidget {
                                     Navigator.pushNamed(
                                       context,
                                       PostDetailScreen.nameRoute,
-                                      arguments:
-                                          PostDetailArgument(provider, e),
+                                      arguments: PostDetailArgument(
+                                          e, provider.sharer!),
                                     );
                                   },
                                   province: e.province,

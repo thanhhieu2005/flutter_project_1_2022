@@ -22,4 +22,15 @@ class PostRepo {
       return null;
     }
   }
+
+  static getPostById(String postId) async {
+    var snapshot =
+        await FirebaseFirestore.instance.collection('Posts').doc(postId).get();
+    if (snapshot.exists) {
+      Post post = Post.fromMap(snapshot.data()!);
+      return post;
+    } else {
+      return null;
+    }
+  }
 }
