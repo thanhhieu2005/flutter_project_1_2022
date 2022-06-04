@@ -45,10 +45,11 @@ class _WelcomePageState extends State<WelcomePage> {
                 alignment: Alignment.centerLeft,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
                       AppLocalizations.of(context).findInterest,
-                      style: TextConfigs.kText22SemiBoldPrimary,
+                      style: TextConfigs.kText22SemiBoldBlack,
                     ),
                     SizedBox(
                       width: 30.h,
@@ -59,6 +60,10 @@ class _WelcomePageState extends State<WelcomePage> {
                     ),
                     Text(
                       AppLocalizations.of(context).weShareAll,
+                      style: TextConfigs.kText16Secondary,
+                    ),
+                    Text(
+                      AppLocalizations.of(context).tourGuide,
                       style: TextConfigs.kText16Secondary,
                     ),
                   ],

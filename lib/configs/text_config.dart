@@ -24,6 +24,12 @@ class TextConfigs {
       color: AppColors.kColor1,
       fontWeight: FontWeight.bold);
 
+  static final kText22SemiBoldBlack = TextStyle(
+      fontSize: 22.sp,
+      fontFamily: kFontFamily,
+      color: AppColors.kBlackColor,
+      fontWeight: FontWeight.w600);
+
   static final kText22SemiBoldPrimary = TextStyle(
       fontSize: 22.sp,
       fontFamily: kFontFamily,
