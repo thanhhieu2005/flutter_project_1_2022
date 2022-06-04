@@ -103,7 +103,7 @@ class AccountProvider extends ChangeNotifier {
 
     final newAvatarUrl = await AccountRepo.uploadFile(
       avatarFile: File(avatar.path),
-      fileName: _currUser.uid!,
+      fileName: _currUser.uid,
       folderPath: 'avatar_photos',
     );
 

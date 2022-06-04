@@ -24,7 +24,7 @@ class LoginProvider extends ChangeNotifier {
           loginEmailController.text, loginPwdController.text);
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString("user", jsonEncode(localCurrentUser.toJson()));
-      if (!localCurrentUser.isConfirmEmail) {
+      if (!localCurrentUser.isConfirmEmail!) {
         return false;
       }
     } catch (err) {

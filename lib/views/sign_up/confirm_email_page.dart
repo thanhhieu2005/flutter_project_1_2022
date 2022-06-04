@@ -204,7 +204,7 @@ class _ConfirmEmailPageState extends State<ConfirmEmailPage> {
                                   signUpProvider.createAccountWithEmail();
                                 }
                                 await signUpProvider.updateVerifyEmailStatus(
-                                    localCurrentUser.uid!);
+                                    localCurrentUser.uid);
                                 Navigator.pushAndRemoveUntil(
                                     context,
                                     NavigationBarView.route(),
