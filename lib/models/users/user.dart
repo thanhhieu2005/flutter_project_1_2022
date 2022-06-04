@@ -74,3 +74,25 @@ class VatractionUser extends Equatable {
     );
   }
 }
+
+enum RoleType { admin, user }
+
+extension RoleTypeExtension on RoleType {
+  int get value {
+    final values = {
+      RoleType.admin: 1,
+      RoleType.user: 2,
+    };
+
+    return values[this]!;
+  }
+
+  static RoleType fromInt(int value) {
+    final values = {
+      1: RoleType.admin,
+      2: RoleType.user,
+    };
+
+    return values[value]!;
+  }
+}

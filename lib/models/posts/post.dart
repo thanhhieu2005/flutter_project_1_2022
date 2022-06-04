@@ -4,7 +4,7 @@ import '../../configs/text_config.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Post {
-  final String idPost;
+  final String postId;
   final String sharer;
   final String postName;
   final String description;
@@ -16,7 +16,7 @@ class Post {
   final double rating;
 
   Post({
-    required this.idPost,
+    required this.postId,
     required this.sharer,
     required this.postName,
     required this.description,
@@ -30,7 +30,7 @@ class Post {
 
   Map<String, dynamic> toMap() {
     return {
-      'idPost': idPost,
+      'postId': postId,
       'sharer': sharer,
       'postName': postName,
       'description': description,
@@ -45,7 +45,7 @@ class Post {
 
   factory Post.fromMap(Map<String, dynamic> map) {
     return Post(
-      idPost: map['idPost'] ?? '',
+      postId: map['postId'] ?? '',
       sharer: map['sharer'] ?? '',
       postName: map['postName'] ?? '',
       description: map['description'] ?? '',

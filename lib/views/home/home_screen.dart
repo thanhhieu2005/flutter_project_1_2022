@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
-import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_project_1/models/posts/post.dart';
 import 'package:flutter_project_1/views/home/sub_screens/post_detail_screen.dart';
 import 'package:flutter_project_1/views/home/sub_screens/search_screen.dart';
@@ -130,7 +129,7 @@ class HomeScreen extends StatelessWidget {
                   height: 16.h,
                 ),
                 Consumer<PostProvider>(builder: (context, provider, child) {
-                  var item = provider.popularPost;
+                  var item = provider.fivePopularPost;
                   return SingleChildScrollView(
                     child: Row(
                       children: item
@@ -147,8 +146,8 @@ class HomeScreen extends StatelessWidget {
                                     Navigator.pushNamed(
                                       context,
                                       PostDetailScreen.nameRoute,
-                                      arguments:
-                                          PostDetailArgument(provider, e),
+                                      arguments: PostDetailArgument(
+                                          e, provider.sharer!),
                                     );
                                   },
                                   province: e.province,

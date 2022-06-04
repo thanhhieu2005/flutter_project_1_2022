@@ -8,7 +8,9 @@ import 'package:flutter_project_1/services/post_repository.dart';
 class PostProvider extends ChangeNotifier {
   bool isLoad = true;
   final List<Post> _popularPost = [];
+  final List<Post> _fivePopularPost = [];
   final List<Post> _typePost = [];
+
   VatractionUser? sharer;
 
   final List<Category> categories = [
@@ -45,6 +47,7 @@ class PostProvider extends ChangeNotifier {
 
   PostProvider() {
     getPopularPost();
+    get5Popular();
   }
 
   void getPopularPost() async {
@@ -56,6 +59,20 @@ class PostProvider extends ChangeNotifier {
         continue;
       }
     }
+    isLoad = false;
+    notifyListeners();
+  }
+
+  void get5Popular() async {
+    var allPost = await PostRepo.getAllPost();
+    for (Post e in allPost) {
+      if (e.rating >= 3.5) {
+        _fivePopularPost.add(e);
+      } else {
+        continue;
+      }
+    }
+    _fivePopularPost.take(5);
     isLoad = false;
     notifyListeners();
   }
@@ -76,6 +93,10 @@ class PostProvider extends ChangeNotifier {
 
   List<Post> get popularPost {
     return _popularPost;
+  }
+
+  List<Post> get fivePopularPost {
+    return _fivePopularPost;
   }
 
   List<Post> get typePost {
