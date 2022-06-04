@@ -1,14 +1,14 @@
 import 'package:equatable/equatable.dart';
 
 class VatractionUser extends Equatable {
-  final String? uid;
+  final String uid;
   final String email;
   final String? userName;
   final String? dateOfBirth;
   final String? avatarUrl;
   final String? gender;
   final String pwd;
-  final bool isConfirmEmail;
+  final bool? isConfirmEmail;
   const VatractionUser(
       {required this.uid,
       required this.email,
@@ -27,7 +27,7 @@ class VatractionUser extends Equatable {
         'dateOfBirth': dateOfBirth ?? "",
         'gender': gender ?? "",
         'pwd': pwd,
-        'isConfirmEmail': isConfirmEmail,
+        'isConfirmEmail': isConfirmEmail ?? false,
       };
 
   VatractionUser.fromJson(Map<String, Object?> json)

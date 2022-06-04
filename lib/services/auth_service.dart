@@ -13,7 +13,7 @@ class AuthService extends ChangeNotifier {
   String _token = "";
   bool isloading = false;
   VatractionUser currentUser =
-      VatractionUser(email: "", uid: "", userName: "", pwd: "");
+      const VatractionUser(email: "", uid: "", pwd: "");
 
   final emailAuth = EmailAuth(sessionName: "VAtraction");
 
@@ -147,6 +147,8 @@ class AuthService extends ChangeNotifier {
 
   Future<bool> sendOtp(String email) async {
     bool result = await emailAuth.sendOtp(recipientMail: email);
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? user = pref.getString("user");
     if (result) {
       return true;
     }
@@ -170,14 +172,5 @@ class AuthService extends ChangeNotifier {
         .collection("Users")
         .doc(uid)
         .update({'isConfirmEmail': true});
-  }
-
-  Future<VatractionUser> getLocalUserSharePref() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    Map<String, dynamic> userJson = {};
-    if (pref.getString('user') != null) {
-      userJson = jsonDecode(pref.getString('user')!);
-    }
-    return VatractionUser.fromJson(userJson);
   }
 }
