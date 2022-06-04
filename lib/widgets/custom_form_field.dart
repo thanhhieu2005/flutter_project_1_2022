@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
+import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TextFormFieldCustom extends StatelessWidget {
@@ -41,6 +42,11 @@ class TextFormFieldCustom extends StatelessWidget {
             fillColor: AppColors.kColor1,
             border: InputBorder.none,
           ),
+          style: !readOnly
+              ? TextConfigs.kText16Black
+              : TextConfigs.kText16Black.copyWith(
+                  color: AppColors.kColor2,
+                ),
         ),
       ),
     );

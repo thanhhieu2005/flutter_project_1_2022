@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_project_1/configs/image_config.dart';
 import 'package:flutter_project_1/models/others/category_model.dart';
@@ -8,7 +9,6 @@ import 'package:flutter_project_1/services/post_repository.dart';
 class PostProvider extends ChangeNotifier {
   bool isLoad = true;
   final List<Post> _popularPost = [];
-  final List<Post> _fivePopularPost = [];
   final List<Post> _typePost = [];
 
   VatractionUser? sharer;
@@ -46,42 +46,52 @@ class PostProvider extends ChangeNotifier {
   ];
 
   PostProvider() {
-    getPopularPost();
-    get5Popular();
+    onDataChange();
   }
 
-  void getPopularPost() async {
-    var allPost = await PostRepo.getAllPost();
-    for (Post e in allPost) {
-      if (e.rating >= 3.5) {
-        _popularPost.add(e);
-      } else {
-        continue;
+  void onDataChange() {
+    PostRepo.onPostDataChange().listen((QuerySnapshot event) {
+      for (var element in event.docChanges) {
+        final post = Post.fromMap(element.doc.data() as Map<String, dynamic>);
+        switch (element.type) {
+          case DocumentChangeType.added:
+            _popularPost.add(post);
+            break;
+          case DocumentChangeType.modified:
+            final index = _popularPost
+                .indexWhere((element) => element.postId == post.postId);
+            if (index >= 0) {
+              _popularPost[index] = post;
+            }
+            break;
+          case DocumentChangeType.removed:
+            _popularPost
+                .removeWhere((element) => element.postId == post.postId);
+            break;
+        }
       }
-    }
-    isLoad = false;
-    notifyListeners();
+      notifyListeners();
+    });
   }
 
-  void get5Popular() async {
-    var allPost = await PostRepo.getAllPost();
-    for (Post e in allPost) {
-      if (e.rating >= 3.5) {
-        _fivePopularPost.add(e);
-      } else {
-        continue;
-      }
-    }
-    _fivePopularPost.take(5);
-    isLoad = false;
-    notifyListeners();
-  }
+  // void getPopularPost() async {
+  //   var allPost = await PostRepo.getAllPost();
+  //   for (Post e in allPost) {
+  //     if (e.rating >= 3.5 && e.status == PostStatus.approve) {
+  //       _popularPost.add(e);
+  //     } else {
+  //       continue;
+  //     }
+  //   }
+  //   isLoad = false;
+  //   notifyListeners();
+  // }
 
   Future<void> getPostByType(PostType type) async {
     _typePost.clear();
     var allPost = await PostRepo.getAllPost();
     for (Post e in allPost) {
-      if (e.type == type) {
+      if (e.type == type && e.status == PostStatus.approve) {
         _typePost.add(e);
       } else {
         continue;
@@ -93,10 +103,6 @@ class PostProvider extends ChangeNotifier {
 
   List<Post> get popularPost {
     return _popularPost;
-  }
-
-  List<Post> get fivePopularPost {
-    return _fivePopularPost;
   }
 
   List<Post> get typePost {

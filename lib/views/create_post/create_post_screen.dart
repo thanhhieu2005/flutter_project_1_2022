@@ -1,13 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/models/address/district_model.dart';
 import 'package:flutter_project_1/models/address/province_model.dart';
 import 'package:flutter_project_1/models/posts/post.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+import 'package:flutter_project_1/views/create_post/widgets/add_image_widget.dart';
 import 'package:flutter_project_1/views/create_post/widgets/container_dropdown.dart';
+import 'package:flutter_project_1/views/create_post/widgets/image_item.dart';
 import 'package:flutter_project_1/views/create_post/widgets/input_field_custom.dart';
 import 'package:flutter_project_1/views/create_post/widgets/input_title.dart';
+import 'package:flutter_project_1/widgets/rounded_main_button.dart';
 import 'package:flutter_project_1/widgets/title_appbar_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -190,6 +193,37 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                     title: AppLocalizations.of(context).images,
                   ),
                   SizedBox(
+                    height: 120.h,
+                    child: Consumer<CreatePostProvider>(
+                        builder: (context, createPostProvider, child) {
+                      return ListView.separated(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (BuildContext context, int index) {
+                            if (createPostProvider.listImage.length == index) {
+                              return AddImageWidget(
+                                onTap: () {
+                                  createPostProvider.pickImage();
+                                },
+                              );
+                            } else {
+                              return ImageItemWidget(
+                                image: createPostProvider.listImage[index],
+                                onTap: () {
+                                  createPostProvider.deleteImage(index);
+                                },
+                              );
+                            }
+                          },
+                          separatorBuilder: (context, index) => SizedBox(
+                                width: 21.w,
+                              ),
+                          itemCount: createPostProvider.listImage.length + 1);
+                    }),
+                  ),
+                  SizedBox(height: 8.h),
+                  const NoticeImageText(),
+                  SizedBox(
                     height: 16.h,
                   ),
                   InputTitleWidget(
@@ -224,7 +258,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                     );
                   }),
                   SizedBox(
-                    height: 32.h,
+                    height: 8.h,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -252,6 +286,22 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                       ),
                     ],
                   ),
+                  SizedBox(height: 24.h),
+                  Consumer<CreatePostProvider>(
+                      builder: (context, createPostProvider, child) {
+                    return Center(
+                      child: RoundedMainButton(
+                        text: 'Submit',
+                        height: 56.h,
+                        width: 240.w,
+                        onTap: createPostProvider.checkSubmitStatus()
+                            ? () {}
+                            : () {
+                                null;
+                              },
+                      ),
+                    );
+                  })
                 ],
               ),
             ),

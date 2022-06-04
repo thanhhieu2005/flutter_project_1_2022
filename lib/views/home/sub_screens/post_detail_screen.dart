@@ -16,8 +16,6 @@ import '../../../models/others/argument_model.dart';
 class PostDetailScreen extends StatefulWidget {
   static const String nameRoute = '/post_detail_custom';
   static Route route(RouteSettings settings) {
-    PostDetailArgument args = settings.arguments as PostDetailArgument;
-
     return MaterialPageRoute(
       builder: (_) => ChangeNotifierProvider<PostDetailProvider>(
         create: (_) => PostDetailProvider(),

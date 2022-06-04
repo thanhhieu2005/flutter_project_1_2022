@@ -129,7 +129,7 @@ class HomeScreen extends StatelessWidget {
                   height: 16.h,
                 ),
                 Consumer<PostProvider>(builder: (context, provider, child) {
-                  var item = provider.fivePopularPost;
+                  var item = provider.popularPost.take(5);
                   return SingleChildScrollView(
                     child: Row(
                       children: item

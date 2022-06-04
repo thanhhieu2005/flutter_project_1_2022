@@ -58,7 +58,6 @@ class _NavigationBarViewState extends State<NavigationBarView> {
   final mainScreen = [
     ChangeNotifierProvider<PostProvider>(
       create: (_) => PostProvider(),
-      lazy: false,
       child: const HomeScreen(),
     ),
     const DiscoveryScreen(),
