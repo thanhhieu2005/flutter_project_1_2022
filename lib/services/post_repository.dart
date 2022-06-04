@@ -1,9 +1,9 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_project_1/models/posts/post.dart';
 import 'package:flutter_project_1/models/users/user.dart';
 import 'package:flutter_project_1/services/account_repository.dart';
+import 'package:path/path.dart';
 
 class PostRepo {
   static final _collectionPost = FirebaseFirestore.instance.collection('Posts');
@@ -43,17 +43,21 @@ class PostRepo {
     }
   }
 
-  static Future<List<String>> uploadListFileImage(
+  Future<List<String>> uploadListFileImage(
       List<File> _listImages, String namePost) async {
     var imageUrls = await Future.wait(
       _listImages.map(
         (image) => AccountRepo.uploadFile(
           folderPath: namePost,
-          fileName: image.path,
+          fileName: basename(image.path),
           avatarFile: image,
         ),
       ),
     );
     return imageUrls;
+  }
+
+  Future<void> submitPost(Post newPost, String postId) async {
+    await _collectionPost.doc(postId).set(newPost.toMap());
   }
 }

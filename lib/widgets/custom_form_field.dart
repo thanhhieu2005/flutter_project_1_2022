@@ -17,7 +17,7 @@ class TextFormFieldCustom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      // padding: EdgeInsets.symmetric(horizontal: 16.w),
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
         borderRadius: BorderRadius.circular(10),
@@ -38,9 +38,21 @@ class TextFormFieldCustom extends StatelessWidget {
           controller: controller,
           maxLines: 1,
           keyboardType: inputType,
-          decoration: const InputDecoration(
-            fillColor: AppColors.kColor1,
+          decoration: InputDecoration(
             border: InputBorder.none,
+            filled: true,
+            fillColor: AppColors.kColor1,
+            enabledBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: Colors.white),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: AppColors.kPrimaryColor),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            errorBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.red),
+                borderRadius: BorderRadius.circular(10)),
           ),
           style: !readOnly
               ? TextConfigs.kText16Black

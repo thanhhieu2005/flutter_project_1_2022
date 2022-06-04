@@ -55,7 +55,9 @@ class PostProvider extends ChangeNotifier {
         final post = Post.fromMap(element.doc.data() as Map<String, dynamic>);
         switch (element.type) {
           case DocumentChangeType.added:
-            _popularPost.add(post);
+            if (post.rating >= 3.5) {
+              _popularPost.add(post);
+            }
             break;
           case DocumentChangeType.modified:
             final index = _popularPost

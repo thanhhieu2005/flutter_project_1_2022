@@ -29,7 +29,7 @@ class PostCard extends StatelessWidget {
             shape: BoxShape.rectangle,
             borderRadius: BorderRadius.circular(15),
             color: Colors.white,
-            boxShadow: const [
+            boxShadow: [
               BoxShadowConfig.kShadowGrey,
             ]),
         child: Stack(

@@ -148,7 +148,7 @@ class _ChangeAvatarScreenState extends State<ChangeAvatarScreen> {
                         shape: BoxShape.rectangle,
                         borderRadius:
                             const BorderRadius.all(Radius.circular(20)),
-                        boxShadow: const [
+                        boxShadow: [
                           BoxShadowConfig.kShadowGrey,
                         ],
                       ),

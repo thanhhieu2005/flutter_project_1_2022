@@ -19,7 +19,7 @@ class ContainerDropdown extends StatelessWidget {
         shape: BoxShape.rectangle,
         color: AppColors.kColor1,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: const [
+        boxShadow: [
           BoxShadowConfig.kShadowGrey,
         ],
       ),

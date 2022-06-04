@@ -10,6 +10,7 @@ class Post {
   final String description;
   final String province;
   final String district;
+  final String wards;
   final String? road;
   final List<String> images;
   final PostType type;
@@ -23,6 +24,7 @@ class Post {
     required this.description,
     required this.province,
     required this.district,
+    required this.wards,
     this.road,
     required this.images,
     required this.type,
@@ -38,11 +40,12 @@ class Post {
       'description': description,
       'province': province,
       'district': district,
+      'wards': wards,
       'road': road,
       'images': images,
-      'type': type,
+      'type': type.value,
       'rating': rating,
-      'status': status,
+      'status': status.value,
     };
   }
 
@@ -54,6 +57,7 @@ class Post {
       description: map['description'] ?? '',
       province: map['province'] ?? '',
       district: map['district'] ?? '',
+      wards: map['wards'] ?? '',
       road: map['road'],
       images: List<String>.from(map['images']),
       type: PostTypeExtension.fromInt(map['type']),

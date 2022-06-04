@@ -22,9 +22,10 @@ class AppColors {
 }
 
 class BoxShadowConfig {
-  static const kShadowGrey = BoxShadow(
-    color: Colors.grey,
+  static final kShadowGrey = BoxShadow(
+    color: Colors.grey.withOpacity(0.1),
     blurRadius: 1,
-    offset: Offset(0, 1),
+    spreadRadius: 1,
+    offset: const Offset(0, 1),
   );
 }

@@ -88,11 +88,15 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                     title: AppLocalizations.of(context).destionationName,
                     isRequired: true,
                   ),
-                  const InputFieldCreatePost(
-                    keyboardType: TextInputType.text,
-                    maxLines: 1,
-                    isRequired: true,
-                  ),
+                  Consumer<CreatePostProvider>(
+                      builder: (context, createPostProvider, child) {
+                    return InputFieldCreatePost(
+                      keyboardType: TextInputType.text,
+                      maxLines: 1,
+                      isRequired: true,
+                      controller: createPostProvider.namePostController,
+                    );
+                  }),
                   SizedBox(height: 16.h),
                   InputTitleWidget(
                     isRequired: true,
@@ -182,11 +186,15 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                     isRequired: false,
                     title: AppLocalizations.of(context).road,
                   ),
-                  const InputFieldCreatePost(
-                    keyboardType: TextInputType.text,
-                    maxLines: 1,
-                    isRequired: false,
-                  ),
+                  Consumer<CreatePostProvider>(
+                      builder: (context, createPostProvider, child) {
+                    return InputFieldCreatePost(
+                      keyboardType: TextInputType.text,
+                      maxLines: 1,
+                      isRequired: false,
+                      controller: createPostProvider.roadController,
+                    );
+                  }),
                   SizedBox(height: 16.h),
                   InputTitleWidget(
                     isRequired: true,
@@ -230,11 +238,15 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                     isRequired: true,
                     title: AppLocalizations.of(context).description,
                   ),
-                  const InputFieldCreatePost(
-                    keyboardType: TextInputType.multiline,
-                    maxLines: 10,
-                    isRequired: true,
-                  ),
+                  Consumer<CreatePostProvider>(
+                      builder: (context, createPostProvider, child) {
+                    return InputFieldCreatePost(
+                      keyboardType: TextInputType.multiline,
+                      maxLines: 10,
+                      isRequired: true,
+                      controller: createPostProvider.descriptionController,
+                    );
+                  }),
                   SizedBox(
                     height: 16.h,
                   ),
@@ -294,11 +306,11 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                         text: 'Submit',
                         height: 56.h,
                         width: 240.w,
-                        onTap: createPostProvider.checkSubmitStatus()
-                            ? () {}
-                            : () {
-                                null;
-                              },
+                        onTap: () {
+                          createPostProvider.submitPost();
+                        }
+                        // ignore: avoid_returning_null_for_void
+                        ,
                       ),
                     );
                   })

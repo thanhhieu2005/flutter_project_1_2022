@@ -22,7 +22,7 @@ class AddImageWidget extends StatelessWidget {
           color: AppColors.kColor1,
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(10),
-          boxShadow: const [BoxShadowConfig.kShadowGrey],
+          boxShadow: [BoxShadowConfig.kShadowGrey],
         ),
         child: Icon(
           CupertinoIcons.plus,
