@@ -24,14 +24,14 @@ class TextConfigs {
       color: AppColors.kColor1,
       fontWeight: FontWeight.bold);
 
-  static final kText22SemiBoldBlack = TextStyle(
-      fontSize: 22.sp,
+  static final kText24SemiBoldBlack = TextStyle(
+      fontSize: 24.sp,
       fontFamily: kFontFamily,
       color: AppColors.kBlackColor,
       fontWeight: FontWeight.w600);
 
-  static final kText22SemiBoldPrimary = TextStyle(
-      fontSize: 22.sp,
+  static final kText24SemiBoldPrimary = TextStyle(
+      fontSize: 24.sp,
       fontFamily: kFontFamily,
       color: AppColors.kPrimaryColor,
       fontWeight: FontWeight.w600);
@@ -69,10 +69,10 @@ class TextConfigs {
     color: AppColors.kPrimaryColor,
   );
 
-  static final kText16Secondary = TextStyle(
+  static final kText16Grey = TextStyle(
     fontSize: 16.sp,
     fontFamily: kFontFamily,
-    color: AppColors.kTextSecondary,
+    color: AppColors.kTextGrey,
   );
 
   static final kText16Primary = TextStyle(

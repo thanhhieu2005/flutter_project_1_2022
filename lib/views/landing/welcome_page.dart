@@ -31,40 +31,43 @@ class _WelcomePageState extends State<WelcomePage> {
           fit: StackFit.loose,
           children: [
             Container(
-              padding: EdgeInsets.only(top: 80.h),
+              padding: EdgeInsets.only(top: 60.h),
               child: Center(
                 child: Image.asset(
                   "assets/images/bg_welcome.png",
-                  fit: BoxFit.cover,
+                  height: 500.h,
+                  fit: BoxFit.fitWidth,
                 ),
               ),
             ),
             Container(
-              padding: EdgeInsets.only(left: 20.w, top: 20.h),
+              padding: EdgeInsets.only(left: 20.w, top: 25.h),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
                       AppLocalizations.of(context).findInterest,
-                      style: TextConfigs.kText22SemiBoldBlack,
+                      style: TextConfigs.kText24SemiBoldBlack,
                     ),
                     SizedBox(
-                      width: 30.h,
+                      height: 5.h,
                     ),
                     Text(
                       AppLocalizations.of(context).placeToDiscover,
-                      style: TextConfigs.kText22SemiBoldPrimary,
+                      style: TextConfigs.kText24SemiBoldPrimary,
+                    ),
+                    SizedBox(
+                      height: 7.h,
                     ),
                     Text(
                       AppLocalizations.of(context).weShareAll,
-                      style: TextConfigs.kText16Secondary,
+                      style: TextConfigs.kText16Grey,
                     ),
                     Text(
                       AppLocalizations.of(context).tourGuide,
-                      style: TextConfigs.kText16Secondary,
+                      style: TextConfigs.kText16Grey,
                     ),
                   ],
                 ),
@@ -92,6 +95,9 @@ class _WelcomePageState extends State<WelcomePage> {
                           startColor: AppColors.kPrimaryColor,
                           endColor: AppColors.kPrimaryColor),
                     ),
+                    SizedBox(
+                      height: 5.h,
+                    ),
                     Container(
                       padding: EdgeInsets.only(top: 10.h, bottom: 15.h),
                       color: AppColors.kBackgroundColor,
@@ -100,7 +106,7 @@ class _WelcomePageState extends State<WelcomePage> {
                         children: [
                           Text(
                             AppLocalizations.of(context).alreadyHaveAccount,
-                            style: TextConfigs.kText16Secondary,
+                            style: TextConfigs.kText16Black,
                           ),
                           SizedBox(
                             width: 10.w,
