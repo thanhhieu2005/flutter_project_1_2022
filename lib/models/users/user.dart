@@ -9,6 +9,7 @@ class VatractionUser extends Equatable {
   final String? gender;
   final String pwd;
   final bool? isConfirmEmail;
+  final int? role;
   const VatractionUser(
       {required this.uid,
       required this.email,
@@ -17,6 +18,7 @@ class VatractionUser extends Equatable {
       this.dateOfBirth,
       this.gender,
       required this.pwd,
+      this.role,
       this.isConfirmEmail = false});
 
   Map<String, Object?> toJson() => {
@@ -28,6 +30,7 @@ class VatractionUser extends Equatable {
         'gender': gender ?? "",
         'pwd': pwd,
         'isConfirmEmail': isConfirmEmail ?? false,
+        'role': role ?? 1,
       };
 
   VatractionUser.fromJson(Map<String, Object?> json)
@@ -38,7 +41,8 @@ class VatractionUser extends Equatable {
         dateOfBirth = json['dateOfBirth'] as String,
         gender = json['gender'] as String,
         pwd = json['pwd'] as String,
-        isConfirmEmail = json['isConfirmEmail'] as bool;
+        isConfirmEmail = json['isConfirmEmail'] as bool,
+        role = json['role'] as int;
 
   @override
   List<Object?> get props => [
@@ -49,7 +53,8 @@ class VatractionUser extends Equatable {
         avatarUrl,
         gender,
         pwd,
-        isConfirmEmail
+        isConfirmEmail,
+        role,
       ];
 
   VatractionUser copyWith({
@@ -61,6 +66,7 @@ class VatractionUser extends Equatable {
     String? gender,
     String? pwd,
     bool? isConfirmEmail,
+    int? role,
   }) {
     return VatractionUser(
       uid: uid ?? this.uid,
@@ -71,6 +77,7 @@ class VatractionUser extends Equatable {
       gender: gender ?? this.gender,
       pwd: pwd ?? this.pwd,
       isConfirmEmail: isConfirmEmail ?? this.isConfirmEmail,
+      role: role ?? this.role,
     );
   }
 }

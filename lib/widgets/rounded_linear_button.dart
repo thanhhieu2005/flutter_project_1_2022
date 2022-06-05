@@ -7,6 +7,7 @@ class RoundedLinearButton extends StatelessWidget {
   final String text;
   final VoidCallback press;
   final bool isAllCap;
+  final bool isTextBool;
   final Color color, textColor, startColor, endColor;
   const RoundedLinearButton({
     Key? key,
@@ -14,6 +15,7 @@ class RoundedLinearButton extends StatelessWidget {
     required this.press(),
     this.isAllCap = true,
     this.color = AppColors.kPrimaryColor,
+    this.isTextBool = false,
     required this.textColor,
     required this.startColor,
     required this.endColor,
@@ -25,7 +27,7 @@ class RoundedLinearButton extends StatelessWidget {
       onTap: press,
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 10.w),
-        padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
+        padding: EdgeInsets.symmetric(vertical: 19.h, horizontal: 20.w),
         // margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         decoration: BoxDecoration(
           gradient: LinearGradient(colors: [
@@ -33,13 +35,18 @@ class RoundedLinearButton extends StatelessWidget {
             startColor,
           ]),
           borderRadius: const BorderRadius.all(
-            Radius.circular(15),
+            Radius.circular(10),
           ),
         ),
         child: Center(
           child: Text(
             isAllCap ? text.toUpperCase() : text,
-            style: TextStyle(fontSize: 20.sp, color: textColor),
+            style: isTextBool
+                ? TextStyle(
+                    fontSize: 20.sp,
+                    color: textColor,
+                    fontWeight: FontWeight.bold)
+                : TextStyle(fontSize: 20.sp, color: textColor),
           ),
         ),
       ),

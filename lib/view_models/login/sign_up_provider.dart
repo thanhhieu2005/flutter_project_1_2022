@@ -17,7 +17,7 @@ class SignUpProvider extends ChangeNotifier {
   Future createAccountWithEmail() async {
     try {
       await AuthService().createUserWithEmailAndPassword(
-          localCurrentUser.email, localCurrentUser.pwd);
+          emailController.text, pwdController.text, userNameController.text);
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString("user", jsonEncode(localCurrentUser.toJson()));
     } catch (err) {
