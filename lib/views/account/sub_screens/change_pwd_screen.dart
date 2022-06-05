@@ -6,11 +6,11 @@ import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_project_1/views/account/widgets/confirm_pwd_field.dart';
 import 'package:flutter_project_1/views/account/widgets/cur_pwd_field.dart';
 import 'package:flutter_project_1/views/account/widgets/new_pwd_field.dart';
-import 'package:flutter_project_1/widgets/custom_back_button.dart';
+import 'package:flutter_project_1/widgets/button/custom_back_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../widgets/rounded_main_button.dart';
+import '../../../widgets/button/rounded_main_button.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
   static const String nameRoute = '/change_pwd_screen';

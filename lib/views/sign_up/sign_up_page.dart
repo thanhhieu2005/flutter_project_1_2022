@@ -9,10 +9,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import '../../configs/color_config.dart';
-import '../../widgets/custom_dialog.dart';
-import '../../widgets/rounded_input_field.dart';
-import '../../widgets/rounded_linear_button.dart';
-import '../../widgets/rounded_password_field.dart';
+import '../../widgets/dialog/custom_dialog.dart';
+import '../../widgets/text_field/rounded_input_field.dart';
+import '../../widgets/button/rounded_linear_button.dart';
+import '../../widgets/text_field/rounded_password_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignUpPage extends StatefulWidget {

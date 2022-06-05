@@ -4,7 +4,7 @@ import 'package:flutter_project_1/views/home/widgets/search_widget.dart';
 import 'package:flutter_project_1/widgets/title_appbar_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../configs/text_config.dart';
-import '../../../widgets/custom_back_button.dart';
+import '../../../widgets/button/custom_back_button.dart';
 
 class SearchScreen extends StatelessWidget {
   static const String nameRoute = '/search_screen';

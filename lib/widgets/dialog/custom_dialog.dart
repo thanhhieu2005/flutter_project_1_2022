@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../configs/color_config.dart';
+import '../../configs/color_config.dart';
 
 class CustomDialog extends StatelessWidget {
   const CustomDialog({

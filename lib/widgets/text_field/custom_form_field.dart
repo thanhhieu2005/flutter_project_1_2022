@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
-import '../configs/color_config.dart';
+import 'package:flutter_project_1/configs/color_config.dart';
+import 'package:flutter_project_1/configs/text_config.dart';
 
-class RoundedInputField extends StatelessWidget {
-  final String inputName;
-  final IconData icon;
+class TextFormFieldCustom extends StatelessWidget {
+  final TextInputType inputType;
   final TextEditingController controller;
-  // final TextEditingController controller;
-  const RoundedInputField({
+  final bool readOnly, requiredText;
+  const TextFormFieldCustom({
     Key? key,
-    required this.inputName,
-    required this.icon,
+    required this.inputType,
     required this.controller,
-    // required this.controller,
+    required this.readOnly,
+    required this.requiredText,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
+      // padding: EdgeInsets.symmetric(horizontal: 16.w),
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
         borderRadius: BorderRadius.circular(10),
@@ -30,22 +32,21 @@ class RoundedInputField extends StatelessWidget {
         ],
       ),
       child: Form(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         child: TextFormField(
+          readOnly: readOnly,
           controller: controller,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
           maxLines: 1,
-          textInputAction: TextInputAction.next,
-          validator: (value) {
-            if (value!.isEmpty) {
-              return "$inputName cannot be blank!";
-            } else if (value.length < 6) {
-              return "$inputName must be more than 6 characters!";
-            } else {
-              return null;
-            }
-          },
-          // value!.isNotEmpty ? null : "Password cannot be blank!",
-          keyboardType: TextInputType.text,
+          keyboardType: inputType,
+          validator: requiredText
+              ? (value) {
+                  if (value!.isEmpty) {
+                    return "This field cannot be blank!";
+                  } else {
+                    return null;
+                  }
+                }
+              : null,
           decoration: InputDecoration(
             border: InputBorder.none,
             filled: true,
@@ -62,6 +63,11 @@ class RoundedInputField extends StatelessWidget {
                 borderSide: const BorderSide(color: Colors.red),
                 borderRadius: BorderRadius.circular(10)),
           ),
+          style: !readOnly
+              ? TextConfigs.kText16Black
+              : TextConfigs.kText16Black.copyWith(
+                  color: AppColors.kColor2,
+                ),
         ),
       ),
     );

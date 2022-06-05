@@ -6,7 +6,7 @@ import 'package:flutter_project_1/views/home/sub_screens/widgets/evaluate_widget
 import 'package:flutter_project_1/views/home/sub_screens/widgets/post_images_widget.dart';
 import 'package:flutter_project_1/views/home/sub_screens/widgets/info_des_widget.dart';
 import 'package:flutter_project_1/views/home/sub_screens/widgets/sharer_post_widget.dart';
-import 'package:flutter_project_1/widgets/custom_back_button.dart';
+import 'package:flutter_project_1/widgets/button/custom_back_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

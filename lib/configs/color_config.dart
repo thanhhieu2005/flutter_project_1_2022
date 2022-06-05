@@ -8,6 +8,8 @@ class AppColors {
   static const kColor4 = Color(0xffF9DB6C);
   static const kColor5 = Color(0xFFE7E2E2);
   static const kColor6 = Color(0xff43C72E);
+  static const kLightGreen = Color(0xff00BA00);
+  static const kLightRed = Color(0xffFE646F);
   static const kTextColor1 = Color(0xFF787878);
   static const kPrimaryColor = Color(0xff00B4D8);
   static const kBlackColor = Colors.black;

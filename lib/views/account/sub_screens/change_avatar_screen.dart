@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_project_1/view_models/account/account_provider.dart';
-import 'package:flutter_project_1/widgets/custom_back_button.dart';
+import 'package:flutter_project_1/widgets/button/custom_back_button.dart';
+import 'package:flutter_project_1/widgets/dialog/custom_dialog_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 
@@ -30,6 +32,34 @@ class ChangeAvatarScreen extends StatefulWidget {
 }
 
 class _ChangeAvatarScreenState extends State<ChangeAvatarScreen> {
+  void onSuccess() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return const CustomDialogWidget(
+            assetsNamePng: "assets/images/check.png",
+            content: 'Your Avatar has been change!',
+            mainColor: AppColors.kLightGreen,
+            title: 'Amazing!',
+          );
+        });
+  }
+
+  void onFail() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return const CustomDialogWidget(
+            assetsNamePng: "assets/images/error.png",
+            content: 'You need to choose new avatar, please!',
+            mainColor: AppColors.kLightRed,
+            title: 'Oh...No!',
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,10 +95,10 @@ class _ChangeAvatarScreenState extends State<ChangeAvatarScreen> {
                 builder: (context, accountProvider, child) {
               return InkWell(
                 splashColor: AppColors.kBackgroundColor,
-                onTap: () async {
-                  Navigator.of(context)
-                      .popUntil(ModalRoute.withName("/personal_info_screen"));
-                  await accountProvider.saveAvatar();
+                onTap: () {
+                  // Navigator.of(context)
+                  //     .popUntil(ModalRoute.withName("/personal_info_screen"));
+                  accountProvider.saveAvatar(onSuccess, onFail);
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -85,90 +115,102 @@ class _ChangeAvatarScreenState extends State<ChangeAvatarScreen> {
           ),
         ],
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 24.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            // mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Consumer<AccountProvider>(
-                  builder: (context, accountProvider, child) {
-                return accountProvider.avatar.path != ""
-                    ? Container(
-                        constraints: BoxConstraints(
-                          minHeight: 120.h,
-                          maxHeight: 200.h,
-                          minWidth: 120.w,
-                          maxWidth: 200.w,
-                        ),
-                        // height: 120.h,
-                        // width: 120.w,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.transparent,
-                        ),
-                        child: Image.file(
-                          File(
-                            accountProvider.avatar.path,
-                          ),
-                          fit: BoxFit.contain,
-                        ),
-                      )
-                    : Container(
-                        constraints: BoxConstraints(
-                          minHeight: 120.h,
-                          maxHeight: 200.h,
-                          minWidth: 120.w,
-                          maxWidth: 200.w,
-                        ),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.red,
-                          image: DecorationImage(
-                            image: NetworkImage(
-                                accountProvider.getCurrUser().avatarUrl!),
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      );
-              }),
-              SizedBox(height: 64.h),
-              Align(
-                alignment: Alignment.topCenter,
-                child: Consumer<AccountProvider>(
-                    builder: (context, accountProvider, child) {
-                  return InkWell(
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 24.w, vertical: 12.h),
-                      decoration: BoxDecoration(
-                        color: AppColors.kColor0.withOpacity(0.3),
-                        shape: BoxShape.rectangle,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(20)),
-                        boxShadow: [
-                          BoxShadowConfig.kShadowGrey,
-                        ],
-                      ),
-                      child: Text(
-                        'Choose Image',
-                        style: TextConfigs.kTextSubtitle.copyWith(
-                          color: AppColors.kColor1,
-                        ),
-                      ),
-                    ),
-                    onTap: () {
-                      accountProvider.selectFile();
-                    },
-                  );
-                }),
-              ),
-            ],
+      body:
+          Consumer<AccountProvider>(builder: (context, accountProvider, child) {
+        return ModalProgressHUD(
+          progressIndicator: SpinKitThreeBounce(
+            color: AppColors.kPrimaryColor,
+            size: 32.h,
           ),
-        ),
-      ),
+          inAsyncCall: accountProvider.isLoad,
+          child: SafeArea(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 24.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                // mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Consumer<AccountProvider>(
+                      builder: (context, accountProvider, child) {
+                    return accountProvider.avatar.path != ""
+                        ? Container(
+                            constraints: BoxConstraints(
+                              minHeight: 120.h,
+                              maxHeight: 200.h,
+                              minWidth: 120.w,
+                              maxWidth: 200.w,
+                            ),
+                            // height: 120.h,
+                            // width: 120.w,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.transparent,
+                            ),
+                            child: Image.file(
+                              File(
+                                accountProvider.avatar.path,
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          )
+                        : Container(
+                            constraints: BoxConstraints(
+                              minHeight: 120.h,
+                              maxHeight: 200.h,
+                              minWidth: 120.w,
+                              maxWidth: 200.w,
+                            ),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.transparent,
+                              border: Border.all(
+                                  color: AppColors.kColor2, width: 0.5),
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                    accountProvider.getCurrUser().avatarUrl!),
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          );
+                  }),
+                  SizedBox(height: 64.h),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Consumer<AccountProvider>(
+                        builder: (context, accountProvider, child) {
+                      return InkWell(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 24.w, vertical: 12.h),
+                          decoration: BoxDecoration(
+                            color: AppColors.kColor0.withOpacity(0.3),
+                            shape: BoxShape.rectangle,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(20)),
+                            boxShadow: [
+                              BoxShadowConfig.kShadowGrey,
+                            ],
+                          ),
+                          child: Text(
+                            'Choose Image',
+                            style: TextConfigs.kTextSubtitle.copyWith(
+                              color: AppColors.kColor1,
+                            ),
+                          ),
+                        ),
+                        onTap: () {
+                          accountProvider.selectFile();
+                        },
+                      );
+                    }),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      }),
     );
   }
 }

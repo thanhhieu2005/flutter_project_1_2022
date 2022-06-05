@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../configs/color_config.dart';
+import '../../configs/color_config.dart';
 
 class RoundedLinearButton extends StatelessWidget {
   final String text;

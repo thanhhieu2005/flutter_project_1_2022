@@ -18,8 +18,13 @@ class AccountRepo {
   static Future<String> uploadFile(
       {required String folderPath,
       required String fileName,
+      required String folderName,
       required File avatarFile}) async {
-    var ref = FirebaseStorage.instance.ref().child(folderPath).child(fileName);
+    var ref = FirebaseStorage.instance
+        .ref()
+        .child(folderPath)
+        .child(folderName)
+        .child(fileName);
 
     UploadTask uploadTask = ref.putFile(avatarFile);
     var snapshot = await uploadTask.whenComplete(() => {});

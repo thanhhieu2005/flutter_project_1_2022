@@ -8,6 +8,7 @@ import 'package:flutter_project_1/services/account_repository.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
 
 class AccountProvider extends ChangeNotifier {
   final currentHour = DateTime.now().hour;
@@ -25,10 +26,25 @@ class AccountProvider extends ChangeNotifier {
 
   late File _avatar = File('');
 
-  bool isLoad = false;
+  bool _isLoad = false;
+
+  bool get isLoad => _isLoad;
+
+  set isLoad(value) {
+    _isLoad = value;
+    notifyListeners();
+  }
 
   File get avatar {
     return _avatar;
+  }
+
+  Future<void> refeshInput() async {
+    userNameController.text = localCurrentUser.userName!;
+    phoneNumController.text = "";
+    dOBController.text = localCurrentUser.dateOfBirth!;
+    addressController.text = "";
+    notifyListeners();
   }
 
   VatractionUser infoUserUpdate(String newAvatar) {
@@ -43,15 +59,22 @@ class AccountProvider extends ChangeNotifier {
     return newInfoUser;
   }
 
-  Future<void> updateInfoUser() async {
-    var newInfoUser = infoUserUpdate(localCurrentUser.avatarUrl!);
-    await AccountRepo.updateInfoUser(newInfoUser);
-    _currUser = newInfoUser;
-    localCurrentUser = newInfoUser;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString("user", jsonEncode(localCurrentUser.toJson()));
-    prefs.getString("user");
-    notifyListeners();
+  Future<void> updateInfoUser(Function onSuccess, Function onFail) async {
+    if (userNameController.text.isEmpty ||
+        userNameController.text == localCurrentUser.userName) {
+      onFail();
+    } else {
+      isLoad = true;
+      var newInfoUser = infoUserUpdate(localCurrentUser.avatarUrl!);
+      await AccountRepo.updateInfoUser(newInfoUser);
+      _currUser = newInfoUser;
+      localCurrentUser = newInfoUser;
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString("user", jsonEncode(localCurrentUser.toJson()));
+      prefs.getString("user");
+      isLoad = false;
+      onSuccess();
+    }
   }
 
   VatractionUser getCurrUser() {
@@ -89,7 +112,6 @@ class AccountProvider extends ChangeNotifier {
       if (image == null) return;
       final imageTemporagy = File(image.path);
       _avatar = imageTemporagy;
-      isLoad = true;
       notifyListeners();
     } on PlatformException catch (e) {
       // ignore: avoid_print
@@ -97,23 +119,29 @@ class AccountProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> saveAvatar() async {
-    if (_avatar == File('')) return;
+  Future<void> saveAvatar(Function onSuccess, Function onFail) async {
+    if (_avatar.path == '') {
+      onFail();
+    } else {
+      isLoad = true;
+      final newAvatarUrl = await AccountRepo.uploadFile(
+        avatarFile: File(avatar.path),
+        fileName: basename(avatar.path),
+        folderPath: 'avatar_photos',
+        folderName: _currUser.uid,
+      );
 
-    final newAvatarUrl = await AccountRepo.uploadFile(
-      avatarFile: File(avatar.path),
-      fileName: _currUser.uid,
-      folderPath: 'avatar_photos',
-    );
+      var newInfoUser = infoUserUpdate(newAvatarUrl);
+      _currUser = newInfoUser;
+      localCurrentUser = newInfoUser;
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString("user", jsonEncode(localCurrentUser.toJson()));
+      await AccountRepo.updateInfoUser(_currUser);
+      _avatar = File('');
 
-    var newInfoUser = infoUserUpdate(newAvatarUrl);
-    _currUser = newInfoUser;
-    localCurrentUser = newInfoUser;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString("user", jsonEncode(localCurrentUser.toJson()));
-    await AccountRepo.updateInfoUser(_currUser);
-    _avatar = File('');
+      isLoad = false;
 
-    notifyListeners();
+      onSuccess();
+    }
   }
 }
