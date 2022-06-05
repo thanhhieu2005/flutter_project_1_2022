@@ -5,14 +5,17 @@ class RoundedInputField extends StatelessWidget {
   final String inputName;
   final IconData icon;
   final TextEditingController controller;
+  final Color fillColor;
   // final TextEditingController controller;
-  const RoundedInputField({
-    Key? key,
-    required this.inputName,
-    required this.icon,
-    required this.controller,
-    // required this.controller,
-  }) : super(key: key);
+  const RoundedInputField(
+      {Key? key,
+      required this.inputName,
+      required this.icon,
+      required this.controller,
+      this.fillColor = AppColors.kColor1
+      // required this.controller,
+      })
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -49,7 +52,7 @@ class RoundedInputField extends StatelessWidget {
           decoration: InputDecoration(
             border: InputBorder.none,
             filled: true,
-            fillColor: AppColors.kColor1,
+            fillColor: fillColor,
             enabledBorder: OutlineInputBorder(
               borderSide: const BorderSide(color: Colors.white),
               borderRadius: BorderRadius.circular(10),

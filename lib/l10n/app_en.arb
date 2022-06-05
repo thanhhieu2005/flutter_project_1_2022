@@ -67,7 +67,8 @@
     "signUp": "Sign Up",
     "alreadyHaveAccount": "Already have an account ?",
     "findInterest": "Find Interesting",
-    "placeToDiscover": "Place to Discover",
+    "placeToDiscover": "Places to Discover",
     "weShareAll": "We share all place like tourist attraction,",
-    "tourGuide" : "tour guides, places review, etc"
+    "tourGuide" : "tour guides, places review, etc",
+    "welcomeBack" : "Welcome back"
 }

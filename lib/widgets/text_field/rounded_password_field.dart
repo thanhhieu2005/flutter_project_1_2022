@@ -8,9 +8,11 @@ class RoundedPasswordField extends StatefulWidget {
   final String pwdToConfirm;
   final bool isConfirmPwd;
   final TextEditingController controller;
+  final Color fillColor;
   // final TextEditingController controller;
   const RoundedPasswordField({
     Key? key,
+    this.fillColor = AppColors.kColor1,
     this.pwdToConfirm = "",
     this.isConfirmPwd = false,
     required this.controller,
@@ -74,7 +76,7 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
             decoration: InputDecoration(
               border: InputBorder.none,
               filled: true,
-              fillColor: AppColors.kColor1,
+              fillColor: widget.fillColor,
               suffixIcon: IconButton(
                 icon: Padding(
                   padding: EdgeInsets.only(right: 20.w),
