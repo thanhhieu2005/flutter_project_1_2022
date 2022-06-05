@@ -200,9 +200,6 @@ class _ConfirmEmailPageState extends State<ConfirmEmailPage> {
                                   localCurrentUser.email,
                                   signUpProvider.pinCodeController.text);
                               if (isVerified) {
-                                if (isCreateAccount) {
-                                  signUpProvider.createAccountWithEmail();
-                                }
                                 await signUpProvider.updateVerifyEmailStatus(
                                     localCurrentUser.uid);
                                 Navigator.pushAndRemoveUntil(
