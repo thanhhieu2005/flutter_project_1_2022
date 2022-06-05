@@ -158,7 +158,7 @@ class SignUpPageState extends State<SignUpPage> {
                             try {
                               signUpProvider.isLoading = true;
                               _formKey.currentState?.validate();
-                              signUpProvider.createLocalUser();
+                              signUpProvider.createAccountWithEmail();
                               signUpProvider.sendOtp();
                               signUpProvider.clearTextController();
                               Navigator.pushNamed(

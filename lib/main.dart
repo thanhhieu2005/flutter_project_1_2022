@@ -17,8 +17,8 @@ void main() async {
   Map<String, dynamic> userJson = {};
   if (pref.getString('user') != null) {
     userJson = jsonDecode(pref.getString('user')!);
+    localCurrentUser = VatractionUser.fromJson(userJson);
   }
-  localCurrentUser = VatractionUser.fromJson(userJson);
   runApp(
     ChangeNotifierProvider(
       create: (_) => LocaleProvider(),

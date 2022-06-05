@@ -26,108 +26,78 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Stack(
-          fit: StackFit.loose,
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/img_welcome_background.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
           children: [
             Container(
-              padding: EdgeInsets.only(top: 60.h),
-              child: Center(
-                child: Image.asset(
-                  "assets/images/bg_welcome.png",
-                  height: 500.h,
-                  fit: BoxFit.fitWidth,
-                ),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(left: 20.w, top: 25.h),
+              margin: EdgeInsets.only(top: 25.h),
               child: Align(
-                alignment: Alignment.centerLeft,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      AppLocalizations.of(context).findInterest,
-                      style: TextConfigs.kText24SemiBoldBlack,
-                    ),
-                    SizedBox(
-                      height: 5.h,
-                    ),
-                    Text(
-                      AppLocalizations.of(context).placeToDiscover,
-                      style: TextConfigs.kText24SemiBoldPrimary,
-                    ),
-                    SizedBox(
-                      height: 7.h,
-                    ),
-                    Text(
-                      AppLocalizations.of(context).weShareAll,
-                      style: TextConfigs.kText16Grey,
-                    ),
-                    Text(
-                      AppLocalizations.of(context).tourGuide,
-                      style: TextConfigs.kText16Grey,
-                    ),
-                  ],
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: EdgeInsets.only(right: 30.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        AppLocalizations.of(context).findInterest,
+                        style: TextConfigs.kText32SemiBoldLightPrimary,
+                      ),
+                      SizedBox(height: 5.h),
+                      Text(
+                        AppLocalizations.of(context).placeToDiscover,
+                        style: TextConfigs.kText32SemiBoldWhite,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-            Positioned.fill(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 40.w,
-                      ),
-                      child: RoundedLinearButton(
-                          text: AppLocalizations.of(context).signUp,
-                          press: () {
-                            Navigator.push(context, SignUpPage.route());
-                          },
-                          isAllCap: false,
-                          textColor: Colors.white,
-                          startColor: AppColors.kPrimaryColor,
-                          endColor: AppColors.kPrimaryColor),
-                    ),
-                    SizedBox(
-                      height: 5.h,
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(top: 10.h, bottom: 15.h),
-                      color: AppColors.kBackgroundColor,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            AppLocalizations.of(context).alreadyHaveAccount,
-                            style: TextConfigs.kText16Black,
-                          ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamedAndRemoveUntil(context,
-                                  LoginPage.nameRoute, (route) => false);
-                            },
-                            child: Text(
-                              AppLocalizations.of(context).signIn,
-                              style: TextConfigs.kText16Primary,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+            const Spacer(),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 25.h),
+              child: Column(
+                children: [
+                  RoundedLinearButton(
+                      text: AppLocalizations.of(context).signIn,
+                      press: () {
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, LoginPage.nameRoute, (route) => false);
+                      },
+                      isAllCap: false,
+                      isTextBool: true,
+                      textColor: Colors.white,
+                      startColor: Colors.black.withOpacity(0.35),
+                      endColor: Colors.black.withOpacity(0.35)),
+                  SizedBox(height: 20.h),
+                  RoundedLinearButton(
+                      text: AppLocalizations.of(context).create,
+                      press: () {
+                        Navigator.push(context, SignUpPage.route());
+                      },
+                      isAllCap: false,
+                      isTextBool: true,
+                      textColor: AppColors.kPrimaryColor,
+                      startColor: AppColors.kColor1,
+                      endColor: AppColors.kColor1),
+                ],
               ),
             ),
+            Text(
+              AppLocalizations.of(context).weShareAll,
+              style: TextConfigs.kText14White,
+            ),
+            Text(
+              AppLocalizations.of(context).tourGuide,
+              style: TextConfigs.kText14White,
+            ),
+            SizedBox(height: 20.h)
           ],
         ),
       ),
