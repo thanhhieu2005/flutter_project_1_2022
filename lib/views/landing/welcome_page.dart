@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../configs/color_config.dart';
 import '../../configs/text_config.dart';
-import '../../widgets/rounded_linear_button.dart';
+import '../../widgets/button/rounded_linear_button.dart';
 import '../sign_up/sign_up_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

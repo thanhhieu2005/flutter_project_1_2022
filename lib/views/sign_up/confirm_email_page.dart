@@ -11,8 +11,8 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import '../../configs/text_config.dart';
-import '../../widgets/custom_dialog.dart';
-import '../../widgets/rounded_linear_button.dart';
+import '../../widgets/dialog/custom_dialog.dart';
+import '../../widgets/button/rounded_linear_button.dart';
 
 class ConfirmEmailPage extends StatefulWidget {
   const ConfirmEmailPage({Key? key, this.isCreateAccount = false})

@@ -10,14 +10,14 @@ import 'package:flutter_project_1/views/create_post/widgets/container_dropdown.d
 import 'package:flutter_project_1/views/create_post/widgets/image_item.dart';
 import 'package:flutter_project_1/views/create_post/widgets/input_field_custom.dart';
 import 'package:flutter_project_1/views/create_post/widgets/input_title.dart';
-import 'package:flutter_project_1/widgets/rounded_main_button.dart';
+import 'package:flutter_project_1/widgets/button/rounded_main_button.dart';
 import 'package:flutter_project_1/widgets/title_appbar_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import '../../configs/text_config.dart';
 import '../../models/address/wards_model.dart';
 import '../../view_models/create_post_provider.dart';
-import '../../widgets/custom_back_button.dart';
+import '../../widgets/button/custom_back_button.dart';
 
 class CreatePostScreen extends StatefulWidget {
   static const String nameRoute = '/create_post_screen';

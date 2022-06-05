@@ -48,7 +48,8 @@ class PostRepo {
     var imageUrls = await Future.wait(
       _listImages.map(
         (image) => AccountRepo.uploadFile(
-          folderPath: namePost,
+          folderName: namePost,
+          folderPath: 'images_post',
           fileName: basename(image.path),
           avatarFile: image,
         ),

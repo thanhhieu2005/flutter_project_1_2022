@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../configs/color_config.dart';
 import '../../../view_models/post_provider.dart';
-import '../../../widgets/custom_back_button.dart';
+import '../../../widgets/button/custom_back_button.dart';
 import '../../../widgets/post_card.dart';
 
 class TypeScreen extends StatelessWidget {
@@ -91,7 +91,8 @@ class TypeScreen extends StatelessWidget {
                           Navigator.pushNamed(
                             context,
                             PostDetailScreen.nameRoute,
-                            arguments: PostDetailArgument(posts[index], args.provider.sharer!),
+                            arguments: PostDetailArgument(
+                                posts[index], args.provider.sharer!),
                           );
                         },
                         post: posts[index],

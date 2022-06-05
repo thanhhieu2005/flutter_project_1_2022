@@ -6,15 +6,15 @@ import 'package:flutter_project_1/services/auth_service.dart';
 import 'package:flutter_project_1/views/navigation_bar_view/navigation_bar_view.dart';
 import 'package:flutter_project_1/views/sign_up/confirm_email_page.dart';
 import 'package:flutter_project_1/views/sign_up/sign_up_page.dart';
-import 'package:flutter_project_1/widgets/rounded_input_field.dart';
-import 'package:flutter_project_1/widgets/rounded_linear_button.dart';
-import 'package:flutter_project_1/widgets/rounded_password_field.dart';
+import 'package:flutter_project_1/widgets/text_field/rounded_input_field.dart';
+import 'package:flutter_project_1/widgets/button/rounded_linear_button.dart';
+import 'package:flutter_project_1/widgets/text_field/rounded_password_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 
 import '../../view_models/login/login_provider.dart';
-import '../../widgets/custom_dialog.dart';
+import '../../widgets/dialog/custom_dialog.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key, this.autoFillEmail, this.autoFillPwd})
