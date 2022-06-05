@@ -31,7 +31,6 @@ class LandingPageState extends State<LandingPage> {
           final VatractionUser? user = snapshot.data;
           if (user != null && !localCurrentUser.isConfirmEmail!) {
             localCurrentUser = user;
-            authService.sendOtp(user.email);
             return const LoginPage();
           }
           return user == null ? const WelcomePage() : const NavigationBarView();

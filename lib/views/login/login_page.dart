@@ -43,11 +43,24 @@ class _LoginPageState extends State<LoginPage> {
       color: AppColors.kPrimaryColor,
       child: Scaffold(
         body: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/img_welcome_background.png"),
+              fit: BoxFit.cover,
+            ),
+          ),
           margin: EdgeInsets.symmetric(horizontal: 20.w),
           child: Center(
               child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Stack(
+                children: [
+                  Container(
+                    child: Column(children: []),
+                  )
+                ],
+              ),
               RoundedInputField(
                 controller: loginProvider.loginEmailController,
                 inputName: "Email",
