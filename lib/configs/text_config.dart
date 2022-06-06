@@ -24,14 +24,14 @@ class TextConfigs {
       color: AppColors.kColor1,
       fontWeight: FontWeight.bold);
 
-  static final kText32SemiBoldLightPrimary = TextStyle(
-      fontSize: 32.sp,
+  static final kText31SemiBoldLightPrimary = TextStyle(
+      fontSize: 31.sp,
       fontFamily: kFontFamily,
       color: AppColors.kTextLightPrimary,
       fontWeight: FontWeight.bold);
 
-  static final kText32SemiBoldWhite = TextStyle(
-      fontSize: 32.sp,
+  static final kText31SemiBoldWhite = TextStyle(
+      fontSize: 31.sp,
       fontFamily: kFontFamily,
       color: AppColors.kColor1,
       fontWeight: FontWeight.bold);
