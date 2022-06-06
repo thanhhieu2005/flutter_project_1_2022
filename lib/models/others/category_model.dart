@@ -1,4 +1,4 @@
-import 'package:flutter_project_1/models/posts/post.dart';
+import 'package:flutter_project_1/models/posts/destination_post.dart';
 
 class Category {
   final String icon, title, thumb, intro;

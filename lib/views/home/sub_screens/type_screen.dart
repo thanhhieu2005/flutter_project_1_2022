@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_project_1/models/others/argument_model.dart';
-import 'package:flutter_project_1/models/posts/post.dart';
+import 'package:flutter_project_1/models/posts/destination_post.dart';
 import 'package:flutter_project_1/views/home/sub_screens/post_detail_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../configs/color_config.dart';
-import '../../../view_models/post_provider.dart';
+import '../../../view_models/post/destination_post_provider.dart';
 import '../../../widgets/button/custom_back_button.dart';
 import '../../../widgets/post_card.dart';
 
@@ -18,7 +18,7 @@ class TypeScreen extends StatelessWidget {
     TypeScreenArgument args = settings.arguments as TypeScreenArgument;
     return MaterialPageRoute(
       settings: settings,
-      builder: (_) => ChangeNotifierProvider<PostProvider>.value(
+      builder: (_) => ChangeNotifierProvider<DestinationPostProvider>.value(
         value: args.provider,
         child: const TypeScreen(),
       ),
@@ -32,7 +32,7 @@ class TypeScreen extends StatelessWidget {
     TypeScreenArgument args =
         ModalRoute.of(context)!.settings.arguments as TypeScreenArgument;
     final category = args.category;
-    final posts = args.provider.typePost;
+    final posts = args.provider.typeDestinationPost;
     // final provider = args.provider;
     return Scaffold(
       backgroundColor: AppColors.kBackgroundColor,
@@ -85,7 +85,7 @@ class TypeScreen extends StatelessWidget {
                 return posts.isNotEmpty
                     ? PostCard(
                         onClick: () async {
-                          await Provider.of<PostProvider>(context,
+                          await Provider.of<DestinationPostProvider>(context,
                                   listen: false)
                               .getUserById(posts[index].sharer);
                           Navigator.pushNamed(

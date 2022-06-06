@@ -2,14 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_project_1/configs/image_config.dart';
 import 'package:flutter_project_1/models/others/category_model.dart';
-import 'package:flutter_project_1/models/posts/post.dart';
+import 'package:flutter_project_1/models/posts/destination_post.dart';
 import 'package:flutter_project_1/models/users/user.dart';
-import 'package:flutter_project_1/services/post_repository.dart';
+import 'package:flutter_project_1/services/destination_post_repository.dart';
 
-class PostProvider extends ChangeNotifier {
+class DestinationPostProvider extends ChangeNotifier {
   bool isLoad = true;
-  final List<Post> _popularPost = [];
-  final List<Post> _typePost = [];
+  final List<DestinationPost> _popularDestinationPost = [];
+  final List<DestinationPost> _typeDestinationPost = [];
 
   VatractionUser? sharer;
 
@@ -45,30 +45,31 @@ class PostProvider extends ChangeNotifier {
     ),
   ];
 
-  PostProvider() {
+  DestinationPostProvider() {
     onDataChange();
   }
 
   void onDataChange() {
-    PostRepo.onPostDataChange().listen((QuerySnapshot event) {
+    DestinationPostRepo.onPostDataChange().listen((QuerySnapshot event) {
       for (var element in event.docChanges) {
-        final post = Post.fromMap(element.doc.data() as Map<String, dynamic>);
+        final post =
+            DestinationPost.fromMap(element.doc.data() as Map<String, dynamic>);
         switch (element.type) {
           case DocumentChangeType.added:
             if (post.rating >= 3.5) {
-              _popularPost.add(post);
+              _popularDestinationPost.add(post);
             }
             break;
           case DocumentChangeType.modified:
-            final index = _popularPost
-                .indexWhere((element) => element.postId == post.postId);
+            final index = _popularDestinationPost.indexWhere((element) =>
+                element.destinationPostId == post.destinationPostId);
             if (index >= 0) {
-              _popularPost[index] = post;
+              _popularDestinationPost[index] = post;
             }
             break;
           case DocumentChangeType.removed:
-            _popularPost
-                .removeWhere((element) => element.postId == post.postId);
+            _popularDestinationPost.removeWhere((element) =>
+                element.destinationPostId == post.destinationPostId);
             break;
         }
       }
@@ -89,12 +90,12 @@ class PostProvider extends ChangeNotifier {
   //   notifyListeners();
   // }
 
-  Future<void> getPostByType(PostType type) async {
-    _typePost.clear();
-    var allPost = await PostRepo.getAllPost();
-    for (Post e in allPost) {
+  Future<void> getDestinationPostByType(PostType type) async {
+    _typeDestinationPost.clear();
+    var allPost = await DestinationPostRepo.getAllDestinationPost();
+    for (DestinationPost e in allPost) {
       if (e.type == type && e.status == PostStatus.approve) {
-        _typePost.add(e);
+        _typeDestinationPost.add(e);
       } else {
         continue;
       }
@@ -103,15 +104,15 @@ class PostProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<Post> get popularPost {
-    return _popularPost;
+  List<DestinationPost> get popularDestinationPost {
+    return _popularDestinationPost;
   }
 
-  List<Post> get typePost {
-    return _typePost;
+  List<DestinationPost> get typeDestinationPost {
+    return _typeDestinationPost;
   }
 
   Future<void> getUserById(String uid) async {
-    sharer = await PostRepo.getUserById(uid);
+    sharer = await DestinationPostRepo.getUserById(uid);
   }
 }

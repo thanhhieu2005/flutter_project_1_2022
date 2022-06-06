@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
-import 'package:flutter_project_1/view_models/account/account_provider.dart';
+import 'package:flutter_project_1/view_models/account/setting_account_provider.dart';
 import 'package:flutter_project_1/views/account/sub_screens/change_avatar_screen.dart';
 import 'package:flutter_project_1/views/account/widgets/avatar_user_widget.dart';
 import 'package:flutter_project_1/views/account/widgets/bottom_sheet_uploadphoto.dart';
@@ -20,10 +20,10 @@ import 'package:provider/provider.dart';
 class PersonalInfoScreen extends StatelessWidget {
   static const String nameRoute = '/personal_info_screen';
   static Route route(RouteSettings settings) {
-    final accountProvider = settings.arguments as AccountProvider;
+    final accountProvider = settings.arguments as SettingAccountProvider;
     return MaterialPageRoute(
       settings: settings,
-      builder: (_) => ChangeNotifierProvider<AccountProvider>.value(
+      builder: (_) => ChangeNotifierProvider<SettingAccountProvider>.value(
         value: accountProvider,
         child: const PersonalInfoScreen(),
       ),
@@ -76,7 +76,7 @@ class PersonalInfoScreen extends StatelessWidget {
             leadingWidth: 48.w,
             leading: Align(
               alignment: Alignment.centerLeft,
-              child: Consumer<AccountProvider>(
+              child: Consumer<SettingAccountProvider>(
                   builder: (context, accountProvider, child) {
                 return CustomBackButton(
                   backgroundColor: AppColors.kColor1,
@@ -98,7 +98,7 @@ class PersonalInfoScreen extends StatelessWidget {
             ),
           ),
         ],
-        body: Consumer<AccountProvider>(
+        body: Consumer<SettingAccountProvider>(
             builder: (context, accountProvider, child) {
           return ModalProgressHUD(
             progressIndicator: SpinKitThreeBounce(
@@ -247,7 +247,7 @@ class PersonalInfoScreen extends StatelessWidget {
                       height: 54.h,
                     ),
                     Center(
-                      child: Consumer<AccountProvider>(
+                      child: Consumer<SettingAccountProvider>(
                           builder: (context, provider, child) {
                         return RoundedMainButton(
                           text: AppLocalizations.of(context).save,

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
-import 'package:flutter_project_1/view_models/account/account_provider.dart';
-import 'package:flutter_project_1/view_models/create_post_provider.dart';
-import 'package:flutter_project_1/view_models/post_provider.dart';
-import 'package:flutter_project_1/views/account/account_screen.dart';
-import 'package:flutter_project_1/views/create_post/create_post_screen.dart';
+import 'package:flutter_project_1/view_models/account/setting_account_provider.dart';
+import 'package:flutter_project_1/view_models/post/create_des_post_provider.dart';
+import 'package:flutter_project_1/view_models/post/destination_post_provider.dart';
+import 'package:flutter_project_1/views/account/setting_account_screen.dart';
+import 'package:flutter_project_1/views/create_destination_post/create_destination_post_screen.dart';
 import 'package:flutter_project_1/views/discovery/discovery_screen.dart';
 import 'package:flutter_project_1/views/home/home_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,9 +33,9 @@ class _NavigationBarViewState extends State<NavigationBarView> {
   Route _createRoute() {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) {
-        return ChangeNotifierProvider<CreatePostProvider>(
-          create: (context) => CreatePostProvider(),
-          child: const CreatePostScreen(),
+        return ChangeNotifierProvider<CreateDestinationPostProvider>(
+          create: (context) => CreateDestinationPostProvider(),
+          child: const CreateDestinationPostScreen(),
         );
       },
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -56,8 +56,8 @@ class _NavigationBarViewState extends State<NavigationBarView> {
 
   // screen
   final mainScreen = [
-    ChangeNotifierProvider<PostProvider>(
-      create: (_) => PostProvider(),
+    ChangeNotifierProvider<DestinationPostProvider>(
+      create: (_) => DestinationPostProvider(),
       child: const HomeScreen(),
     ),
     const DiscoveryScreen(),
@@ -72,9 +72,9 @@ class _NavigationBarViewState extends State<NavigationBarView> {
         ),
       ),
     ),
-    ChangeNotifierProvider<AccountProvider>(
-      create: (_) => AccountProvider(),
-      child: const AccountScreen(),
+    ChangeNotifierProvider<SettingAccountProvider>(
+      create: (_) => SettingAccountProvider(),
+      child: const SettingAccountScreen(),
     ),
   ];
   @override

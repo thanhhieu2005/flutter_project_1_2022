@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project_1/widgets/dialog/custom_dialog_widget.dart';
 
 class OpenDialog {
-  static void onFail(BuildContext context, String assetsNamePng, String content,
+   void onFail(BuildContext context, String assetsNamePng, String content,
       String title, Color mainColor) {
     showDialog(
         barrierDismissible: false,
@@ -17,7 +17,7 @@ class OpenDialog {
         });
   }
 
-  static void onSuccess(BuildContext context, String assetsNamePng,
+   void onSuccess(BuildContext context, String assetsNamePng,
       String content, String title, Color mainColor) {
     showDialog(
         barrierDismissible: false,

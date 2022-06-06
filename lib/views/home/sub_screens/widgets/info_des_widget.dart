@@ -6,10 +6,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../configs/edgeInset_config.dart';
-import '../../../../models/posts/post.dart';
+import '../../../../models/posts/destination_post.dart';
 
 class InfoDestinationWidget extends StatelessWidget {
-  final Post post;
+  final DestinationPost post;
   const InfoDestinationWidget({
     Key? key,
     required this.post,

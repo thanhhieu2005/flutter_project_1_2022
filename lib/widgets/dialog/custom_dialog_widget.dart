@@ -21,6 +21,7 @@ class CustomDialogWidget extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
       ),
+      titlePadding: EdgeInsets.only(top: 16.h),
       title: Center(
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.center,
@@ -51,6 +52,7 @@ class CustomDialogWidget extends StatelessWidget {
         ],
       ),
       actionsAlignment: MainAxisAlignment.center,
+      actionsPadding: EdgeInsets.only(bottom: 16.h),
       actions: [
         GestureDetector(
           onTap: () {

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
-import 'package:flutter_project_1/constants/global_constants.dart';
 import 'package:flutter_project_1/services/auth_service.dart';
-import 'package:flutter_project_1/view_models/account/account_provider.dart';
+import 'package:flutter_project_1/view_models/account/setting_account_provider.dart';
 import 'package:flutter_project_1/view_models/locale_provider.dart';
 import 'package:flutter_project_1/views/account/widgets/avatar_user_widget.dart';
 import 'package:flutter_project_1/views/account/sub_screens/change_pwd_screen.dart';
@@ -16,24 +15,24 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class AccountScreen extends StatefulWidget {
-  static const String nameRoute = '/account_screeen';
+class SettingAccountScreen extends StatefulWidget {
+  static const String nameRoute = '/setting_account_screeen';
   static Route route() {
     return MaterialPageRoute(
-      builder: (_) => const AccountScreen(),
+      builder: (_) => const SettingAccountScreen(),
       settings: const RouteSettings(name: nameRoute),
     );
   }
 
-  const AccountScreen({
+  const SettingAccountScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<AccountScreen> createState() => _AccountScreenState();
+  State<SettingAccountScreen> createState() => _SettingAccountScreenState();
 }
 
-class _AccountScreenState extends State<AccountScreen> {
+class _SettingAccountScreenState extends State<SettingAccountScreen> {
   // late AccountProvider accountProvider;
   // late String displayName;
   // @override
@@ -46,7 +45,7 @@ class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
-    final accountProvider = context.watch<AccountProvider>();
+    final accountProvider = context.watch<SettingAccountProvider>();
     return Scaffold(
       backgroundColor: AppColors.kBackgroundColor,
       body: SingleChildScrollView(
@@ -81,7 +80,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                 accountProvider.setUpTimezone(context),
                                 style: TextConfigs.kText24_1,
                               ),
-                              Consumer<AccountProvider>(
+                              Consumer<SettingAccountProvider>(
                                   builder: (context, provider, child) {
                                 return Text(
                                   provider.setUpDisplayName(),
@@ -95,29 +94,12 @@ class _AccountScreenState extends State<AccountScreen> {
                             height: 6.h,
                           ),
                           // Add condition admin for account user
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Container(
-                                padding: EdgeInsets.all(5.h),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(
-                                    color: AppColors.kColor6,
-                                    width: 1.0,
-                                  ),
-                                ),
-                                child: Text(
-                                  'Administrator',
-                                  style: TextConfigs.kText12W500Green1,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 4.w,
-                              ),
-                              SvgPicture.asset("assets/icons/ic_admin.svg"),
-                            ],
-                          ),
+                          Consumer<SettingAccountProvider>(
+                              builder: (context, provider, child) {
+                            return provider.getCurrUser().role == 1
+                                ? const LogoAdminWidget()
+                                : Container();
+                          }),
                         ],
                       ),
                     ),
@@ -128,14 +110,19 @@ class _AccountScreenState extends State<AccountScreen> {
                 height: 40.h,
               ),
               // ignore: prefer_const_constructors
-              SettingAppItem(
-                backgroundColor: AppColors.kDarkBlue1,
-                icon: "assets/icons/ic_post_moderation.svg",
-                name: AppLocalizations.of(context).postModeration,
-                colorItem: AppColors.kColor1,
-                onTap: () {},
-                visibility: true,
-              ),
+              Consumer<SettingAccountProvider>(
+                  builder: (context, provider, child) {
+                return provider.getCurrUser().role == 1
+                    ? SettingAppItem(
+                        backgroundColor: AppColors.kDarkBlue1,
+                        icon: "assets/icons/ic_post_moderation.svg",
+                        name: AppLocalizations.of(context).postModeration,
+                        colorItem: AppColors.kColor1,
+                        onTap: () {},
+                        visibility: true,
+                      )
+                    : Container();
+              }),
               SizedBox(
                 height: 4.h,
               ),
@@ -227,6 +214,39 @@ class _AccountScreenState extends State<AccountScreen> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class LogoAdminWidget extends StatelessWidget {
+  const LogoAdminWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Container(
+          padding: EdgeInsets.all(5.h),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+              color: AppColors.kColor6,
+              width: 1.0,
+            ),
+          ),
+          child: Text(
+            'Administrator',
+            style: TextConfigs.kText12W500Green1,
+          ),
+        ),
+        SizedBox(
+          width: 4.w,
+        ),
+        SvgPicture.asset("assets/icons/ic_admin.svg"),
+      ],
     );
   }
 }
