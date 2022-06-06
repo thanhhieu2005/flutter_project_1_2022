@@ -1,34 +1,36 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/models/address/district_model.dart';
 import 'package:flutter_project_1/models/address/province_model.dart';
-import 'package:flutter_project_1/models/posts/post.dart';
+import 'package:flutter_project_1/models/posts/destination_post.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_project_1/views/create_post/widgets/add_image_widget.dart';
-import 'package:flutter_project_1/views/create_post/widgets/container_dropdown.dart';
-import 'package:flutter_project_1/views/create_post/widgets/image_item.dart';
-import 'package:flutter_project_1/views/create_post/widgets/input_field_custom.dart';
-import 'package:flutter_project_1/views/create_post/widgets/input_title.dart';
+import 'package:flutter_project_1/views/create_destination_post/widgets/add_image_widget.dart';
+import 'package:flutter_project_1/views/create_destination_post/widgets/container_dropdown.dart';
+import 'package:flutter_project_1/views/create_destination_post/widgets/image_item.dart';
+import 'package:flutter_project_1/views/create_destination_post/widgets/input_field_custom.dart';
+import 'package:flutter_project_1/views/create_destination_post/widgets/input_title.dart';
 import 'package:flutter_project_1/widgets/button/rounded_main_button.dart';
+import 'package:flutter_project_1/widgets/dialog/open_dialog.dart';
 import 'package:flutter_project_1/widgets/title_appbar_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import '../../configs/text_config.dart';
 import '../../models/address/wards_model.dart';
-import '../../view_models/create_post_provider.dart';
+import '../../view_models/post/create_des_post_provider.dart';
 import '../../widgets/button/custom_back_button.dart';
 
-class CreatePostScreen extends StatefulWidget {
-  static const String nameRoute = '/create_post_screen';
+class CreateDestinationPostScreen extends StatefulWidget {
+  static const String nameRoute = '/create_destination_post_screen';
 
-  const CreatePostScreen({Key? key}) : super(key: key);
+  const CreateDestinationPostScreen({Key? key}) : super(key: key);
 
   @override
-  State<CreatePostScreen> createState() => _CreatePostScreenState();
+  State<CreateDestinationPostScreen> createState() =>
+      _CreateDestinationPostScreenState();
 }
 
-class _CreatePostScreenState extends State<CreatePostScreen> {
+class _CreateDestinationPostScreenState
+    extends State<CreateDestinationPostScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,7 +90,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                     title: AppLocalizations.of(context).destionationName,
                     isRequired: true,
                   ),
-                  Consumer<CreatePostProvider>(
+                  Consumer<CreateDestinationPostProvider>(
                       builder: (context, createPostProvider, child) {
                     return InputFieldCreatePost(
                       keyboardType: TextInputType.text,
@@ -102,7 +104,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                     isRequired: true,
                     title: AppLocalizations.of(context).province,
                   ),
-                  Consumer<CreatePostProvider>(
+                  Consumer<CreateDestinationPostProvider>(
                       builder: (context, provider, child) {
                     return ContainerDropdown(
                       dropDownWidget: DropdownButtonHideUnderline(
@@ -130,7 +132,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                     isRequired: true,
                     title: AppLocalizations.of(context).district,
                   ),
-                  Consumer<CreatePostProvider>(
+                  Consumer<CreateDestinationPostProvider>(
                       builder: (context, provider, child) {
                     return ContainerDropdown(
                       dropDownWidget: DropdownButtonHideUnderline(
@@ -158,7 +160,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                     isRequired: true,
                     title: AppLocalizations.of(context).wards,
                   ),
-                  Consumer<CreatePostProvider>(
+                  Consumer<CreateDestinationPostProvider>(
                       builder: (context, provider, child) {
                     return ContainerDropdown(
                       dropDownWidget: DropdownButtonHideUnderline(
@@ -186,7 +188,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                     isRequired: false,
                     title: AppLocalizations.of(context).road,
                   ),
-                  Consumer<CreatePostProvider>(
+                  Consumer<CreateDestinationPostProvider>(
                       builder: (context, createPostProvider, child) {
                     return InputFieldCreatePost(
                       keyboardType: TextInputType.text,
@@ -202,7 +204,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                   ),
                   SizedBox(
                     height: 120.h,
-                    child: Consumer<CreatePostProvider>(
+                    child: Consumer<CreateDestinationPostProvider>(
                         builder: (context, createPostProvider, child) {
                       return ListView.separated(
                           shrinkWrap: true,
@@ -238,7 +240,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                     isRequired: true,
                     title: AppLocalizations.of(context).description,
                   ),
-                  Consumer<CreatePostProvider>(
+                  Consumer<CreateDestinationPostProvider>(
                       builder: (context, createPostProvider, child) {
                     return InputFieldCreatePost(
                       keyboardType: TextInputType.multiline,
@@ -254,7 +256,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                     isRequired: true,
                     title: AppLocalizations.of(context).typeDestination,
                   ),
-                  Consumer<CreatePostProvider>(
+                  Consumer<CreateDestinationPostProvider>(
                       builder: (context, provider, child) {
                     return ContainerDropdown(
                       dropDownWidget: DropdownButtonHideUnderline(
@@ -275,7 +277,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Consumer<CreatePostProvider>(
+                      Consumer<CreateDestinationPostProvider>(
                           builder: (context, provider, child) {
                         return Checkbox(
                             activeColor: AppColors.kPrimaryColor,
@@ -299,7 +301,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                     ],
                   ),
                   SizedBox(height: 24.h),
-                  Consumer<CreatePostProvider>(
+                  Consumer<CreateDestinationPostProvider>(
                       builder: (context, createPostProvider, child) {
                     return Center(
                       child: RoundedMainButton(
@@ -307,7 +309,14 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                         height: 56.h,
                         width: 240.w,
                         onTap: () {
-                          createPostProvider.submitPost();
+                          createPostProvider.submitPost(() {
+                            OpenDialog().onFail(
+                                context,
+                                "assets/images/error.png",
+                                "Youd need to check again Destination Post's Info!",
+                                "Oops...Fail",
+                                AppColors.kLightRed);
+                          });
                         }
                         // ignore: avoid_returning_null_for_void
                         ,

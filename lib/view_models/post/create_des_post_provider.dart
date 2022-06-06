@@ -5,13 +5,13 @@ import 'package:flutter_project_1/constants/global_constants.dart';
 import 'package:flutter_project_1/models/address/district_model.dart';
 import 'package:flutter_project_1/models/address/province_model.dart';
 import 'package:flutter_project_1/models/address/wards_model.dart';
-import 'package:flutter_project_1/models/posts/post.dart';
+import 'package:flutter_project_1/models/posts/destination_post.dart';
 import 'package:flutter_project_1/services/data_provider.dart';
-import 'package:flutter_project_1/services/post_repository.dart';
+import 'package:flutter_project_1/services/destination_post_repository.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 
-class CreatePostProvider extends ChangeNotifier {
+class CreateDestinationPostProvider extends ChangeNotifier {
   bool isLoad = true;
 
   List<Province> _listProvince = [];
@@ -32,7 +32,7 @@ class CreatePostProvider extends ChangeNotifier {
   TextEditingController roadController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
 
-  CreatePostProvider() {
+  CreateDestinationPostProvider() {
     getProvinceApi();
   }
 
@@ -141,7 +141,7 @@ class CreatePostProvider extends ChangeNotifier {
     }
   }
 
-  void submitPost() async {
+  void submitPost(Function onFail) async {
     if (namePostController.text != "" ||
         descriptionController.text != "" ||
         _listProvince.isNotEmpty ||
@@ -149,14 +149,14 @@ class CreatePostProvider extends ChangeNotifier {
         _listWards.isNotEmpty ||
         _listImages.isNotEmpty ||
         _checkTerms == true) {
-      return;
+      onFail();
     } else {
-      final images = await PostRepo()
+      final images = await DestinationPostRepo()
           .uploadListFileImage(_listImages, namePostController.text);
 
       var postId = const Uuid().v1();
-      var newPost = Post(
-        postId: postId,
+      var newPost = DestinationPost(
+        destinationPostId: postId,
         description: descriptionController.text,
         province: _selectedProvince!.nameProvince,
         district: _selectedDistrict!.nameDistrict,
@@ -170,7 +170,7 @@ class CreatePostProvider extends ChangeNotifier {
         type: _postType,
       );
 
-      await PostRepo().submitPost(newPost, postId);
+      await DestinationPostRepo().submitPost(newPost, postId);
       notifyListeners();
     }
   }

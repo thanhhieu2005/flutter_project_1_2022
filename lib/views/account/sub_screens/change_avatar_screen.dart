@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
-import 'package:flutter_project_1/view_models/account/account_provider.dart';
+import 'package:flutter_project_1/view_models/account/setting_account_provider.dart';
 import 'package:flutter_project_1/widgets/button/custom_back_button.dart';
 import 'package:flutter_project_1/widgets/dialog/custom_dialog_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,10 +17,10 @@ class ChangeAvatarScreen extends StatefulWidget {
 
   static const String nameRoute = '/change_avatar_screen';
   static Route route(RouteSettings settings) {
-    final accountProvider = settings.arguments as AccountProvider;
+    final accountProvider = settings.arguments as SettingAccountProvider;
     return MaterialPageRoute(
       settings: settings,
-      builder: (_) => ChangeNotifierProvider<AccountProvider>.value(
+      builder: (_) => ChangeNotifierProvider<SettingAccountProvider>.value(
         value: accountProvider,
         child: const ChangeAvatarScreen(),
       ),
@@ -76,7 +76,7 @@ class _ChangeAvatarScreenState extends State<ChangeAvatarScreen> {
         ),
         centerTitle: true,
         leadingWidth: 48.w,
-        leading: Consumer<AccountProvider>(
+        leading: Consumer<SettingAccountProvider>(
             builder: (context, accountProvider, child) {
           return CustomBackButton(
             backgroundColor: AppColors.kBackgroundColor,
@@ -91,7 +91,7 @@ class _ChangeAvatarScreenState extends State<ChangeAvatarScreen> {
         }),
         actions: [
           Center(
-            child: Consumer<AccountProvider>(
+            child: Consumer<SettingAccountProvider>(
                 builder: (context, accountProvider, child) {
               return InkWell(
                 splashColor: AppColors.kBackgroundColor,
@@ -115,8 +115,8 @@ class _ChangeAvatarScreenState extends State<ChangeAvatarScreen> {
           ),
         ],
       ),
-      body:
-          Consumer<AccountProvider>(builder: (context, accountProvider, child) {
+      body: Consumer<SettingAccountProvider>(
+          builder: (context, accountProvider, child) {
         return ModalProgressHUD(
           progressIndicator: SpinKitThreeBounce(
             color: AppColors.kPrimaryColor,
@@ -131,7 +131,7 @@ class _ChangeAvatarScreenState extends State<ChangeAvatarScreen> {
                 // mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Consumer<AccountProvider>(
+                  Consumer<SettingAccountProvider>(
                       builder: (context, accountProvider, child) {
                     return accountProvider.avatar.path != ""
                         ? Container(
@@ -177,7 +177,7 @@ class _ChangeAvatarScreenState extends State<ChangeAvatarScreen> {
                   SizedBox(height: 64.h),
                   Align(
                     alignment: Alignment.topCenter,
-                    child: Consumer<AccountProvider>(
+                    child: Consumer<SettingAccountProvider>(
                         builder: (context, accountProvider, child) {
                       return InkWell(
                         child: Container(

@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../configs/color_config.dart';
 import '../configs/text_config.dart';
-import '../models/posts/post.dart';
+import '../models/posts/destination_post.dart';
 
 class PostCard extends StatelessWidget {
   const PostCard({
@@ -13,7 +13,7 @@ class PostCard extends StatelessWidget {
     required this.onClick,
   }) : super(key: key);
 
-  final Post post;
+  final DestinationPost post;
   final VoidCallback onClick;
 
   @override

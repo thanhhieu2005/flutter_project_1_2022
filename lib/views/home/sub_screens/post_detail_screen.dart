@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
-import 'package:flutter_project_1/view_models/post/post_detail_provider.dart';
+import 'package:flutter_project_1/view_models/post/destinantion_post_detail_provider.dart';
 import 'package:flutter_project_1/views/home/sub_screens/widgets/comment_widget.dart';
 import 'package:flutter_project_1/views/home/sub_screens/widgets/evaluate_widget.dart';
 import 'package:flutter_project_1/views/home/sub_screens/widgets/post_images_widget.dart';
@@ -17,8 +17,8 @@ class PostDetailScreen extends StatefulWidget {
   static const String nameRoute = '/post_detail_custom';
   static Route route(RouteSettings settings) {
     return MaterialPageRoute(
-      builder: (_) => ChangeNotifierProvider<PostDetailProvider>(
-        create: (_) => PostDetailProvider(),
+      builder: (_) => ChangeNotifierProvider<DestinationPostDetailProvider>(
+        create: (_) => DestinationPostDetailProvider(),
         child: const PostDetailScreen(),
       ),
       settings: settings,
@@ -43,7 +43,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
         child: Stack(
           children: [
             Positioned(
-              child: Consumer<PostDetailProvider>(
+              child: Consumer<DestinationPostDetailProvider>(
                   builder: (context, provider, child) {
                 return Container(
                   width: double.maxFinite,
@@ -157,7 +157,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                         SizedBox(
                           height: 16.h,
                         ),
-                        Consumer<PostDetailProvider>(
+                        Consumer<DestinationPostDetailProvider>(
                             builder: (context, provider, child) {
                           return SharerPostWidget(
                             onClick: () {},

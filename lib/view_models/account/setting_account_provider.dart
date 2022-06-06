@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 
-class AccountProvider extends ChangeNotifier {
+class SettingAccountProvider extends ChangeNotifier {
   final currentHour = DateTime.now().hour;
   var _currUser = localCurrentUser;
   final TextEditingController userNameController =

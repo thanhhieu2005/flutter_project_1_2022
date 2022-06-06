@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
-import 'package:flutter_project_1/models/posts/post.dart';
+import 'package:flutter_project_1/models/posts/destination_post.dart';
 import 'package:flutter_project_1/views/home/sub_screens/post_detail_screen.dart';
 import 'package:flutter_project_1/views/home/sub_screens/search_screen.dart';
 import 'package:flutter_project_1/views/home/sub_screens/type_screen.dart';
@@ -15,7 +15,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../models/others/argument_model.dart';
-import '../../view_models/post_provider.dart';
+import '../../view_models/post/destination_post_provider.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String nameRoute = '/home_screen';
@@ -88,7 +88,7 @@ class HomeScreen extends StatelessWidget {
                 SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
-                  child: Consumer<PostProvider>(
+                  child: Consumer<DestinationPostProvider>(
                       builder: (context, provider, child) {
                     return Row(
                       children: provider.categories
@@ -98,9 +98,10 @@ class HomeScreen extends StatelessWidget {
                                   title: SettingPostType.setTitleType(
                                       e.type, context),
                                   onClick: () async {
-                                    await Provider.of<PostProvider>(context,
+                                    await Provider.of<DestinationPostProvider>(
+                                            context,
                                             listen: false)
-                                        .getPostByType(e.type);
+                                        .getDestinationPostByType(e.type);
                                     Navigator.pushNamed(
                                       context,
                                       TypeScreen.nameRoute,
@@ -128,8 +129,9 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(
                   height: 16.h,
                 ),
-                Consumer<PostProvider>(builder: (context, provider, child) {
-                  var item = provider.popularPost.take(5);
+                Consumer<DestinationPostProvider>(
+                    builder: (context, provider, child) {
+                  var item = provider.popularDestinationPost.take(5);
                   return SingleChildScrollView(
                     child: Row(
                       children: item
@@ -140,7 +142,8 @@ class HomeScreen extends StatelessWidget {
                                   district: e.postName,
                                   pointEvaluation: e.rating.toString(),
                                   onClick: () async {
-                                    await Provider.of<PostProvider>(context,
+                                    await Provider.of<DestinationPostProvider>(
+                                            context,
                                             listen: false)
                                         .getUserById(e.sharer);
                                     Navigator.pushNamed(
