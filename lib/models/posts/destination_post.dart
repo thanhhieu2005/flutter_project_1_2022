@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../configs/text_config.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DestinationPost {
   final String destinationPostId;
@@ -16,6 +16,7 @@ class DestinationPost {
   final PostType type;
   final double rating;
   final PostStatus status;
+  final int countRating;
 
   DestinationPost({
     required this.destinationPostId,
@@ -30,6 +31,7 @@ class DestinationPost {
     required this.type,
     required this.rating,
     required this.status,
+    required this.countRating,
   });
 
   Map<String, dynamic> toMap() {
@@ -46,6 +48,7 @@ class DestinationPost {
       'type': type.value,
       'rating': rating,
       'status': status.value,
+      'countRating': countRating,
     };
   }
 
@@ -63,6 +66,7 @@ class DestinationPost {
       type: PostTypeExtension.fromInt(map['type']),
       rating: map['rating']?.toDouble() ?? 0.0,
       status: PostStatusExtension.fromInt(map['status']),
+      countRating: map['countRating']?.toInt() ?? 0,
     );
   }
 }

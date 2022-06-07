@@ -12,7 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 
 class CreateDestinationPostProvider extends ChangeNotifier {
-  bool isLoad = true;
+  bool _isLoad = false;
 
   List<Province> _listProvince = [];
   List<District> _listDistrict = [];
@@ -22,7 +22,7 @@ class CreateDestinationPostProvider extends ChangeNotifier {
   District? _selectedDistrict;
   Wards? _selectedWards;
 
-  final List<File> _listImages = [];
+  List<File> _listImages = [];
 
   PostType _postType = PostType.beach;
 
@@ -34,6 +34,13 @@ class CreateDestinationPostProvider extends ChangeNotifier {
 
   CreateDestinationPostProvider() {
     getProvinceApi();
+  }
+
+  bool get isLoad => _isLoad;
+
+  set isLoad(value) {
+    _isLoad = value;
+    notifyListeners();
   }
 
   /* Province API */
@@ -141,16 +148,29 @@ class CreateDestinationPostProvider extends ChangeNotifier {
     }
   }
 
-  void submitPost(Function onFail) async {
-    if (namePostController.text != "" ||
-        descriptionController.text != "" ||
-        _listProvince.isNotEmpty ||
-        _listDistrict.isNotEmpty ||
-        _listWards.isNotEmpty ||
-        _listImages.isNotEmpty ||
-        _checkTerms == true) {
+  void resetInputData() {
+    namePostController = TextEditingController();
+    roadController = TextEditingController();
+    descriptionController = TextEditingController();
+    _selectedProvince = null;
+    _selectedDistrict = null;
+    _selectedWards = null;
+    _postType = PostType.beach;
+    _listImages = [];
+    _checkTerms = false;
+  }
+
+  void submitPost(Function onSuccess, Function onFail) async {
+    if (namePostController.text == "" ||
+        descriptionController.text == "" ||
+        _selectedDistrict?.nameDistrict == "" ||
+        _selectedProvince?.nameProvince == "" ||
+        _selectedWards?.nameWards == "" ||
+        _listImages.isEmpty ||
+        _checkTerms == false) {
       onFail();
     } else {
+      isLoad = true;
       final images = await DestinationPostRepo()
           .uploadListFileImage(_listImages, namePostController.text);
 
@@ -168,10 +188,15 @@ class CreateDestinationPostProvider extends ChangeNotifier {
         sharer: localCurrentUser.uid,
         status: PostStatus.pending,
         type: _postType,
+        countRating: 0,
       );
 
       await DestinationPostRepo().submitPost(newPost, postId);
-      notifyListeners();
+      isLoad = true;
+
+      resetInputData();
+
+      onSuccess();
     }
   }
 }

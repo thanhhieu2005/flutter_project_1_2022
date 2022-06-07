@@ -10,12 +10,14 @@ class SearchWidget extends StatefulWidget {
   final TextEditingController? textController;
   final Function(String)? onChange;
   final bool readOnly;
+  final Color fillColors;
   const SearchWidget({
     Key? key,
     this.onTap,
     this.textController,
     this.onChange,
     required this.readOnly,
+    required this.fillColors,
   }) : super(key: key);
 
   @override
@@ -34,7 +36,7 @@ class _SearchWidgetState extends State<SearchWidget> {
         onChanged: widget.onChange,
         decoration: InputDecoration(
           filled: true,
-          fillColor: AppColors.kLightBlue4,
+          fillColor: widget.fillColors,
           border: InputBorder.none,
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.white),

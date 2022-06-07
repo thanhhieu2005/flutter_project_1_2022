@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
-import 'package:flutter_project_1/view_models/post/destinantion_post_detail_provider.dart';
-import 'package:flutter_project_1/views/home/sub_screens/widgets/comment_widget.dart';
+import 'package:flutter_project_1/view_models/post/destination_post_provider.dart';
 import 'package:flutter_project_1/views/home/sub_screens/widgets/evaluate_widget.dart';
 import 'package:flutter_project_1/views/home/sub_screens/widgets/post_images_widget.dart';
-import 'package:flutter_project_1/views/home/sub_screens/widgets/info_des_widget.dart';
+import 'package:flutter_project_1/widgets/info_des_post_widget.dart';
 import 'package:flutter_project_1/views/home/sub_screens/widgets/sharer_post_widget.dart';
 import 'package:flutter_project_1/widgets/button/custom_back_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,9 +15,11 @@ import '../../../models/others/argument_model.dart';
 class PostDetailScreen extends StatefulWidget {
   static const String nameRoute = '/post_detail_custom';
   static Route route(RouteSettings settings) {
+    DestinationPostDetailArgument args =
+        settings.arguments as DestinationPostDetailArgument;
     return MaterialPageRoute(
-      builder: (_) => ChangeNotifierProvider<DestinationPostDetailProvider>(
-        create: (_) => DestinationPostDetailProvider(),
+      builder: (_) => ChangeNotifierProvider<DestinationPostProvider>.value(
+        value: args.provider,
         child: const PostDetailScreen(),
       ),
       settings: settings,
@@ -34,8 +35,9 @@ class PostDetailScreen extends StatefulWidget {
 class _PostDetailScreenState extends State<PostDetailScreen> {
   @override
   Widget build(BuildContext context) {
-    PostDetailArgument postDetailArgument =
-        ModalRoute.of(context)!.settings.arguments as PostDetailArgument;
+    DestinationPostDetailArgument postDetailArgument = ModalRoute.of(context)!
+        .settings
+        .arguments as DestinationPostDetailArgument;
     return Scaffold(
       body: SizedBox(
         height: 1.sh,
@@ -43,19 +45,16 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
         child: Stack(
           children: [
             Positioned(
-              child: Consumer<DestinationPostDetailProvider>(
-                  builder: (context, provider, child) {
-                return Container(
-                  width: double.maxFinite,
-                  height: 300.h,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage(postDetailArgument.post.images.first),
-                      fit: BoxFit.fill,
-                    ),
+              child: Container(
+                width: double.maxFinite,
+                height: 300.h,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(postDetailArgument.post.images.first),
+                    fit: BoxFit.fill,
                   ),
-                );
-              }),
+                ),
+              ),
             ),
             Positioned(
               // left: 8.w,
@@ -111,6 +110,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                         Padding(
                           padding: EdgeInsets.only(
                             left: 20.w,
+                            // right: 8.w,
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -140,16 +140,16 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                         ),
                         PostImagesWidget(
                             urlImages: postDetailArgument.post.images),
-                        SizedBox(
-                          height: 8.h,
-                        ),
-                        SizedBox(
-                          width: 1.sw,
-                          child: CommentWidget(
-                            countComment: '205',
-                            onClick: () {},
-                          ),
-                        ),
+                        // SizedBox(
+                        //   height: 8.h,
+                        // ),
+                        // SizedBox(
+                        //   width: 1.sw,
+                        //   child: CommentWidget(
+                        //     countComment: '205',
+                        //     onClick: () {},
+                        //   ),
+                        // ),
                         SizedBox(
                           height: 8.h,
                         ),
@@ -157,13 +157,10 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                         SizedBox(
                           height: 16.h,
                         ),
-                        Consumer<DestinationPostDetailProvider>(
-                            builder: (context, provider, child) {
-                          return SharerPostWidget(
-                            onClick: () {},
-                            sharer: postDetailArgument.sharer,
-                          );
-                        }),
+                        SharerPostWidget(
+                          onClick: () {},
+                          sharer: postDetailArgument.sharer,
+                        ),
                       ],
                     ),
                   ),
