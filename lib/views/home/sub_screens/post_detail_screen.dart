@@ -6,6 +6,7 @@ import 'package:flutter_project_1/views/home/sub_screens/widgets/post_images_wid
 import 'package:flutter_project_1/widgets/info_des_post_widget.dart';
 import 'package:flutter_project_1/views/home/sub_screens/widgets/sharer_post_widget.dart';
 import 'package:flutter_project_1/widgets/button/custom_back_button.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -153,7 +154,23 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                         SizedBox(
                           height: 8.h,
                         ),
-                        const EvaluateWidget(),
+                        Consumer<DestinationPostProvider>(
+                            builder: (context, provider, child) {
+                          return EvaluateWidget(
+                            wiget: RatingBar.builder(
+                              minRating: 1,
+                              itemBuilder: (context, _) => const Icon(
+                                Icons.star,
+                                color: AppColors.kColor4,
+                              ),
+                              onRatingUpdate: (rating) => setState(() {
+                                provider.ratingValue = rating;
+                                provider.evaluationDestinationPost(
+                                    postDetailArgument.post);
+                              }),
+                            ),
+                          );
+                        }),
                         SizedBox(
                           height: 16.h,
                         ),

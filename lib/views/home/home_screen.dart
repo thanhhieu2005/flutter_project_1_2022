@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/models/posts/destination_post.dart';
-import 'package:flutter_project_1/services/destination_post_repository.dart';
 import 'package:flutter_project_1/views/home/sub_screens/post_detail_screen.dart';
 import 'package:flutter_project_1/views/home/sub_screens/search_screen.dart';
 import 'package:flutter_project_1/views/home/sub_screens/type_screen.dart';
@@ -18,7 +17,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../models/others/argument_model.dart';
 import '../../view_models/post/destination_post_provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   static const String nameRoute = '/home_screen';
   static Route route() {
     return MaterialPageRoute(
@@ -28,6 +27,27 @@ class HomeScreen extends StatelessWidget {
   }
 
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late DestinationPostProvider postProvider;
+  @override
+  void initState() {
+    postProvider = Provider.of<DestinationPostProvider>(context, listen: false);
+    super.initState();
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      postProvider.onDataChange();
+    });
+  }
+
+  @override
+  void dispose() {
+    postProvider.isDispose = true;
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

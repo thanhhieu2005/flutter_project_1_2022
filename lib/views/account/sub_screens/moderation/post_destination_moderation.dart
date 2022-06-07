@@ -29,9 +29,21 @@ class PostModerationScreen extends StatefulWidget {
 }
 
 class _PostModerationScreenState extends State<PostModerationScreen> {
+  late PostModerationProvider postModrationProvider;
   @override
   void dispose() {
+    postModrationProvider.isDispose = true;
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    postModrationProvider =
+        Provider.of<PostModerationProvider>(context, listen: false);
+    super.initState();
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      postModrationProvider.onDataChange();
+    });
   }
 
   @override

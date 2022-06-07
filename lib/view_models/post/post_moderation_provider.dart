@@ -9,9 +9,9 @@ class PostModerationProvider extends ChangeNotifier {
 
   VatractionUser? sharer;
 
-  PostModerationProvider() {
-    onDataChange();
-  }
+  bool isDispose = false;
+
+  PostModerationProvider();
 
   List<DestinationPost> get listPostModeration {
     return _listPostModeration;
@@ -19,6 +19,7 @@ class PostModerationProvider extends ChangeNotifier {
 
   void onDataChange() {
     DestinationPostRepo.onPostDataChange().listen((QuerySnapshot event) {
+      if (isDispose == true) return;
       for (var element in event.docChanges) {
         final post =
             DestinationPost.fromMap(element.doc.data() as Map<String, dynamic>);

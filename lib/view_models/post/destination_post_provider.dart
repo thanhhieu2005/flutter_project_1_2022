@@ -13,6 +13,10 @@ class DestinationPostProvider extends ChangeNotifier {
 
   VatractionUser? sharer;
 
+  bool isDispose = false;
+
+  double? _ratingValue;
+
   final List<Category> categories = [
     // Setting again in class SettingPostType => to setting title and intro to Category
     Category(
@@ -45,9 +49,7 @@ class DestinationPostProvider extends ChangeNotifier {
     ),
   ];
 
-  DestinationPostProvider() {
-    onDataChange();
-  }
+  DestinationPostProvider();
 
   bool get isLoad => _isLoad;
 
@@ -56,12 +58,21 @@ class DestinationPostProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  set ratingValue(value) {
+    _ratingValue = value;
+    notifyListeners();
+  }
+
+  double? get ratingValue => _ratingValue;
+
   void onDataChange() {
     DestinationPostRepo.onPostDataChange().listen((QuerySnapshot event) {
+      if (isDispose == true) return;
       for (var element in event.docChanges) {
         final post =
             DestinationPost.fromMap(element.doc.data() as Map<String, dynamic>);
         switch (element.type) {
+          add:
           case DocumentChangeType.added:
             if (post.rating >= 3.5 && post.status == PostStatus.approve) {
               _popularDestinationPost.add(post);
@@ -73,11 +84,10 @@ class DestinationPostProvider extends ChangeNotifier {
             }
             final index = _popularDestinationPost.indexWhere((element) =>
                 element.destinationPostId == post.destinationPostId);
-            if (index > 0) {
+            if (index >= 0) {
               _popularDestinationPost[index] = post;
-            } else if (post.rating >= 3.5 &&
-                post.status == PostStatus.approve) {
-              _popularDestinationPost.add(post);
+            } else {
+              continue add;
             }
             break;
           remove:
@@ -116,5 +126,16 @@ class DestinationPostProvider extends ChangeNotifier {
 
   Future<void> getUserById(String uid) async {
     sharer = await DestinationPostRepo.getUserById(uid);
+  }
+
+  void evaluationDestinationPost(DestinationPost post) async {
+    var sumPointRating = post.rating * post.countRating;
+    var newPointRating = (sumPointRating + ratingValue!);
+    double newRating = double.parse(
+        ((newPointRating) / (post.countRating + 1)).toStringAsFixed(1));
+
+    await DestinationPostRepo()
+        .evaluatePost(post.destinationPostId, newRating, post.countRating + 1);
+    notifyListeners();
   }
 }

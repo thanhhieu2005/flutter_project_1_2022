@@ -68,4 +68,12 @@ class DestinationPostRepo {
       "status": numStatus,
     });
   }
+
+  Future<void> evaluatePost(
+      String destinationPostId, double rating, int countRating) async {
+    await _collectionPost.doc(destinationPostId).update({
+      "rating": rating,
+      "countRating": countRating,
+    });
+  }
 }

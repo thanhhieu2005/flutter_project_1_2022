@@ -7,7 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EvaluateWidget extends StatefulWidget {
-  const EvaluateWidget({Key? key}) : super(key: key);
+  final Widget wiget;
+  const EvaluateWidget({Key? key, required this.wiget}) : super(key: key);
 
   @override
   State<EvaluateWidget> createState() => _EvaluateWidgetState();
@@ -40,18 +41,7 @@ class _EvaluateWidgetState extends State<EvaluateWidget> {
                     SizedBox(
                       height: 4.h,
                     ),
-                    RatingBar.builder(
-                      minRating: 1,
-                      itemBuilder: (context, _) => const Icon(
-                        Icons.star,
-                        color: AppColors.kColor4,
-                      ),
-                      onRatingUpdate: (rating) => setState(() {
-                        this.rating = rating; // Hàm xử lý đánh giá
-                        // ignore: avoid_print
-                        print('$rating');
-                      }),
-                    ),
+                    widget.wiget,
                   ],
                 ),
               ],
