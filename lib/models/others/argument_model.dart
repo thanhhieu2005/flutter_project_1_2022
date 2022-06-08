@@ -5,11 +5,10 @@ import 'package:flutter_project_1/view_models/post/destination_post_provider.dar
 import 'package:flutter_project_1/view_models/post/post_moderation_provider.dart';
 
 class DestinationPostDetailArgument {
-  final DestinationPostProvider provider;
   final DestinationPost post;
   final VatractionUser sharer;
 
-  DestinationPostDetailArgument(this.post, this.sharer, this.provider);
+  DestinationPostDetailArgument(this.post, this.sharer);
 }
 
 class PostModerationArgument {

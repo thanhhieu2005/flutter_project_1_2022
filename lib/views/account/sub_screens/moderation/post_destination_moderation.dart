@@ -133,6 +133,7 @@ class _PostModerationScreenState extends State<PostModerationScreen> {
                                     postModerationProvider.sharer!),
                               );
                             },
+                            isPending: true,
                             // avatarSharer:
                             //     postModerationProvider.sharer.avatarUrl!,
                             // nameSharer: postModerationProvider.sharer.userName!,

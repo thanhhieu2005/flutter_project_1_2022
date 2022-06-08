@@ -7,6 +7,7 @@ import 'package:flutter_project_1/views/account/sub_screens/moderation/post_dest
 import 'package:flutter_project_1/views/account/sub_screens/moderation/post_moderation_detail.dart';
 import 'package:flutter_project_1/views/account/sub_screens/per_info_screen.dart';
 import 'package:flutter_project_1/views/discovery/discovery_screen.dart';
+import 'package:flutter_project_1/views/favorite/favorite_screen.dart';
 import 'package:flutter_project_1/views/home/home_screen.dart';
 import 'package:flutter_project_1/views/home/sub_screens/post_detail_screen.dart';
 import 'package:flutter_project_1/views/home/sub_screens/type_screen.dart';
@@ -69,6 +70,10 @@ class AppRoutes {
       /* Discovery Screen */
       case DiscoveryScreen.nameRoute:
         return DiscoveryScreen.route();
+
+      /* Favorite Screen */
+      case FavoriteScreen.nameRoute:
+        return FavoriteScreen.route();
 
       default:
         return _errorRoute();

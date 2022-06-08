@@ -178,7 +178,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             DestinationPostDetailArgument(
                                           e,
                                           provider.sharer!,
-                                          provider,
+                                          
                                         ),
                                       );
                                     },

@@ -67,8 +67,8 @@ class PostModerationDetailScreen extends StatelessWidget {
                       onTapBack: () {
                         Navigator.pop(context);
                       },
-                      backgroundColor: AppColors.kColor1.withOpacity(0.8),
-                      iconColor: AppColors.kColor0,
+                      backgroundColor: AppColors.kColor1.withOpacity(0.55),
+                      iconColor: AppColors.kColor1,
                       isCircleRounded: true,
                       height: 40.w,
                       width: 40.w,

@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class PostModerationCard extends StatelessWidget {
   final String firstImage, namePostModeration, location, date;
+  final bool isPending;
   // final String avatarSharer, nameSharer;
   final VoidCallback onTap;
   const PostModerationCard({
@@ -15,6 +16,7 @@ class PostModerationCard extends StatelessWidget {
     required this.location,
     required this.date,
     required this.onTap,
+    required this.isPending,
     // required this.avatarSharer,
     // required this.nameSharer,
   }) : super(key: key);
@@ -36,7 +38,11 @@ class PostModerationCard extends StatelessWidget {
               right: 8.w,
               bottom: 4.h,
               child: Container(
-                padding: EdgeInsets.only(top: 16.h, bottom: 16.h, right: 16.w),
+                padding: EdgeInsets.only(
+                  top: isPending ? 12.h : 16.h,
+                  bottom: isPending ? 12.h : 16.h,
+                  right: 16.w,
+                ),
                 decoration: BoxDecoration(
                   color: AppColors.kColor1,
                   borderRadius: BorderRadius.circular(20),
@@ -58,22 +64,25 @@ class PostModerationCard extends StatelessWidget {
                     ),
                     Expanded(
                       child: Align(
-                        alignment: Alignment.topLeft,
+                        alignment: Alignment.topCenter,
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             NamePostModerationWidget(
                               namePostModeration: namePostModeration,
+                              isPending: isPending,
                             ),
                             SizedBox(height: 4.h),
                             InfoCardPostModeration(
                               assetIcon: "assets/icons/ic_location.svg",
                               content: location,
+                              isPending: isPending,
                             ),
                             SizedBox(height: 4.h),
                             InfoCardPostModeration(
                               assetIcon: "assets/icons/ic_aboutl.svg",
                               content: date,
+                              isPending: isPending,
                             ),
                             // SizedBox(height: 8.h),
                             // Row(
@@ -135,21 +144,27 @@ class PostModerationCard extends StatelessWidget {
 
 class InfoCardPostModeration extends StatelessWidget {
   final String assetIcon, content;
+  final bool isPending;
   const InfoCardPostModeration({
     Key? key,
     required this.assetIcon,
     required this.content,
+    required this.isPending,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final sizeAsset = 14.h;
+    final sizeAsset2 = 20.h;
+    final sizeText = 14.sp;
+    final sizeText2 = 20.sp;
     return Row(
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SvgPicture.asset(
           assetIcon,
-          height: 14.h,
+          height: isPending ? sizeAsset : sizeAsset2,
           width: 14.h,
           color: AppColors.kTextGrey1,
         ),
@@ -161,6 +176,7 @@ class InfoCardPostModeration extends StatelessWidget {
             content,
             style: TextConfigs.kText14White.copyWith(
               color: AppColors.kTextGrey1,
+              fontSize: isPending ? sizeText : sizeText2,
             ),
           ),
         ),
@@ -171,44 +187,56 @@ class InfoCardPostModeration extends StatelessWidget {
 
 class NamePostModerationWidget extends StatelessWidget {
   final String namePostModeration;
+  final bool isPending;
   const NamePostModerationWidget({
     Key? key,
     required this.namePostModeration,
+    required this.isPending,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Flexible(
-          child: Text(
-            namePostModeration,
-            style: TextConfigs.kTextSubtitle.copyWith(
-              color: AppColors.kDarkBlue1,
-              fontWeight: FontWeight.w600,
+    return isPending
+        ? Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Text(
+                  namePostModeration,
+                  style: TextConfigs.kTextSubtitle.copyWith(
+                    color: AppColors.kDarkBlue1,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(8.w),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: const Color.fromARGB(255, 224, 198, 101),
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Text(
+                  'Pending',
+                  style: TextConfigs.kText12W500Green1.copyWith(
+                    color: const Color.fromARGB(255, 224, 198, 101),
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ],
+          )
+        : Flexible(
+            child: Text(
+              namePostModeration,
+              style: TextConfigs.kTextSubtitle.copyWith(
+                  color: AppColors.kDarkBlue1,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 24.sp),
             ),
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.all(8.w),
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: const Color.fromARGB(255, 224, 198, 101),
-              width: 1,
-            ),
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: Text(
-            'Pending',
-            style: TextConfigs.kText12W500Green1.copyWith(
-              color: const Color.fromARGB(255, 224, 198, 101),
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-      ],
-    );
+          );
   }
 }
