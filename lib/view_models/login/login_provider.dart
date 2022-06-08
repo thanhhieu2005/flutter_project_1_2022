@@ -17,6 +17,11 @@ class LoginProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setLoadingStatus(bool loading) {
+    isLoading = loading;
+    notifyListeners();
+  }
+
   Future<bool> signInWithEmail() async {
     isLoading = true;
     try {
@@ -31,7 +36,6 @@ class LoginProvider extends ChangeNotifier {
       isLoading = false;
       throw Exception(err.toString());
     }
-    isLoading = false;
     notifyListeners();
     return true;
   }

@@ -26,8 +26,7 @@ class RoundedLinearButton extends StatelessWidget {
     return InkWell(
       onTap: press,
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10.w),
-        padding: EdgeInsets.symmetric(vertical: 19.h, horizontal: 20.w),
+        padding: EdgeInsets.symmetric(vertical: 17.h, horizontal: 20.w),
         // margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         decoration: BoxDecoration(
           gradient: LinearGradient(colors: [

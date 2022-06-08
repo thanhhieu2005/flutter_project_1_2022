@@ -144,4 +144,8 @@ class SettingAccountProvider extends ChangeNotifier {
       onSuccess();
     }
   }
+
+  void setCurrentUser() {
+    _currUser = localCurrentUser;
+  }
 }

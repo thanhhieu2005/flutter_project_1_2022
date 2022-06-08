@@ -5,6 +5,7 @@ import 'package:email_auth/email_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth_service;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_project_1/configs/app_config.dart';
+import 'package:flutter_project_1/configs/auth_config.dart';
 import 'package:flutter_project_1/constants/global_constants.dart';
 import 'package:flutter_project_1/models/users/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,7 +16,11 @@ class AuthService extends ChangeNotifier {
   VatractionUser currentUser =
       const VatractionUser(email: "", uid: "", pwd: "");
 
-  final emailAuth = EmailAuth(sessionName: "VAtraction");
+  late EmailAuth emailAuth;
+
+  AuthService() {
+    emailAuth = EmailAuth(sessionName: "VAtraction");
+  }
 
   final auth_service.FirebaseAuth _firebaseAuth =
       auth_service.FirebaseAuth.instance;
@@ -64,13 +69,21 @@ class AuthService extends ChangeNotifier {
   }
 
   Future<VatractionUser?> createUserWithEmailAndPassword(
-      String email, String password, String? userName) async {
+      String email, String password, String? userName, bool isMale) async {
     isloading = true;
     try {
       final credential = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
-      localCurrentUser = localCurrentUser.copyWith(
-          uid: credential.user?.uid, userName: userName);
+      localCurrentUser = VatractionUser(
+        pwd: password,
+        email: email,
+        uid: credential.user?.uid ?? "",
+        userName: userName,
+        gender: isMale ? "Male" : "Female",
+        avatarUrl: isMale
+            ? "https://scienceoxford.com/wp-content/uploads/2018/03/avatar-male.jpg"
+            : "https://www.kindpng.com/picc/m/378-3783625_avatar-woman-blank-avatar-icon-female-hd-png.png",
+      );
       addUserDataToFirebase(localCurrentUser);
       return _userFromFirebase(credential.user);
     } on auth_service.FirebaseAuthException catch (err) {
@@ -147,9 +160,8 @@ class AuthService extends ChangeNotifier {
   }
 
   Future<bool> sendOtp(String email) async {
+    emailAuth.config(remoteServerConfiguration);
     bool result = await emailAuth.sendOtp(recipientMail: email);
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    String? user = pref.getString("user");
     if (result) {
       return true;
     }
@@ -157,6 +169,7 @@ class AuthService extends ChangeNotifier {
   }
 
   Future<bool> verifyOtp(String recipientMail, String userOtp) async {
+    emailAuth.config(remoteServerConfiguration);
     isloading = true;
     bool result =
         emailAuth.validateOtp(recipientMail: recipientMail, userOtp: userOtp);
