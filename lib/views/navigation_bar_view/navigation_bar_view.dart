@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_project_1/view_models/account/setting_account_provider.dart';
+import 'package:flutter_project_1/view_models/favorite_post_provider.dart';
 import 'package:flutter_project_1/view_models/post/create_des_post_provider.dart';
 import 'package:flutter_project_1/view_models/post/destination_post_provider.dart';
 import 'package:flutter_project_1/views/account/setting_account_screen.dart';
 import 'package:flutter_project_1/views/create_destination_post/create_destination_post_screen.dart';
 import 'package:flutter_project_1/views/discovery/discovery_screen.dart';
+import 'package:flutter_project_1/views/favorite/favorite_screen.dart';
 import 'package:flutter_project_1/views/home/home_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -62,15 +64,9 @@ class _NavigationBarViewState extends State<NavigationBarView> {
     ),
     const DiscoveryScreen(),
     const Center(),
-    const Center(
-      // ignore: prefer_const_constructors
-      child: Text(
-        'Favorite Screen',
-        // ignore: unnecessary_const
-        style: const TextStyle(
-          fontSize: 50,
-        ),
-      ),
+    ChangeNotifierProvider<FavoritetProvider>(
+      create: (_) => FavoritetProvider(),
+      child: const FavoriteScreen(),
     ),
     ChangeNotifierProvider<SettingAccountProvider>(
       create: (_) => SettingAccountProvider(),

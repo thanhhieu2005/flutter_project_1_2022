@@ -92,9 +92,9 @@ class TypeScreen extends StatelessWidget {
                             context,
                             PostDetailScreen.nameRoute,
                             arguments: DestinationPostDetailArgument(
-                                posts[index],
-                                args.provider.sharer!,
-                                args.provider),
+                              posts[index],
+                              args.provider.sharer!,
+                            ),
                           );
                         },
                         post: posts[index],
