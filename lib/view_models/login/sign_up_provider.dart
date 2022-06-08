@@ -22,6 +22,7 @@ class SignUpProvider extends ChangeNotifier {
       await prefs.setString("user", jsonEncode(localCurrentUser.toJson()));
     } catch (err) {
       isLoading = false;
+      notifyListeners();
       throw Exception(err.toString());
     }
     isLoading = false;
@@ -31,6 +32,24 @@ class SignUpProvider extends ChangeNotifier {
   void createLocalUser() {
     AuthService().createUserInfo(
         emailController.text, userNameController.text, pwdController.text);
+  }
+
+  bool isValidForSendingOtp() {
+    isLoading = true;
+    notifyListeners();
+    var result = emailController.text.isNotEmpty &&
+        pwdController.text.isNotEmpty &&
+        pwdConfirmController.text.isNotEmpty &&
+        userNameController.text.isNotEmpty &&
+        pwdController.text == pwdConfirmController.text &&
+        userNameController.text.length >= 6 &&
+        pwdConfirmController.text.length >= 6 &&
+        pwdController.text.length >= 6;
+    if (!result) {
+      isLoading = false;
+      notifyListeners();
+    }
+    return result;
   }
 
   Future sendOtp() async {

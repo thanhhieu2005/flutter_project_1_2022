@@ -69,8 +69,11 @@ class AuthService extends ChangeNotifier {
     try {
       final credential = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
-      localCurrentUser = localCurrentUser.copyWith(
-          uid: credential.user?.uid, userName: userName);
+      localCurrentUser = VatractionUser(
+          pwd: password,
+          email: email,
+          uid: credential.user?.uid ?? "",
+          userName: userName);
       addUserDataToFirebase(localCurrentUser);
       return _userFromFirebase(credential.user);
     } on auth_service.FirebaseAuthException catch (err) {

@@ -43,7 +43,7 @@ class CategoryCard extends StatelessWidget {
             ),
             Text(
               title,
-              style: TextConfigs.kText16_1.copyWith(
+              style: TextConfigs.kText16White.copyWith(
                 color: AppColors.kDarkBlue1,
                 fontWeight: FontWeight.normal,
               ),

@@ -116,7 +116,7 @@ class _ConfirmEmailPageState extends State<ConfirmEmailPage> {
                             Center(
                               child: Text(
                                 AppLocalizations.of(context).backToSignUp,
-                                style: TextConfigs.kText16_1,
+                                style: TextConfigs.kText16White,
                               ),
                             )
                           ],

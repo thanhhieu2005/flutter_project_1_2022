@@ -5,6 +5,7 @@ import 'package:flutter_project_1/services/auth_service.dart';
 import 'package:flutter_project_1/view_models/login/sign_up_provider.dart';
 import 'package:flutter_project_1/views/sign_up/confirm_email_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
@@ -37,6 +38,10 @@ class SignUpPageState extends State<SignUpPage> {
     final authService = Provider.of<AuthService>(context);
     final signUpProvider = Provider.of<SignUpProvider>(context);
     return ModalProgressHUD(
+      progressIndicator: SpinKitThreeBounce(
+        color: AppColors.kPrimaryColor,
+        size: 32.h,
+      ),
       inAsyncCall: signUpProvider.isLoading,
       color: AppColors.kPrimaryColor,
       child: Scaffold(
@@ -156,14 +161,16 @@ class SignUpPageState extends State<SignUpPage> {
                           text: "Create",
                           press: () async {
                             try {
-                              signUpProvider.isLoading = true;
-                              _formKey.currentState?.validate();
-                              signUpProvider.createAccountWithEmail();
-                              signUpProvider.sendOtp();
-                              signUpProvider.clearTextController();
-                              Navigator.pushNamed(
-                                  context, ConfirmEmailPage.nameRoute,
-                                  arguments: true);
+                              if (signUpProvider.isValidForSendingOtp() &&
+                                  _formKey.currentState!.validate()) {
+                                signUpProvider.createAccountWithEmail();
+                                signUpProvider.sendOtp();
+                                Navigator.pushNamed(
+                                        context, ConfirmEmailPage.nameRoute,
+                                        arguments: true)
+                                    .then((value) =>
+                                        signUpProvider.clearTextController());
+                              }
                             } catch (error) {
                               showDialog(
                                 context: context,
@@ -188,7 +195,7 @@ class SignUpPageState extends State<SignUpPage> {
                       children: [
                         RichText(
                           text: TextSpan(
-                            style: TextConfigs.kText16BoldBlack,
+                            style: TextConfigs.kText16kPrimary,
                             children: [
                               const TextSpan(
                                   text: "I agree to comply with the "),

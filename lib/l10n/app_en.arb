@@ -70,5 +70,8 @@
     "placeToDiscover": "Places to Discover",
     "weShareAll": "We share all place like tourist attraction,",
     "tourGuide" : "tour guides, places review, etc",
-    "welcomeBack" : "Welcome back"
+    "welcomeBack" : "Welcome back",
+    "createAccount" : "Create Account",
+    "signInToJoinIn" : "Sign in to join in our",
+    "amazingJourney" : "Amazing Journeys"
 }

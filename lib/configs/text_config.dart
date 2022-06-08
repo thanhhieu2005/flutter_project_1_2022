@@ -6,7 +6,7 @@ import 'color_config.dart';
 
 class TextConfigs {
   static final kFontFamily = GoogleFonts.roboto().fontFamily;
-  static final kText16_1 = TextStyle(
+  static final kText16White = TextStyle(
     fontSize: 16.sp,
     fontFamily: kFontFamily,
     color: AppColors.kColor1,
@@ -55,11 +55,11 @@ class TextConfigs {
     color: AppColors.kColor1,
   );
 
-  static final kText16BoldBlack = TextStyle(
+  static final kText16kPrimary = TextStyle(
     fontSize: 16.sp,
     fontFamily: kFontFamily,
-    fontWeight: FontWeight.bold,
-    color: Colors.black,
+    fontWeight: FontWeight.normal,
+    color: AppColors.kPrimaryColor,
   );
 
   static final kText16BoldKprimary = TextStyle(
