@@ -73,5 +73,9 @@
     "welcomeBack" : "Chào Mừng Quay Trở lại",
     "createAccount" : "Tạo tài khoản",
     "signInToJoinIn" : "Tham gia ngay để khám phá",
-    "amazingJourney" : "Những Chuyến Phiêu Lưu Thú Vị"
+    "amazingJourney" : "Những Chuyến Phiêu Lưu Thú Vị",
+    "userName" : "Tên Tài Khoản",
+    "gender" : "Giới Tính",
+    "male" : "Nam",
+    "female" : "Nữ"
 }

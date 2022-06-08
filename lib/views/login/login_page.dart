@@ -1,3 +1,4 @@
+import 'package:email_auth/email_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
@@ -14,6 +15,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../configs/auth_config.dart';
 import '../../view_models/login/login_provider.dart';
 import '../../widgets/dialog/custom_dialog.dart';
 
@@ -35,6 +37,12 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   String email = "", password = "";
+
+  @override
+  void initState() {
+    context.read<LoginProvider>().setLoadingStatus(false);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                           clipBehavior: Clip.none,
                           children: [
                             Container(
-                              margin: EdgeInsets.only(top: 50.h),
+                              margin: EdgeInsets.only(top: 60.h),
                               child: Column(children: [
                                 RoundedInputField(
                                   hasHint: true,
@@ -161,8 +169,11 @@ class _LoginPageState extends State<LoginPage> {
                                                 NavigationBarView.route(),
                                                 (route) => true);
                                           } else {
-                                            AuthService().sendOtp(loginProvider
-                                                .loginEmailController.text);
+                                            localCurrentUser =
+                                                localCurrentUser.copyWith(
+                                                    email: loginProvider
+                                                        .loginEmailController
+                                                        .text);
                                             Navigator.pushNamed(context,
                                                 ConfirmEmailPage.nameRoute,
                                                 arguments: false);

@@ -1,3 +1,4 @@
+import 'package:email_auth/email_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_project_1/constants/global_constants.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
+import '../../configs/auth_config.dart';
 import '../../configs/color_config.dart';
 import '../../widgets/dialog/custom_dialog.dart';
 import '../../widgets/text_field/rounded_input_field.dart';
@@ -119,52 +121,142 @@ class SignUpPageState extends State<SignUpPage> {
                       ),
                     ),
                     SizedBox(
-                      height: 15.h,
+                      height: 20.h,
                     ),
                     Text(
                       'User Name',
                       style: TextConfigs.kTextSubtitle,
+                    ),
+                    SizedBox(
+                      height: 10.h,
                     ),
                     RoundedInputField(
                       controller: signUpProvider.userNameController,
                       inputName: "User Name",
                       icon: Icons.person,
                     ),
+                    SizedBox(
+                      height: 15.h,
+                    ),
                     Text(
                       'Email',
                       style: TextConfigs.kTextSubtitle,
+                    ),
+                    SizedBox(
+                      height: 10.h,
                     ),
                     RoundedInputField(
                       controller: signUpProvider.emailController,
                       inputName: "Email",
                       icon: Icons.person,
                     ),
+                    SizedBox(
+                      height: 15.h,
+                    ),
                     Text(
                       'Password',
                       style: TextConfigs.kTextSubtitle,
                     ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
                     RoundedPasswordField(
                       controller: signUpProvider.pwdController,
+                    ),
+                    SizedBox(
+                      height: 15.h,
                     ),
                     Text(
                       'Confirm Password',
                       style: TextConfigs.kTextSubtitle,
+                    ),
+                    SizedBox(
+                      height: 10.h,
                     ),
                     RoundedPasswordField(
                       controller: signUpProvider.pwdConfirmController,
                       isConfirmPwd: true,
                       pwdToConfirm: signUpProvider.pwdController.text,
                     ),
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                    Text(
+                      'Gender',
+                      style: TextConfigs.kTextSubtitle,
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Column(
+                          children: const [
+                            Image(
+                                fit: BoxFit.scaleDown,
+                                image: AssetImage(
+                                    "assets/images/man_gender_unselected.png")),
+                          ],
+                        ),
+                        Column(
+                          children: const [
+                            Image(
+                                fit: BoxFit.scaleDown,
+                                image: AssetImage(
+                                    "assets/images/woman_gender_unselected.png")),
+                          ],
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Consumer<SignUpProvider>(
+                            builder: (context, provider, child) {
+                          return Checkbox(
+                              activeColor: AppColors.kPrimaryColor,
+                              checkColor: AppColors.kColor1,
+                              value: provider.getCheckPolicyStatus(),
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  provider.setCheckPolicyStatus(value ?? false);
+                                });
+                              });
+                        }),
+                        Flexible(
+                          child: RichText(
+                            maxLines: 10,
+                            softWrap: true,
+                            text: TextSpan(
+                              style: TextConfigs.kText16Black,
+                              children: [
+                                const TextSpan(
+                                    text: "I agree to comply with the "),
+                                TextSpan(
+                                  text: "Policy",
+                                  style: TextConfigs.kText16BoldKprimary,
+                                ),
+                                const TextSpan(text: " of the application"),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     Container(
-                      margin: EdgeInsets.only(top: 15.h),
+                      margin: EdgeInsets.only(top: 25.h),
                       child: RoundedLinearButton(
                           text: "Create",
                           press: () async {
                             try {
-                              if (signUpProvider.isValidForSendingOtp() &&
-                                  _formKey.currentState!.validate()) {
+                              if (signUpProvider.isValidForSendingOtp()) {
                                 signUpProvider.createAccountWithEmail();
-                                signUpProvider.sendOtp();
+                                localCurrentUser = localCurrentUser.copyWith(
+                                    email: signUpProvider.emailController.text);
                                 Navigator.pushNamed(
                                         context, ConfirmEmailPage.nameRoute,
                                         arguments: true)
@@ -190,25 +282,6 @@ class SignUpPageState extends State<SignUpPage> {
                     const SizedBox(
                       height: 24,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        RichText(
-                          text: TextSpan(
-                            style: TextConfigs.kText16kPrimary,
-                            children: [
-                              const TextSpan(
-                                  text: "I agree to comply with the "),
-                              TextSpan(
-                                text: "Policy",
-                                style: TextConfigs.kText16BoldKprimary,
-                              ),
-                              const TextSpan(text: " of the application"),
-                            ],
-                          ),
-                        ),
-                      ],
-                    )
                   ],
                 ),
               ),

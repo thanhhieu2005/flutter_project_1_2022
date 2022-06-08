@@ -8,6 +8,7 @@ import '../../constants/global_constants.dart';
 
 class SignUpProvider extends ChangeNotifier {
   bool isLoading = false;
+  bool isCheckPolicy = false;
   final pwdController = TextEditingController();
   final pwdConfirmController = TextEditingController();
   final emailController = TextEditingController();
@@ -29,6 +30,19 @@ class SignUpProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setLoadingStatus(bool loading) {
+    isLoading = loading;
+    notifyListeners();
+  }
+
+  bool getCheckPolicyStatus() {
+    return isCheckPolicy;
+  }
+
+  void setCheckPolicyStatus(bool status) {
+    isCheckPolicy = status;
+  }
+
   void createLocalUser() {
     AuthService().createUserInfo(
         emailController.text, userNameController.text, pwdController.text);
@@ -44,7 +58,8 @@ class SignUpProvider extends ChangeNotifier {
         pwdController.text == pwdConfirmController.text &&
         userNameController.text.length >= 6 &&
         pwdConfirmController.text.length >= 6 &&
-        pwdController.text.length >= 6;
+        pwdController.text.length >= 6 &&
+        isCheckPolicy == true;
     if (!result) {
       isLoading = false;
       notifyListeners();
@@ -72,6 +87,8 @@ class SignUpProvider extends ChangeNotifier {
 
   void clearPinCodeController() {
     pinCodeController.clear();
+    isLoading = false;
+    notifyListeners();
   }
 
   Future updateVerifyEmailStatus(String uid) async {
