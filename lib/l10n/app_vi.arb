@@ -77,5 +77,8 @@
     "userName" : "Tên Tài Khoản",
     "gender" : "Giới Tính",
     "male" : "Nam",
-    "female" : "Nữ"
+    "female" : "Nữ",
+    "confirmPassword" : "Nhập lại mật khẩu",
+    "termsAppCreateAccount" : "Tôi đồng ý với ",
+    "ofTheApplication" : "sử dụng của của phần mềm này"
 }

@@ -9,6 +9,8 @@ import '../../constants/global_constants.dart';
 class SignUpProvider extends ChangeNotifier {
   bool isLoading = false;
   bool isCheckPolicy = false;
+  bool isMale = false;
+  bool isWoman = false;
   final pwdController = TextEditingController();
   final pwdConfirmController = TextEditingController();
   final emailController = TextEditingController();
@@ -17,8 +19,8 @@ class SignUpProvider extends ChangeNotifier {
 
   Future createAccountWithEmail() async {
     try {
-      await AuthService().createUserWithEmailAndPassword(
-          emailController.text, pwdController.text, userNameController.text);
+      await AuthService().createUserWithEmailAndPassword(emailController.text,
+          pwdController.text, userNameController.text, isMale);
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString("user", jsonEncode(localCurrentUser.toJson()));
     } catch (err) {
@@ -41,6 +43,27 @@ class SignUpProvider extends ChangeNotifier {
 
   void setCheckPolicyStatus(bool status) {
     isCheckPolicy = status;
+    notifyListeners();
+  }
+
+  void changeGenderMale() {
+    if (isWoman != true || isMale == true) {
+      isMale = !isMale;
+    } else {
+      isWoman = isMale;
+      isMale = !isMale;
+    }
+    notifyListeners();
+  }
+
+  void changeGenderFemale() {
+    if (isMale != true || isWoman == true) {
+      isWoman = !isWoman;
+    } else {
+      isMale = isWoman;
+      isWoman = !isWoman;
+    }
+    notifyListeners();
   }
 
   void createLocalUser() {
@@ -59,7 +82,8 @@ class SignUpProvider extends ChangeNotifier {
         userNameController.text.length >= 6 &&
         pwdConfirmController.text.length >= 6 &&
         pwdController.text.length >= 6 &&
-        isCheckPolicy == true;
+        isCheckPolicy == true &&
+        !(!isMale && !isWoman);
     if (!result) {
       isLoading = false;
       notifyListeners();

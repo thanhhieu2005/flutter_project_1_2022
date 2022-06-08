@@ -77,5 +77,8 @@
     "userName" : "User Name",
     "gender" : "Gender",
     "male" : "Male",
-    "female" : "Female"
+    "female" : "Female",
+    "confirmPassword" : "Confirm Password",
+    "termsAppCreateAccount" : "I agree to comply with the ",
+    "ofTheApplication" : "of the application"
 }

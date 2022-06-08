@@ -124,7 +124,7 @@ class SignUpPageState extends State<SignUpPage> {
                       height: 20.h,
                     ),
                     Text(
-                      'User Name',
+                      AppLocalizations.of(context).userName,
                       style: TextConfigs.kTextSubtitle,
                     ),
                     SizedBox(
@@ -132,14 +132,14 @@ class SignUpPageState extends State<SignUpPage> {
                     ),
                     RoundedInputField(
                       controller: signUpProvider.userNameController,
-                      inputName: "User Name",
+                      inputName: AppLocalizations.of(context).userName,
                       icon: Icons.person,
                     ),
                     SizedBox(
                       height: 15.h,
                     ),
                     Text(
-                      'Email',
+                      AppLocalizations.of(context).email,
                       style: TextConfigs.kTextSubtitle,
                     ),
                     SizedBox(
@@ -147,14 +147,14 @@ class SignUpPageState extends State<SignUpPage> {
                     ),
                     RoundedInputField(
                       controller: signUpProvider.emailController,
-                      inputName: "Email",
+                      inputName: AppLocalizations.of(context).email,
                       icon: Icons.person,
                     ),
                     SizedBox(
                       height: 15.h,
                     ),
                     Text(
-                      'Password',
+                      AppLocalizations.of(context).yourPwd,
                       style: TextConfigs.kTextSubtitle,
                     ),
                     SizedBox(
@@ -167,7 +167,7 @@ class SignUpPageState extends State<SignUpPage> {
                       height: 15.h,
                     ),
                     Text(
-                      'Confirm Password',
+                      AppLocalizations.of(context).confirmPwd,
                       style: TextConfigs.kTextSubtitle,
                     ),
                     SizedBox(
@@ -182,7 +182,7 @@ class SignUpPageState extends State<SignUpPage> {
                       height: 15.h,
                     ),
                     Text(
-                      'Gender',
+                      AppLocalizations.of(context).gender,
                       style: TextConfigs.kTextSubtitle,
                     ),
                     SizedBox(
@@ -192,21 +192,49 @@ class SignUpPageState extends State<SignUpPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Column(
-                          children: const [
-                            Image(
-                                fit: BoxFit.scaleDown,
-                                image: AssetImage(
-                                    "assets/images/man_gender_unselected.png")),
+                          children: [
+                            Consumer<SignUpProvider>(
+                              builder: (context, provider, child) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    provider.changeGenderMale();
+                                  },
+                                  child: provider.isMale
+                                      ? const Image(
+                                          fit: BoxFit.scaleDown,
+                                          image: AssetImage(
+                                              "assets/images/man_gender_selected.png"))
+                                      : const Image(
+                                          fit: BoxFit.scaleDown,
+                                          image: AssetImage(
+                                              "assets/images/man_gender_unselected.png")),
+                                );
+                              },
+                            )
                           ],
                         ),
                         Column(
-                          children: const [
-                            Image(
-                                fit: BoxFit.scaleDown,
-                                image: AssetImage(
-                                    "assets/images/woman_gender_unselected.png")),
+                          children: [
+                            Consumer<SignUpProvider>(
+                              builder: (context, provider, child) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    provider.changeGenderFemale();
+                                  },
+                                  child: provider.isWoman
+                                      ? const Image(
+                                          fit: BoxFit.scaleDown,
+                                          image: AssetImage(
+                                              "assets/images/woman_gender_selected.png"))
+                                      : const Image(
+                                          fit: BoxFit.scaleDown,
+                                          image: AssetImage(
+                                              "assets/images/woman_gender_unselected.png")),
+                                );
+                              },
+                            )
                           ],
-                        )
+                        ),
                       ],
                     ),
                     SizedBox(
@@ -234,13 +262,18 @@ class SignUpPageState extends State<SignUpPage> {
                             text: TextSpan(
                               style: TextConfigs.kText16Black,
                               children: [
-                                const TextSpan(
-                                    text: "I agree to comply with the "),
                                 TextSpan(
-                                  text: "Policy",
+                                    text: AppLocalizations.of(context)
+                                            .termsAppCreateAccount +
+                                        " "),
+                                TextSpan(
+                                  text: AppLocalizations.of(context).policy,
                                   style: TextConfigs.kText16BoldKprimary,
                                 ),
-                                const TextSpan(text: " of the application"),
+                                TextSpan(
+                                    text: " " +
+                                        AppLocalizations.of(context)
+                                            .ofTheApplication),
                               ],
                             ),
                           ),
@@ -254,7 +287,19 @@ class SignUpPageState extends State<SignUpPage> {
                           press: () async {
                             try {
                               if (signUpProvider.isValidForSendingOtp()) {
-                                signUpProvider.createAccountWithEmail();
+                                try {
+                                  signUpProvider.createAccountWithEmail();
+                                } catch (error) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => CustomDialog(
+                                      title: "Failed",
+                                      description: error.toString(),
+                                      image: 'cancel.png',
+                                      hasDescription: true,
+                                    ),
+                                  );
+                                }
                                 localCurrentUser = localCurrentUser.copyWith(
                                     email: signUpProvider.emailController.text);
                                 Navigator.pushNamed(
