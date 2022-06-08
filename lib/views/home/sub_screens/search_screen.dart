@@ -73,7 +73,10 @@ class SearchScreen extends StatelessWidget {
                 SizedBox(
                   height: 16.h,
                 ),
-                const SearchWidget(readOnly: false),
+                const SearchWidget(
+                  readOnly: false,
+                  fillColors: AppColors.kLightBlue4,
+                ),
               ],
             ),
           ),

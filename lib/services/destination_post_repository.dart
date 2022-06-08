@@ -26,7 +26,8 @@ class DestinationPostRepo {
         await FirebaseFirestore.instance.collection('Users').doc(uid).get();
     if (snapshot.exists) {
       Map<String, dynamic>? userData = snapshot.data();
-      return VatractionUser.fromJson(userData!);
+      var user = VatractionUser.fromJson(userData!);
+      return user;
     } else {
       return null;
     }
@@ -60,5 +61,19 @@ class DestinationPostRepo {
 
   Future<void> submitPost(DestinationPost newPost, String postId) async {
     await _collectionPost.doc(postId).set(newPost.toMap());
+  }
+
+  Future<void> postModeration(String postId, int numStatus) async {
+    await _collectionPost.doc(postId).update({
+      "status": numStatus,
+    });
+  }
+
+  Future<void> evaluatePost(
+      String destinationPostId, double rating, int countRating) async {
+    await _collectionPost.doc(destinationPostId).update({
+      "rating": rating,
+      "countRating": countRating,
+    });
   }
 }

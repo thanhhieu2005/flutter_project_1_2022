@@ -10,6 +10,7 @@ class AppColors {
   static const kColor6 = Color(0xff43C72E);
   static const kLightGreen = Color(0xff00BA00);
   static const kLightRed = Color(0xffFE646F);
+  static const kGreyLight = Color(0xffE4E4E4);
   static const kTextColor1 = Color(0xFF787878);
   static const kPrimaryColor = Color(0xff00B4D8);
   static const kBlackColor = Colors.black;
@@ -22,6 +23,7 @@ class AppColors {
   static const kLightBlue5 = Color(0xffDDF5FB);
   static const kTextSecondary = Color(0xff9C9C9C);
   static const kTextGrey = Color(0xffA0A0A0);
+  static const kTextGrey1 = Color(0xff787878);
   static const kTextLightPrimary = Color(0xff00D5FF);
 }
 
@@ -31,5 +33,12 @@ class BoxShadowConfig {
     blurRadius: 1,
     spreadRadius: 1,
     offset: const Offset(0, 1),
+  );
+
+  static final kLight5Button = BoxShadow(
+    color: AppColors.kDarkBlue1.withOpacity(0.3),
+    blurRadius: 1,
+    spreadRadius: 1,
+    offset: const Offset(0, 3),
   );
 }

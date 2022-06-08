@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project_1/views/account/setting_account_screen.dart';
 import 'package:flutter_project_1/views/account/sub_screens/change_avatar_screen.dart';
 import 'package:flutter_project_1/views/account/sub_screens/change_pwd_screen.dart';
+import 'package:flutter_project_1/views/account/sub_screens/moderation/post_destination_moderation.dart';
+import 'package:flutter_project_1/views/account/sub_screens/moderation/post_moderation_detail.dart';
 import 'package:flutter_project_1/views/account/sub_screens/per_info_screen.dart';
 import 'package:flutter_project_1/views/discovery/discovery_screen.dart';
 import 'package:flutter_project_1/views/home/home_screen.dart';
@@ -48,6 +50,10 @@ class AppRoutes {
         return ChangePasswordScreen.route();
       case ChangeAvatarScreen.nameRoute:
         return ChangeAvatarScreen.route(settings);
+      case PostModerationScreen.nameRoute:
+        return PostModerationScreen.route();
+      case PostModerationDetailScreen.nameRoute:
+        return PostModerationDetailScreen.route(settings);
 
       /* Home Screen */
       case HomeScreen.nameRoute:

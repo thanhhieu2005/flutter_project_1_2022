@@ -19,7 +19,7 @@ class DesPostModerationWidget extends StatelessWidget {
       margin: EdgeInsetsConfig.kOnlyLTR_20,
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(
-          Radius.circular(20),
+          Radius.circular(10),
         ),
         color: AppColors.kColor5,
       ),
@@ -29,8 +29,8 @@ class DesPostModerationWidget extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
               ),
               color: AppColors.kLightBlue5,
             ),

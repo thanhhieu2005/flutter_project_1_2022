@@ -310,10 +310,17 @@ class _CreateDestinationPostScreenState
                         width: 240.w,
                         onTap: () {
                           createPostProvider.submitPost(() {
+                            OpenDialog().onSuccess(
+                                context,
+                                "assets/images/check.png",
+                                "Thanks a lot! Your post is pending approval!",
+                                "Successfully!",
+                                AppColors.kLightGreen);
+                          }, () {
                             OpenDialog().onFail(
                                 context,
                                 "assets/images/error.png",
-                                "Youd need to check again Destination Post's Info!",
+                                "You need to check again Destination Post's Info!",
                                 "Oops...Fail",
                                 AppColors.kLightRed);
                           });

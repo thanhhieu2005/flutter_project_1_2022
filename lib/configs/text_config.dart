@@ -136,4 +136,12 @@ class TextConfigs {
     fontWeight: FontWeight.bold,
     color: AppColors.kBlackColor,
   );
+
+  String addressSetUp(
+      String road, String wards, String district, String province) {
+    if (road.isEmpty) {
+      return (wards + ', ' + district + ", " + province);
+    }
+    return (road + ", " + wards + ', ' + district + ", " + province);
+  }
 }

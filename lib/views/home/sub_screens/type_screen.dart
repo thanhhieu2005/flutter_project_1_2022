@@ -91,8 +91,10 @@ class TypeScreen extends StatelessWidget {
                           Navigator.pushNamed(
                             context,
                             PostDetailScreen.nameRoute,
-                            arguments: PostDetailArgument(
-                                posts[index], args.provider.sharer!),
+                            arguments: DestinationPostDetailArgument(
+                                posts[index],
+                                args.provider.sharer!,
+                                args.provider),
                           );
                         },
                         post: posts[index],

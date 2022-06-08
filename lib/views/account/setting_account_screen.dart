@@ -4,6 +4,7 @@ import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_project_1/services/auth_service.dart';
 import 'package:flutter_project_1/view_models/account/setting_account_provider.dart';
 import 'package:flutter_project_1/view_models/locale_provider.dart';
+import 'package:flutter_project_1/views/account/sub_screens/moderation/post_destination_moderation.dart';
 import 'package:flutter_project_1/views/account/widgets/avatar_user_widget.dart';
 import 'package:flutter_project_1/views/account/sub_screens/change_pwd_screen.dart';
 import 'package:flutter_project_1/views/account/sub_screens/per_info_screen.dart';
@@ -118,7 +119,10 @@ class _SettingAccountScreenState extends State<SettingAccountScreen> {
                         icon: "assets/icons/ic_post_moderation.svg",
                         name: AppLocalizations.of(context).postModeration,
                         colorItem: AppColors.kColor1,
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, PostModerationScreen.nameRoute);
+                        },
                         visibility: true,
                       )
                     : Container();

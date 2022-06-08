@@ -104,7 +104,7 @@ class PostCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '4',
+                      post.rating.toString(),
                       style: TextConfigs.kTextSubtitle.copyWith(
                         color: AppColors.kColor1,
                       ),
