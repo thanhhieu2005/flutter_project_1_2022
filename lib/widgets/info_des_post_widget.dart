@@ -58,7 +58,7 @@ class InfoDestinationWidget extends StatelessWidget {
                     ),
                     Text(
                       '(' + post.rating.toString() + ')',
-                      style: TextConfigs.kText16_1.copyWith(
+                      style: TextConfigs.kText16White.copyWith(
                         color: AppColors.kTextColor1,
                       ),
                     ),

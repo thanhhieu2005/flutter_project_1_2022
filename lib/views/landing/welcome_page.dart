@@ -78,7 +78,7 @@ class _WelcomePageState extends State<WelcomePage> {
                         endColor: Colors.black.withOpacity(0.35)),
                     SizedBox(height: 20.h),
                     RoundedLinearButton(
-                        text: AppLocalizations.of(context).create,
+                        text: AppLocalizations.of(context).createAccount,
                         press: () {
                           Navigator.push(context, SignUpPage.route());
                         },

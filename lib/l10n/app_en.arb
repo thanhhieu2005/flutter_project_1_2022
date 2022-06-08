@@ -9,7 +9,7 @@
     "beach": "Beach",
     "introBeach": "Magical Blue Sea",
     "mountain": "Mountain",
-    "introMountain": "Gorgeous Mountains", 
+    "introMountain": "Gorgeo1 Mountains", 
     "island": "Island",
     "introIsland": "Pearl Island Horizon",
     "city": "City",
@@ -70,5 +70,15 @@
     "placeToDiscover": "Places to Discover",
     "weShareAll": "We share all place like tourist attraction,",
     "tourGuide" : "tour guides, places review, etc",
-    "welcomeBack" : "Welcome back"
+    "welcomeBack" : "Welcome back",
+    "createAccount" : "Create Account",
+    "signInToJoinIn" : "Sign in to join in our",
+    "amazingJourney" : "Amazing Journeys",
+    "userName" : "User Name",
+    "gender" : "Gender",
+    "male" : "Male",
+    "female" : "Female",
+    "confirmPassword" : "Confirm Password",
+    "termsAppCreateAccount" : "I agree to comply with the ",
+    "ofTheApplication" : "of the application"
 }

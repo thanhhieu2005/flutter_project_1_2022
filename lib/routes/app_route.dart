@@ -10,6 +10,7 @@ import 'package:flutter_project_1/views/discovery/discovery_screen.dart';
 import 'package:flutter_project_1/views/home/home_screen.dart';
 import 'package:flutter_project_1/views/home/sub_screens/post_detail_screen.dart';
 import 'package:flutter_project_1/views/home/sub_screens/type_screen.dart';
+import 'package:flutter_project_1/views/landing/landing_page.dart';
 import 'package:flutter_project_1/views/landing/welcome_page.dart';
 import 'package:flutter_project_1/views/login/login_page.dart';
 import 'package:flutter_project_1/views/navigation_bar_view/navigation_bar_view.dart';
@@ -35,7 +36,8 @@ class AppRoutes {
             settings: RouteSettings(arguments: settings.arguments));
       case WelcomePage.nameRoute:
         return CupertinoPageRoute(builder: (_) => const WelcomePage());
-
+      case LandingPage.nameRoute:
+        return CupertinoPageRoute(builder: (_) => const LandingPage());
       // Create new post screen
       // case CreatePostScreen.nameRoute:
       //   return CreatePostScreen.route();
