@@ -4,7 +4,7 @@ import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_project_1/models/others/argument_model.dart';
 import 'package:flutter_project_1/view_models/post/post_moderation_provider.dart';
 import 'package:flutter_project_1/views/account/sub_screens/moderation/post_moderation_detail.dart';
-import 'package:flutter_project_1/views/account/widgets/post_moderation_card_widget.dart';
+import 'package:flutter_project_1/widgets/general_post_card.dart';
 import 'package:flutter_project_1/views/home/widgets/search_widget.dart';
 import 'package:flutter_project_1/widgets/button/custom_back_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -114,7 +114,7 @@ class _PostModerationScreenState extends State<PostModerationScreen> {
                         itemBuilder: (context, index) {
                           final postModeration =
                               postModerationProvider.listPostModeration[index];
-                          return PostModerationCard(
+                          return GeneralPostCard(
                             firstImage: postModeration.images.first,
                             namePostModeration: postModeration.postName,
                             location: postModeration.district +

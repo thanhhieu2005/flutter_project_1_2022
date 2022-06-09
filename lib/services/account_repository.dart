@@ -5,6 +5,13 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_project_1/models/users/user.dart';
 
 class AccountRepo {
+  static final _collectionFavorite =
+      FirebaseFirestore.instance.collection('Favorites');
+
+  static Stream<QuerySnapshot> onPostDataChange() {
+    return _collectionFavorite.snapshots();
+  }
+
   static Future<void> updateInfoUser(VatractionUser newInfoUser) async {
     var docs = FirebaseFirestore.instance.collection("Users");
 
