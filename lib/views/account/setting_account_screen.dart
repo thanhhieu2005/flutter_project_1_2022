@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
+import 'package:flutter_project_1/constants/global_constants.dart';
 import 'package:flutter_project_1/services/auth_service.dart';
 import 'package:flutter_project_1/view_models/account/setting_account_provider.dart';
 import 'package:flutter_project_1/view_models/locale_provider.dart';
@@ -42,6 +43,12 @@ class _SettingAccountScreenState extends State<SettingAccountScreen> {
   //   accountProvider.getCurrUser();
   //   super.didChangeDependencies();
   // }
+
+  @override
+  void initState() {
+    context.read<SettingAccountProvider>().setCurrentUser();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

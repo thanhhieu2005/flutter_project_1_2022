@@ -1,3 +1,4 @@
+import 'package:email_auth/email_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/constants/global_constants.dart';
@@ -5,11 +6,13 @@ import 'package:flutter_project_1/services/auth_service.dart';
 import 'package:flutter_project_1/view_models/login/sign_up_provider.dart';
 import 'package:flutter_project_1/views/navigation_bar_view/navigation_bar_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
+import '../../configs/auth_config.dart';
 import '../../configs/text_config.dart';
 import '../../widgets/dialog/custom_dialog.dart';
 import '../../widgets/button/rounded_linear_button.dart';
@@ -32,11 +35,21 @@ class ConfirmEmailPage extends StatefulWidget {
 
 class _ConfirmEmailPageState extends State<ConfirmEmailPage> {
   @override
+  void initState() {
+    emailAuth.sendOtp(recipientMail: localCurrentUser.email);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final signUpProvider = Provider.of<SignUpProvider>(context);
     final isCreateAccount = ModalRoute.of(context)!.settings.arguments as bool;
     Size size = MediaQuery.of(context).size;
     return ModalProgressHUD(
+      progressIndicator: SpinKitThreeBounce(
+        color: AppColors.kPrimaryColor,
+        size: 32.h,
+      ),
       inAsyncCall: signUpProvider.isLoading,
       child: Scaffold(
         body: SingleChildScrollView(
@@ -116,7 +129,7 @@ class _ConfirmEmailPageState extends State<ConfirmEmailPage> {
                             Center(
                               child: Text(
                                 AppLocalizations.of(context).backToSignUp,
-                                style: TextConfigs.kText16_1,
+                                style: TextConfigs.kText16White,
                               ),
                             )
                           ],
@@ -196,9 +209,11 @@ class _ConfirmEmailPageState extends State<ConfirmEmailPage> {
                         builder: (context, provider, child) {
                           return RoundedLinearButton(
                             press: () async {
-                              var isVerified = await provider.verifyOtp(
-                                  localCurrentUser.email,
-                                  signUpProvider.pinCodeController.text);
+                              signUpProvider.setLoadingStatus(true);
+                              var isVerified = emailAuth.validateOtp(
+                                  recipientMail: localCurrentUser.email,
+                                  userOtp:
+                                      signUpProvider.pinCodeController.text);
                               if (isVerified) {
                                 await signUpProvider.updateVerifyEmailStatus(
                                     localCurrentUser.uid);

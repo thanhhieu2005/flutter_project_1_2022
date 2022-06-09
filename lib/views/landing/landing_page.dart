@@ -15,6 +15,13 @@ import '../sign_up/confirm_email_page.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({Key? key}) : super(key: key);
+  static const String nameRoute = '/landing';
+  static Route route() {
+    return MaterialPageRoute(
+      builder: (_) => const WelcomePage(),
+      settings: const RouteSettings(name: nameRoute),
+    );
+  }
 
   @override
   State<LandingPage> createState() => LandingPageState();

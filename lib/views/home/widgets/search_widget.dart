@@ -47,7 +47,7 @@ class _SearchWidgetState extends State<SearchWidget> {
             borderRadius: BorderRadius.circular(10),
           ),
           hintText: AppLocalizations.of(context).search,
-          hintStyle: TextConfigs.kText16_1.copyWith(
+          hintStyle: TextConfigs.kText16White.copyWith(
             color: AppColors.kDarkBlue1,
             fontStyle: FontStyle.italic,
           ),
