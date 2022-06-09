@@ -1,22 +1,22 @@
 class FavoriteDestinationPost {
   final String userId;
-  final List<String> listIdDestinantionPost;
+  final List<String> listIdDestinationPost;
   FavoriteDestinationPost({
     required this.userId,
-    required this.listIdDestinantionPost,
+    required this.listIdDestinationPost,
   });
 
   Map<String, dynamic> toMap() {
     return {
       'userId': userId,
-      'listIdDestinantionPost': listIdDestinantionPost,
+      'listIdDestinationPost': listIdDestinationPost,
     };
   }
 
   factory FavoriteDestinationPost.fromMap(Map<String, dynamic> map) {
     return FavoriteDestinationPost(
       userId: map['userId'] ?? '',
-      listIdDestinantionPost: List<String>.from(map['listIdDestinantionPost']),
+      listIdDestinationPost: List<String>.from(map['listIdDestinationPost']),
     );
   }
 }

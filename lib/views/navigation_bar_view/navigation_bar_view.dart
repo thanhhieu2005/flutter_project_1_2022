@@ -64,10 +64,7 @@ class _NavigationBarViewState extends State<NavigationBarView> {
     ),
     const DiscoveryScreen(),
     const Center(),
-    ChangeNotifierProvider<FavoritetProvider>(
-      create: (_) => FavoritetProvider(),
-      child: const FavoriteScreen(),
-    ),
+    const FavoriteScreen(),
     ChangeNotifierProvider<SettingAccountProvider>(
       create: (_) => SettingAccountProvider(),
       child: const SettingAccountScreen(),

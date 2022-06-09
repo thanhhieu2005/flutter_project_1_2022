@@ -5,12 +5,16 @@ import 'package:flutter_project_1/models/posts/destination_post.dart';
 import 'package:flutter_project_1/models/users/user.dart';
 import 'package:flutter_project_1/services/destination_post_repository.dart';
 
-class FavoritetProvider extends ChangeNotifier {
+class FavoriteProvider extends ChangeNotifier {
   late FavoriteDestinationPost _favoriteDestinationPost;
 
   VatractionUser? sharer;
 
   List<DestinationPost> _listFavoritePosts = [];
+
+  FavoriteProvider() {
+    setUpFavorite();
+  }
 
   List<DestinationPost> get listFavoritePosts {
     return _listFavoritePosts;
@@ -33,21 +37,41 @@ class FavoritetProvider extends ChangeNotifier {
     sharer = await DestinationPostRepo.getUserById(uid);
   }
 
-  // void updateFavorite() async {
-  //   notifyListeners();
-  //   await DestinationPostRepo().updateFavoritePost(favoriteDestinationPost);
-  // }
+  void onClickFavoriteButton(bool isLike, String destinationPostId) async {
+    if (!isLike) {
+      _favoriteDestinationPost.listIdDestinationPost.add(destinationPostId);
 
-  // bool onClickFavoriteButton(bool isLike, String destinationPostId) {
-  //   if (!isLike) {
-  //     favoriteDestinationPost.listIdDestinantionPost.add(destinationPostId);
-  //   } else {
-  //     favoriteDestinationPost.listIdDestinantionPost
-  //         .removeWhere((element) => element == destinationPostId);
-  //   }
+      var newFaveritePost =
+          await DestinationPostRepo.getPostById(destinationPostId);
+      listFavoritePosts.add(newFaveritePost);
+    } else {
+      _favoriteDestinationPost.listIdDestinationPost
+          .removeWhere((element) => element == destinationPostId);
+      _listFavoritePosts.removeWhere(
+          (element) => element.destinationPostId == destinationPostId);
+    }
 
-  //   updateFavorite;
+    await DestinationPostRepo().updateFavoritePost(_favoriteDestinationPost);
+    notifyListeners();
+  }
 
-  //   return !isLike;
-  // }
+  bool isLike(String destinationPostId) {
+    bool isLike = false;
+    for (var element in listFavoritePosts) {
+      if (element.destinationPostId == destinationPostId) {
+        isLike = true;
+      }
+    }
+    return isLike;
+  }
+
+  int statisticalTypePost(PostType postType) {
+    int count = 0;
+    for (var element in listFavoritePosts) {
+      if (element.type == postType) {
+        count++;
+      }
+    }
+    return count;
+  }
 }

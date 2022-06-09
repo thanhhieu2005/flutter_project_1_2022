@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class PostModerationCard extends StatelessWidget {
+class GeneralPostCard extends StatelessWidget {
   final String firstImage, namePostModeration, location, date;
   final bool isPending;
+  final double? rating;
+
   // final String avatarSharer, nameSharer;
   final VoidCallback onTap;
-  const PostModerationCard({
+  const GeneralPostCard({
     Key? key,
     required this.firstImage,
     required this.namePostModeration,
@@ -17,6 +20,7 @@ class PostModerationCard extends StatelessWidget {
     required this.date,
     required this.onTap,
     required this.isPending,
+    this.rating,
     // required this.avatarSharer,
     // required this.nameSharer,
   }) : super(key: key);
@@ -39,8 +43,8 @@ class PostModerationCard extends StatelessWidget {
               bottom: 4.h,
               child: Container(
                 padding: EdgeInsets.only(
-                  top: isPending ? 12.h : 16.h,
-                  bottom: isPending ? 12.h : 16.h,
+                  top: 12.h,
+                  bottom: 12.h,
                   right: 16.w,
                 ),
                 decoration: BoxDecoration(
@@ -67,52 +71,58 @@ class PostModerationCard extends StatelessWidget {
                         alignment: Alignment.topCenter,
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            NamePostModerationWidget(
+                            NameGeneralPostCardWidget(
                               namePostModeration: namePostModeration,
                               isPending: isPending,
                             ),
                             SizedBox(height: 4.h),
-                            InfoCardPostModeration(
+                            InfoGeneralPostCard(
                               assetIcon: "assets/icons/ic_location.svg",
                               content: location,
                               isPending: isPending,
                             ),
                             SizedBox(height: 4.h),
-                            InfoCardPostModeration(
-                              assetIcon: "assets/icons/ic_aboutl.svg",
-                              content: date,
-                              isPending: isPending,
-                            ),
-                            // SizedBox(height: 8.h),
-                            // Row(
-                            //   mainAxisSize: MainAxisSize.max,
-                            //   mainAxisAlignment: MainAxisAlignment.start,
-                            //   children: [
-                            //     Container(
-                            //       width: 24.h,
-                            //       height: 24.h,
-                            //       decoration: BoxDecoration(
-                            //         shape: BoxShape.circle,
-                            //         image: DecorationImage(
-                            //           fit: BoxFit.fill,
-                            //           image: NetworkImage(avatarSharer),
-                            //         ),
-                            //       ),
-                            //     ),
-                            //     SizedBox(
-                            //       width: 4.w,
-                            //     ),
-                            //     Flexible(
-                            //       child: Text(
-                            //         nameSharer,
-                            //         style: TextConfigs.kText14White.copyWith(
-                            //           color: AppColors.kTextGrey1,
-                            //         ),
-                            //       ),
-                            //     ),
-                            //   ],
-                            // ),
+                            isPending
+                                ? InfoGeneralPostCard(
+                                    assetIcon: "assets/icons/ic_aboutl.svg",
+                                    content: date,
+                                    isPending: isPending,
+                                  )
+                                : Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          RatingBarIndicator(
+                                            rating: isPending ? 0 : rating!,
+                                            itemBuilder: (context, index) =>
+                                                const Icon(
+                                              Icons.star,
+                                              color: AppColors.kColor4,
+                                            ),
+                                            itemCount: 5,
+                                            itemSize: 24.h,
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        width: 4.w,
+                                      ),
+                                      Text(
+                                        rating.toString(),
+                                        style:
+                                            TextConfigs.kText14Black.copyWith(
+                                          color: AppColors.kTextGrey,
+                                          fontSize: 24.sp,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                           ],
                         ),
                       ),
@@ -142,10 +152,10 @@ class PostModerationCard extends StatelessWidget {
   }
 }
 
-class InfoCardPostModeration extends StatelessWidget {
+class InfoGeneralPostCard extends StatelessWidget {
   final String assetIcon, content;
   final bool isPending;
-  const InfoCardPostModeration({
+  const InfoGeneralPostCard({
     Key? key,
     required this.assetIcon,
     required this.content,
@@ -185,10 +195,19 @@ class InfoCardPostModeration extends StatelessWidget {
   }
 }
 
-class NamePostModerationWidget extends StatelessWidget {
+class InfoRatingPostWidget extends StatelessWidget {
+  const InfoRatingPostWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
+class NameGeneralPostCardWidget extends StatelessWidget {
   final String namePostModeration;
   final bool isPending;
-  const NamePostModerationWidget({
+  const NameGeneralPostCardWidget({
     Key? key,
     required this.namePostModeration,
     required this.isPending,
@@ -229,14 +248,22 @@ class NamePostModerationWidget extends StatelessWidget {
               ),
             ],
           )
-        : Flexible(
-            child: Text(
-              namePostModeration,
-              style: TextConfigs.kTextSubtitle.copyWith(
-                  color: AppColors.kDarkBlue1,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 24.sp),
-            ),
+        : Row(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Flexible(
+                child: Text(
+                  namePostModeration,
+                  style: TextConfigs.kTextSubtitle.copyWith(
+                    color: AppColors.kDarkBlue1,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 24.sp,
+                  ),
+                ),
+              ),
+              Container(),
+            ],
           );
   }
 }

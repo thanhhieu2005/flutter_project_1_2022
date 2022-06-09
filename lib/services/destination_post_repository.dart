@@ -90,7 +90,7 @@ class DestinationPostRepo {
     } else {
       favoriteDestinationPost = FavoriteDestinationPost(
         userId: userId,
-        listIdDestinantionPost: [],
+        listIdDestinationPost: [],
       );
 
       await _collectionFavorite
@@ -103,10 +103,10 @@ class DestinationPostRepo {
   Future<List<DestinationPost>> getListDestinationPostFavorite(
       FavoriteDestinationPost favoriteDestinationPost) async {
     List<DestinationPost> listFavorite = [];
-    if (favoriteDestinationPost.listIdDestinantionPost.isNotEmpty) {
+    if (favoriteDestinationPost.listIdDestinationPost.isNotEmpty) {
       var snapshot = await _collectionPost
           .where("postId",
-              whereIn: favoriteDestinationPost.listIdDestinantionPost)
+              whereIn: favoriteDestinationPost.listIdDestinationPost)
           .get();
 
       if (snapshot.docs.isNotEmpty) {
@@ -121,7 +121,7 @@ class DestinationPostRepo {
   Future updateFavoritePost(
       FavoriteDestinationPost favoriteDestinationPost) async {
     await _collectionFavorite.doc(favoriteDestinationPost.userId).update({
-      "listIdDestinantionPost": favoriteDestinationPost.listIdDestinantionPost
+      "listIdDestinationPost": favoriteDestinationPost.listIdDestinationPost,
     });
   }
 }
