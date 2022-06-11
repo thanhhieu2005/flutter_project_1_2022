@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 
 import '../../configs/text_config.dart';
 
@@ -17,6 +19,7 @@ class DestinationPost {
   final double rating;
   final PostStatus status;
   final int countRating;
+  final DateTime dateTime;
 
   DestinationPost({
     required this.destinationPostId,
@@ -32,6 +35,7 @@ class DestinationPost {
     required this.rating,
     required this.status,
     required this.countRating,
+    required this.dateTime,
   });
 
   Map<String, dynamic> toMap() {
@@ -49,6 +53,7 @@ class DestinationPost {
       'rating': rating,
       'status': status.value,
       'countRating': countRating,
+      'dateTime': dateTime,
     };
   }
 
@@ -67,6 +72,8 @@ class DestinationPost {
       rating: map['rating']?.toDouble() ?? 0.0,
       status: PostStatusExtension.fromInt(map['status']),
       countRating: map['countRating']?.toInt() ?? 0,
+      dateTime:
+          DateTime.fromMillisecondsSinceEpoch(map['dateTime']!.seconds * 1000),
     );
   }
 }

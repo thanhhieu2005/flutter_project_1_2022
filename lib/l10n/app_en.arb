@@ -80,5 +80,17 @@
     "female" : "Female",
     "confirmPassword" : "Confirm Password",
     "termsAppCreateAccount" : "I agree to comply with the ",
-    "ofTheApplication" : "of the application"
+    "ofTheApplication" : "of the application",
+    "pending": "Pending",
+    "decline": "Decline",
+    "approve": "Approve",
+    "timeSend": "Time",
+     "contentConfirmDecline": "This post will be removed from list pending!",
+    "titleConfirmDecline": "Do you want to DECLINE this Post?",
+    "contentConfirmApprove" : "This post will be add to  list pending!",
+    "titleConfirmApprove" : "Press 'OK' to APPROVE this Post",
+    "contentCreatePostSuccess": "Thanks a lot! Your post is pending approval!",
+    "titleCreatePostSuccess": "Successfully!",
+    "contentCreatePostFail": "You need to check again Destination Post's Info!",
+    "titleCreatePostFail": "Oops...Fail"
 }

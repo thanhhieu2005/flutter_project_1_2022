@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
+import 'package:flutter_project_1/configs/date_cofig.dart';
 import 'package:flutter_project_1/models/others/argument_model.dart';
 import 'package:flutter_project_1/models/posts/destination_post.dart';
 import 'package:flutter_project_1/view_models/post/post_moderation_provider.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_project_1/widgets/dialog/open_dialog.dart';
 import 'package:flutter_project_1/widgets/info_des_post_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PostModerationDetailScreen extends StatelessWidget {
   static const String nameRoute = '/post_moderation_detail_screen';
@@ -104,9 +106,11 @@ class PostModerationDetailScreen extends StatelessWidget {
                           height: 16.h,
                         ),
                         ItemPostModerationWidget(
-                          content: infoPoster.userName!,
+                          content: DateConfig.fortmattedDateTime(
+                              postModeration.dateTime),
                           hasAvatar: false,
-                          title: 'Time',
+                          title: AppLocalizations.of(context).timeSend,
+                          icon: "assets/icons/ic_personal.svg",
                         ),
                         SizedBox(
                           height: 16.h,
@@ -115,7 +119,8 @@ class PostModerationDetailScreen extends StatelessWidget {
                           content: infoPoster.userName!,
                           hasAvatar: true,
                           avatar: infoPoster.avatarUrl,
-                          title: 'Posted',
+                          title: AppLocalizations.of(context).sharer,
+                          icon: "assets/icons/ic_personal.svg",
                         ),
                         SizedBox(
                           height: 16.h,
@@ -139,15 +144,18 @@ class PostModerationDetailScreen extends StatelessWidget {
                               Consumer<PostModerationProvider>(builder:
                                   (context, postModerationProvider, child) {
                                 return LightBlueButton(
-                                  text: 'Decline',
+                                  text: AppLocalizations.of(context).decline,
                                   textColor: AppColors.kColor3,
                                   onTap: () {
                                     OpenDialog().confirmDialog(
-                                      context,
-                                      "assets/images/decline.png",
-                                      'This post will be removed from list pending!',
-                                      'Do you want to DECLINE this Post?',
-                                      () {
+                                      context: context,
+                                      assetsNamePng:
+                                          "assets/images/decline.png",
+                                      content: AppLocalizations.of(context)
+                                          .contentConfirmDecline,
+                                      title: AppLocalizations.of(context)
+                                          .titleConfirmDecline,
+                                      onTapConfirm: () {
                                         postModerationProvider.postModeration(
                                           postModeration.destinationPostId,
                                           PostStatus.decline,
@@ -161,7 +169,7 @@ class PostModerationDetailScreen extends StatelessWidget {
                                           },
                                         );
                                       },
-                                      AppColors.kLightGreen,
+                                      confirmColorButton: AppColors.kLightGreen,
                                     );
                                   },
                                 );
@@ -169,15 +177,18 @@ class PostModerationDetailScreen extends StatelessWidget {
                               Consumer<PostModerationProvider>(builder:
                                   (context, postModerationProvider, child) {
                                 return LightBlueButton(
-                                  text: 'Approve',
+                                  text: AppLocalizations.of(context).approve,
                                   textColor: AppColors.kLightGreen,
                                   onTap: () {
                                     OpenDialog().confirmDialog(
-                                      context,
-                                      "assets/images/approve.png",
-                                      'This post will be add to  list pending!',
-                                      'Press "OK" to APPROVE this Post',
-                                      () {
+                                      context: context,
+                                      assetsNamePng:
+                                          "assets/images/approve.png",
+                                      content: AppLocalizations.of(context)
+                                          .contentConfirmApprove,
+                                      title: AppLocalizations.of(context)
+                                          .titleConfirmApprove,
+                                      onTapConfirm: () {
                                         postModerationProvider.postModeration(
                                           postModeration.destinationPostId,
                                           PostStatus.approve,
@@ -191,7 +202,7 @@ class PostModerationDetailScreen extends StatelessWidget {
                                           },
                                         );
                                       },
-                                      AppColors.kLightGreen,
+                                      confirmColorButton: AppColors.kLightGreen,
                                     );
                                   },
                                 );

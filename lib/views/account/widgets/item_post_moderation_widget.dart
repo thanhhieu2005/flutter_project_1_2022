@@ -9,12 +9,14 @@ class ItemPostModerationWidget extends StatelessWidget {
   final String content;
   final String title;
   final bool hasAvatar;
+  final String icon;
   const ItemPostModerationWidget({
     Key? key,
     required this.content,
     this.avatar,
     required this.hasAvatar,
     required this.title,
+    required this.icon,
   }) : super(key: key);
 
   @override
@@ -30,7 +32,7 @@ class ItemPostModerationWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           Container(
-            width: 1.sw / 2.9,
+            width: 1.sw / 2.6,
             padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
             decoration: const BoxDecoration(
               shape: BoxShape.rectangle,
@@ -44,17 +46,19 @@ class ItemPostModerationWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SvgPicture.asset(
-                  "assets/icons/ic_location.svg",
+                  icon,
                   color: AppColors.kDarkBlue1,
                 ),
                 SizedBox(
                   width: 8.w,
                 ),
-                Text(
-                  title,
-                  style: TextConfigs.kText16Black.copyWith(
-                    color: AppColors.kDarkBlue1,
-                    fontWeight: FontWeight.w600,
+                Flexible(
+                  child: Text(
+                    title,
+                    style: TextConfigs.kText16Black.copyWith(
+                      color: AppColors.kDarkBlue1,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ],

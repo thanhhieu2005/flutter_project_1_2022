@@ -80,5 +80,17 @@
     "female" : "Nữ",
     "confirmPassword" : "Nhập lại mật khẩu",
     "termsAppCreateAccount" : "Tôi đồng ý với ",
-    "ofTheApplication" : "sử dụng của của phần mềm này"
+    "ofTheApplication" : "sử dụng của của phần mềm này",
+    "pending": "Chưa Duyệt",
+    "decline": "Từ Chối",
+    "approve": "Chấp Nhận",
+    "timeSend": "Ngày đăng",
+    "contentConfirmDecline": "Bài đăng sẽ bị xóa khỏi danh sách chờ!",
+    "titleConfirmDecline": "Bạn muốn TỪ CHỐI bài đăng này?",
+    "contentConfirmApprove" : "Bài đăng sẽ được thêm vào danh sách chờ!",
+    "titleConfirmApprove" : "Ấn 'OK' để Duyệt bài này",
+    "contentCreatePostSuccess": "Cảm ơn bạn! Bài đăng của bạn đang trong danh sách chờ!",
+    "titleCreatePostSuccess": "Tuyệt vời!",
+    "contentCreatePostFail": "Bạn cần kiểm tra lại thông tin!",
+    "titleCreatePostFail": "Èo...Lỗi rồi!"
 }

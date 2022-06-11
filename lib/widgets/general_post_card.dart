@@ -4,6 +4,7 @@ import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GeneralPostCard extends StatelessWidget {
   final String firstImage, namePostModeration, location, date;
@@ -239,9 +240,9 @@ class NameGeneralPostCardWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Text(
-                  'Pending',
+                  AppLocalizations.of(context).pending,
                   style: TextConfigs.kText12W500Green1.copyWith(
-                    color: const Color.fromARGB(255, 224, 198, 101),
+                    color: Color.fromARGB(255, 182, 160, 81),
                     fontWeight: FontWeight.w500,
                   ),
                 ),
