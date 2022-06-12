@@ -7,9 +7,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../constants/global_constants.dart';
 
 class LoginProvider extends ChangeNotifier {
-  bool isLoading = false;
+  bool _isLoading = false;
+  bool _isEnterEmail = false;
   final loginEmailController = TextEditingController();
   final loginPwdController = TextEditingController();
+  final forgetPwdPinController = TextEditingController();
 
   void clearTextController() {
     loginEmailController.clear();
@@ -17,8 +19,17 @@ class LoginProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setLoadingStatus(bool loading) {
-    isLoading = loading;
+  bool get isLoading => _isLoading;
+
+  set isLoading(value) {
+    _isLoading = value;
+    notifyListeners();
+  }
+
+  bool get isEnterEmail => _isEnterEmail;
+
+  set isEnterEmail(value) {
+    _isEnterEmail = value;
     notifyListeners();
   }
 
@@ -36,6 +47,7 @@ class LoginProvider extends ChangeNotifier {
       isLoading = false;
       throw Exception(err.toString());
     }
+    isLoading = false;
     notifyListeners();
     return true;
   }

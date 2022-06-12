@@ -285,40 +285,39 @@ class SignUpPageState extends State<SignUpPage> {
                       child: RoundedLinearButton(
                           text: "Create",
                           press: () async {
-                            try {
-                              if (signUpProvider.isValidForSendingOtp()) {
-                                try {
-                                  signUpProvider.createAccountWithEmail();
-                                } catch (error) {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) => CustomDialog(
-                                      title: "Failed",
-                                      description: error.toString(),
-                                      image: 'cancel.png',
-                                      hasDescription: true,
-                                    ),
-                                  );
-                                }
-                                localCurrentUser = localCurrentUser.copyWith(
-                                    email: signUpProvider.emailController.text);
-                                Navigator.pushNamed(
-                                        context, ConfirmEmailPage.nameRoute,
-                                        arguments: true)
-                                    .then((value) =>
-                                        signUpProvider.clearTextController());
+                            // try {
+                            if (signUpProvider.isValidForSendingOtp()) {
+                              try {
+                                await signUpProvider.createAccountWithEmail();
+                              } catch (error) {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => CustomDialog(
+                                    title: "Failed",
+                                    description: error.toString(),
+                                    image: 'cancel.png',
+                                    hasDescription: true,
+                                  ),
+                                );
                               }
-                            } catch (error) {
-                              showDialog(
-                                context: context,
-                                builder: (context) => CustomDialog(
-                                  title: "Failed",
-                                  description: error.toString(),
-                                  image: 'cancel.png',
-                                  hasDescription: true,
-                                ),
-                              );
+                              await signUpProvider.getCurrentUser();
+                              Navigator.pushNamed(
+                                      context, ConfirmEmailPage.nameRoute,
+                                      arguments: true)
+                                  .then((value) =>
+                                      signUpProvider.clearTextController());
                             }
+                            // } catch (error) {
+                            //   showDialog(
+                            //     context: context,
+                            //     builder: (context) => CustomDialog(
+                            //       title: "Failed",
+                            //       description: error.toString(),
+                            //       image: 'cancel.png',
+                            //       hasDescription: true,
+                            //     ),
+                            //   );
+                            // }
                           },
                           textColor: Colors.white,
                           startColor: AppColors.kPrimaryColor,

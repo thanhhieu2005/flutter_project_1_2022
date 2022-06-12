@@ -6,6 +6,7 @@ import 'package:flutter_project_1/constants/global_constants.dart';
 import 'package:flutter_project_1/models/users/user.dart';
 import 'package:flutter_project_1/services/account_repository.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_project_1/services/auth_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
@@ -24,11 +25,17 @@ class SettingAccountProvider extends ChangeNotifier {
   final TextEditingController addressController =
       TextEditingController(text: "");
 
+  final TextEditingController currentPwdController = TextEditingController();
+  final TextEditingController newPwdController = TextEditingController();
+  final TextEditingController confirmPwdController = TextEditingController();
+
   late File _avatar = File('');
 
   bool _isLoad = false;
 
   bool get isLoad => _isLoad;
+
+  bool isLoadChangePwd = false;
 
   set isLoad(value) {
     _isLoad = value;
@@ -71,13 +78,13 @@ class SettingAccountProvider extends ChangeNotifier {
       localCurrentUser = newInfoUser;
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString("user", jsonEncode(localCurrentUser.toJson()));
-      prefs.getString("user");
       isLoad = false;
       onSuccess();
     }
   }
 
   VatractionUser getCurrUser() {
+    localCurrentUser;
     return _currUser;
   }
 
@@ -147,5 +154,32 @@ class SettingAccountProvider extends ChangeNotifier {
 
   void setCurrentUser() {
     _currUser = localCurrentUser;
+  }
+
+  Future changePassword() async {
+    if (isValidPwd()) {
+      isLoadChangePwd = true;
+      try {
+        await AuthService().changePassword(newPwdController.text);
+      } catch (err) {
+        throw Exception(err);
+      }
+    } else {
+      throw Exception("Can not change your password, Please try again");
+    }
+    isLoadChangePwd = false;
+    notifyListeners();
+  }
+
+  bool isValidPwd() {
+    return currentPwdController.text == localCurrentUser.pwd &&
+        newPwdController.text == confirmPwdController.text &&
+        currentPwdController.text != newPwdController.text;
+  }
+
+  void clearTextController() {
+    currentPwdController.clear();
+    newPwdController.clear();
+    confirmPwdController.clear();
   }
 }
