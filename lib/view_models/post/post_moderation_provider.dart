@@ -14,6 +14,7 @@ class PostModerationProvider extends ChangeNotifier {
   PostModerationProvider();
 
   List<DestinationPost> get listPostModeration {
+    _listPostModeration.sort((a, b) => a.dateTime.compareTo(b.dateTime));
     return _listPostModeration;
   }
 

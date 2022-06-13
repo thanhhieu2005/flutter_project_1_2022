@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
+import 'package:flutter_project_1/configs/date_cofig.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_project_1/models/others/argument_model.dart';
 import 'package:flutter_project_1/view_models/post/post_moderation_provider.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_project_1/views/home/widgets/search_widget.dart';
 import 'package:flutter_project_1/widgets/button/custom_back_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PostModerationScreen extends StatefulWidget {
   static const String nameRoute = '/post_moderation_screen';
@@ -81,7 +83,7 @@ class _PostModerationScreenState extends State<PostModerationScreen> {
               title: Align(
                 alignment: Alignment.centerRight,
                 child: Text(
-                  "Post Moderation",
+                  AppLocalizations.of(context).postModeration,
                   style: TextConfigs.kTextHeader1.copyWith(fontSize: 32.sp),
                 ),
               ),
@@ -120,7 +122,8 @@ class _PostModerationScreenState extends State<PostModerationScreen> {
                             location: postModeration.district +
                                 ", " +
                                 postModeration.province,
-                            date: '06/06/2021',
+                            date: DateConfig.fortmattedDateTime(
+                                postModeration.dateTime),
                             onTap: () async {
                               await postModerationProvider
                                   .getUserById(postModeration.sharer);

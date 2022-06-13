@@ -189,6 +189,7 @@ class CreateDestinationPostProvider extends ChangeNotifier {
         status: PostStatus.pending,
         type: _postType,
         countRating: 0,
+        dateTime: DateTime.now(),
       );
 
       await DestinationPostRepo().submitPost(newPost, postId);

@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
+import 'package:flutter_project_1/models/posts/destination_post.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NewDiscoveryCard extends StatelessWidget {
-  final String linkImage, titleCard, address;
+  final DestinationPost post;
   final VoidCallback onClick;
   const NewDiscoveryCard({
     Key? key,
-    required this.linkImage,
-    required this.titleCard,
-    required this.address,
     required this.onClick,
+    required this.post,
   }) : super(key: key);
 
   @override
@@ -27,7 +26,7 @@ class NewDiscoveryCard extends StatelessWidget {
           ),
           image: DecorationImage(
             fit: BoxFit.cover,
-            image: NetworkImage(linkImage),
+            image: NetworkImage(post.images.first),
           ),
         ),
         child: Stack(
@@ -55,9 +54,9 @@ class NewDiscoveryCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
+                      Flexible(
                         child: Text(
-                          titleCard,
+                          post.postName,
                           style: TextConfigs.kTextSubtitle.copyWith(
                             fontWeight: FontWeight.w600,
                             fontSize: 16.sp,
@@ -67,9 +66,9 @@ class NewDiscoveryCard extends StatelessWidget {
                       SizedBox(
                         height: 4.h,
                       ),
-                      Expanded(
+                      Flexible(
                         child: Text(
-                          address,
+                          post.province,
                           style: TextConfigs.kText16Black.copyWith(
                             fontWeight: FontWeight.w400,
                             fontSize: 14.sp,

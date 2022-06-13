@@ -3,8 +3,13 @@ import 'package:flutter_project_1/widgets/dialog/confirm_dialog_widget.dart';
 import 'package:flutter_project_1/widgets/dialog/custom_dialog_widget.dart';
 
 class OpenDialog {
-  void onFail(BuildContext context, String assetsNamePng, String content,
-      String title, Color mainColor) {
+  void onFail({
+    required BuildContext context,
+    required String assetsNamePng,
+    required String content,
+    required String title,
+    required Color mainColor,
+  }) {
     showDialog(
         barrierDismissible: false,
         context: context,
@@ -18,8 +23,13 @@ class OpenDialog {
         });
   }
 
-  void onSuccess(BuildContext context, String assetsNamePng, String content,
-      String title, Color mainColor) {
+  void onSuccess({
+    required BuildContext context,
+    required String assetsNamePng,
+    required String content,
+    required String title,
+    required Color mainColor,
+  }) {
     showDialog(
         barrierDismissible: false,
         context: context,
@@ -33,14 +43,14 @@ class OpenDialog {
         });
   }
 
-  void confirmDialog(
-    BuildContext context,
-    String assetsNamePng,
-    String content,
-    String title,
-    VoidCallback onTapConfirm,
-    Color confirmColorButton,
-  ) {
+  void confirmDialog({
+    required BuildContext context,
+    required String assetsNamePng,
+    required String content,
+    required String title,
+    required VoidCallback onTapConfirm,
+    required Color confirmColorButton,
+  }) {
     showDialog(
         context: context,
         builder: (context) {

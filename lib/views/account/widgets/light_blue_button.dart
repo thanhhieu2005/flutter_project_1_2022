@@ -30,10 +30,10 @@ class LightBlueButton extends StatelessWidget {
               BoxShadowConfig.kLight5Button,
             ]),
         child: Text(
-          text,
+          text.toUpperCase(),
           style: TextConfigs.kTextHeader1.copyWith(
             color: textColor,
-            fontSize: 28.sp,
+            fontSize: 20.sp,
           ),
         ),
       ),

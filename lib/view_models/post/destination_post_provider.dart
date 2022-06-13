@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_project_1/configs/date_cofig.dart';
 import 'package:flutter_project_1/configs/image_config.dart';
 import 'package:flutter_project_1/models/others/category_model.dart';
 import 'package:flutter_project_1/models/posts/destination_post.dart';
@@ -10,6 +11,8 @@ class DestinationPostProvider extends ChangeNotifier {
   bool _isLoad = true;
   final List<DestinationPost> _popularDestinationPost = [];
   final List<DestinationPost> _typeDestinationPost = [];
+
+  final List<DestinationPost> _listNewPost = [];
 
   VatractionUser? sharer;
 
@@ -77,6 +80,10 @@ class DestinationPostProvider extends ChangeNotifier {
             if (post.rating >= 3.5 && post.status == PostStatus.approve) {
               _popularDestinationPost.add(post);
             }
+            if (DateConfig.daysBetweenNow(post.dateTime) < 15 &&
+                post.status == PostStatus.approve) {
+              _listNewPost.add(post);
+            }
             break;
           case DocumentChangeType.modified:
             if (post.status != PostStatus.approve || post.rating < 3.5) {
@@ -84,8 +91,12 @@ class DestinationPostProvider extends ChangeNotifier {
             }
             final index = _popularDestinationPost.indexWhere((element) =>
                 element.destinationPostId == post.destinationPostId);
+            final indexNewPost = _listNewPost.indexWhere((element) =>
+                element.destinationPostId == post.destinationPostId);
             if (index >= 0) {
               _popularDestinationPost[index] = post;
+            } else if (indexNewPost >= 0) {
+              _listNewPost[indexNewPost] = post;
             } else {
               continue add;
             }
@@ -94,6 +105,12 @@ class DestinationPostProvider extends ChangeNotifier {
           case DocumentChangeType.removed:
             _popularDestinationPost.removeWhere((element) =>
                 element.destinationPostId == post.destinationPostId);
+
+            if (DateConfig.daysBetweenNow(post.dateTime) > 15 ||
+                post.status != PostStatus.approve) {
+              _listNewPost.removeWhere((element) =>
+                  element.destinationPostId == post.destinationPostId);
+            }
 
             break;
         }
@@ -122,6 +139,10 @@ class DestinationPostProvider extends ChangeNotifier {
 
   List<DestinationPost> get typeDestinationPost {
     return _typeDestinationPost;
+  }
+
+  List<DestinationPost> get listNewPost {
+    return _listNewPost;
   }
 
   Future<void> getUserById(String uid) async {

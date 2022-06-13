@@ -178,7 +178,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                             DestinationPostDetailArgument(
                                           e,
                                           provider.sharer!,
-                                          
                                         ),
                                       );
                                     },
@@ -206,15 +205,42 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 16.h,
                   ),
                   // Làm List view builder
-                  NewDiscoveryCard(
-                    linkImage:
-                        'https://haycafe.vn/wp-content/uploads/2022/01/Hinh-anh-Ha-Long.jpg',
-                    address: 'Ha Long Bay',
-                    titleCard: 'Quang Ninh',
-                    onClick: () {
-                      Navigator.pushNamed(context, PostDetailScreen.nameRoute);
-                    },
-                  ),
+                  Consumer<DestinationPostProvider>(
+                      builder: (context, provider, child) {
+                    var item = provider.listNewPost.take(5);
+                    return SingleChildScrollView(
+                      child: Row(
+                        children: item
+                            .map((e) => [
+                                  NewDiscoveryCard(
+                                    post: e,
+                                    onClick: () async {
+                                      await Provider.of<
+                                                  DestinationPostProvider>(
+                                              context,
+                                              listen: false)
+                                          .getUserById(e.sharer);
+                                      Navigator.pushNamed(
+                                        context,
+                                        PostDetailScreen.nameRoute,
+                                        arguments:
+                                            DestinationPostDetailArgument(
+                                          e,
+                                          provider.sharer!,
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                  SizedBox(
+                                    width: 16.w,
+                                  ),
+                                ])
+                            .expand((element) => element)
+                            .toList(),
+                      ),
+                      scrollDirection: Axis.horizontal,
+                    );
+                  }),
                   // container trang
                   Container(
                     height: 60.h,

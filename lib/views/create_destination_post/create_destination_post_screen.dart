@@ -311,18 +311,22 @@ class _CreateDestinationPostScreenState
                         onTap: () {
                           createPostProvider.submitPost(() {
                             OpenDialog().onSuccess(
-                                context,
-                                "assets/images/check.png",
-                                "Thanks a lot! Your post is pending approval!",
-                                "Successfully!",
-                                AppColors.kLightGreen);
+                                context: context,
+                                assetsNamePng: "assets/images/check.png",
+                                content: AppLocalizations.of(context)
+                                    .contentCreatePostSuccess,
+                                title: AppLocalizations.of(context)
+                                    .titleCreatePostSuccess,
+                                mainColor: AppColors.kLightGreen);
                           }, () {
                             OpenDialog().onFail(
-                                context,
-                                "assets/images/error.png",
-                                "You need to check again Destination Post's Info!",
-                                "Oops...Fail",
-                                AppColors.kLightRed);
+                                context: context,
+                                assetsNamePng: "assets/images/error.png",
+                                content: AppLocalizations.of(context)
+                                    .contentCreatePostFail,
+                                title: AppLocalizations.of(context)
+                                    .titleCreatePostFail,
+                                mainColor: AppColors.kLightRed);
                           });
                         }
                         // ignore: avoid_returning_null_for_void

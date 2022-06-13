@@ -4,6 +4,7 @@ import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DesPostModerationWidget extends StatelessWidget {
   final String content;
@@ -44,7 +45,7 @@ class DesPostModerationWidget extends StatelessWidget {
                     color: AppColors.kDarkBlue1,
                   ),
                   Text(
-                    'Description',
+                    AppLocalizations.of(context).description,
                     style: TextConfigs.kTextSubtitleBold.copyWith(
                       color: AppColors.kDarkBlue1,
                     ),
