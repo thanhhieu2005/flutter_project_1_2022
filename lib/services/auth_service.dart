@@ -1,14 +1,17 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
 import 'package:email_auth/email_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth_service;
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_project_1/app.dart';
 import 'package:flutter_project_1/configs/app_config.dart';
 import 'package:flutter_project_1/configs/auth_config.dart';
 import 'package:flutter_project_1/constants/global_constants.dart';
 import 'package:flutter_project_1/models/users/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class AuthService extends ChangeNotifier {
   String _token = "";
@@ -16,16 +19,9 @@ class AuthService extends ChangeNotifier {
   VatractionUser currentUser =
       const VatractionUser(email: "", uid: "", pwd: "");
 
-  late EmailAuth emailAuth;
-
-  AuthService() {
-    emailAuth = EmailAuth(sessionName: "VAtraction");
-  }
-
   final auth_service.FirebaseAuth _firebaseAuth =
       auth_service.FirebaseAuth.instance;
 
-  get http => null;
   VatractionUser? _userFromFirebase(auth_service.User? user) {
     if (user == null) {
       return null;
@@ -130,54 +126,63 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-  Future<void> _authenticate(
-      String email, String password, String urlSegment) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  Future _authenticate(String email, String password, String urlSegment) async {
+    var dio = Dio();
     final url =
-        'https://identitytoolkit..com/v1/accounts:$urlSegment?key=${AppConfigs.webApiKey}';
-    final response = await http.post(
+        'https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=${AppConfigs.webApiKey}';
+    final response = await dio.post(
       url,
-      body: json.encode(
-        {
-          'email': email,
-          'password': password,
-          'returnSecureToken': true,
-        },
-      ),
+      data: {'email': email, 'password': password, 'returnSecureToken': true},
     );
-    final responseData = json.decode(response.body);
-    debugPrint(responseData);
+    final responseData = response.data;
     _token = responseData['idToken'];
-    debugPrint('************************' + _token.toString());
-    try {
-      if (urlSegment == "signUp") {
-        sharedPreferences.setString("token", _token.toString());
+  }
+
+  Future<bool> sendOtp(String email, bool? isForget) async {
+    isForget ?? false;
+    if (isForget != true) {
+      emailAuth.config(remoteServerConfiguration);
+      bool result = await emailAuth.sendOtp(recipientMail: email);
+      if (result) {
+        return true;
       }
-    } catch (e) {
-      debugPrint(e.toString());
+      return false;
+    } else {
+      changePwdConfirm.config(remotePwdServerConfiguration);
+      bool result = await changePwdConfirm.sendOtp(recipientMail: email);
+      if (result) {
+        return true;
+      }
+      return false;
     }
-    debugPrint("true");
   }
 
-  Future<bool> sendOtp(String email) async {
-    emailAuth.config(remoteServerConfiguration);
-    bool result = await emailAuth.sendOtp(recipientMail: email);
-    if (result) {
-      return true;
+  Future<bool> verifyOtp(
+      String recipientMail, String userOtp, bool? isForget) async {
+    isForget ?? false;
+    bool result = false;
+    if (isForget != true) {
+      emailAuth.config(remoteServerConfiguration);
+      isloading = true;
+      result =
+          emailAuth.validateOtp(recipientMail: recipientMail, userOtp: userOtp);
+      if (result) {
+        localCurrentUser = localCurrentUser.copyWith(isConfirmEmail: true);
+        SharedPreferences sharedPref = await SharedPreferences.getInstance();
+        sharedPref.setString("user", jsonEncode(localCurrentUser.toJson()));
+      }
+    } else {
+      changePwdConfirm.config(remotePwdServerConfiguration);
+      isloading = true;
+      result = changePwdConfirm.validateOtp(
+          recipientMail: recipientMail, userOtp: userOtp);
+      if (result) {
+        localCurrentUser = localCurrentUser.copyWith(isConfirmEmail: true);
+        SharedPreferences sharedPref = await SharedPreferences.getInstance();
+        sharedPref.setString("user", jsonEncode(localCurrentUser.toJson()));
+      }
     }
-    return false;
-  }
 
-  Future<bool> verifyOtp(String recipientMail, String userOtp) async {
-    emailAuth.config(remoteServerConfiguration);
-    isloading = true;
-    bool result =
-        emailAuth.validateOtp(recipientMail: recipientMail, userOtp: userOtp);
-    if (result) {
-      localCurrentUser = localCurrentUser.copyWith(isConfirmEmail: true);
-      SharedPreferences sharedPref = await SharedPreferences.getInstance();
-      sharedPref.setString("user", jsonEncode(localCurrentUser.toJson()));
-    }
     return result;
   }
 
@@ -186,5 +191,80 @@ class AuthService extends ChangeNotifier {
         .collection("Users")
         .doc(uid)
         .update({'isConfirmEmail': true});
+  }
+
+  Future changePassword(String newPassword) async {
+    await _authenticate(
+        localCurrentUser.email, localCurrentUser.pwd, 'signInWithPassword');
+    const url =
+        'https://identitytoolkit.googleapis.com/v1/accounts:update?key=${AppConfigs.webApiKey}';
+
+    try {
+      await http.post(
+        Uri.parse(url),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: json.encode(
+          {
+            'idToken': _token,
+            'password': newPassword,
+            'returnSecureToken': true,
+          },
+        ),
+      );
+      localCurrentUser = localCurrentUser.copyWith(pwd: newPassword);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString("user", jsonEncode(localCurrentUser.toJson()));
+      await updateUserPwdOnFirebase(newPassword, localCurrentUser.uid);
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<VatractionUser> getUserByEmail(String email) async {
+    try {
+      var collection = FirebaseFirestore.instance.collection("Users");
+      var docSnapshot = await collection.where("email", isEqualTo: email).get();
+      return VatractionUser.fromJson(docSnapshot.docs.first.data());
+    } catch (err) {
+      throw Exception(err);
+    }
+  }
+
+  Future changePasswordWithoutLogin(String newPassword, String email) async {
+    VatractionUser user = await getUserByEmail(email);
+    await _authenticate(user.email, user.pwd, 'signInWithPassword');
+    const url =
+        'https://identitytoolkit.googleapis.com/v1/accounts:update?key=${AppConfigs.webApiKey}';
+
+    try {
+      await http.post(
+        Uri.parse(url),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: json.encode(
+          {
+            'idToken': _token,
+            'password': newPassword,
+            'returnSecureToken': true,
+          },
+        ),
+      );
+      localCurrentUser = user.copyWith(pwd: newPassword);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString("user", jsonEncode(localCurrentUser.toJson()));
+      await updateUserPwdOnFirebase(newPassword, localCurrentUser.uid);
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future updateUserPwdOnFirebase(String newPassword, String uid) async {
+    FirebaseFirestore.instance
+        .collection("Users")
+        .doc(uid)
+        .update({'pwd': newPassword});
   }
 }

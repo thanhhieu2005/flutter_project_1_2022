@@ -92,5 +92,9 @@
     "contentCreatePostSuccess": "Thanks a lot! Your post is pending approval!",
     "titleCreatePostSuccess": "Successfully!",
     "contentCreatePostFail": "You need to check again Destination Post's Info!",
-    "titleCreatePostFail": "Oops...Fail"
+    "titleCreatePostFail": "Oops...Fail",
+    "pleaseEnterEmail": "Please enter your email address that link with your account",
+    "verify" : "Verify",
+    "sendEmail" : "Send Email",
+    "pleaseEnterPwd" : "Please enter your new password"
 }

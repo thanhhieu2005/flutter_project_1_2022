@@ -92,5 +92,9 @@
     "contentCreatePostSuccess": "Cảm ơn bạn! Bài đăng của bạn đang trong danh sách chờ!",
     "titleCreatePostSuccess": "Tuyệt vời!",
     "contentCreatePostFail": "Bạn cần kiểm tra lại thông tin!",
-    "titleCreatePostFail": "Èo...Lỗi rồi!"
+    "titleCreatePostFail": "Èo...Lỗi rồi!",
+    "pleaseEnterEmail" : "Nhập email đã được đăng ký của bạn",
+    "verify" : "Xác nhận",
+    "sendEmail" : "Gửi Email",
+    "pleaseEnterPwd" : "Hãy nhập mật khẩu mới của bạn"
 }

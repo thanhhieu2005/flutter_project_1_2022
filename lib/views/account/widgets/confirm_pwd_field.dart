@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_project_1/view_models/account/setting_account_provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import '../../../configs/color_config.dart';
 
 class ConfirmPasswordField extends StatefulWidget {
   final String newPassword;
   final ValueChanged<String> onChanged;
+  final TextEditingController confirmPwdController;
   const ConfirmPasswordField({
     Key? key,
     required this.onChanged,
     required this.newPassword,
+    required this.confirmPwdController,
   }) : super(key: key);
 
   @override
@@ -42,60 +46,70 @@ class _ConfirmPasswordFieldState extends State<ConfirmPasswordField> {
           ),
         ],
       ),
-      child: Form(
-        child: TextFormField(
-          onChanged: widget.onChanged,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          maxLines: 1,
-          obscureText: !_passwordVisibility,
-          textInputAction: TextInputAction.done,
-          inputFormatters: [
-            FilteringTextInputFormatter.deny(RegExp('[\\.|\\,| -]'))
-          ],
-          validator: (value) {
-            if (value!.isEmpty) {
-              return "Confirm Password cannot be blank!";
-            } else if (value != widget.newPassword) {
-              return "Confirm Password doesn't match!";
-            } else {
-              return null;
-            }
-          },
-          // value!.isNotEmpty ? null : "Password cannot be blank!",
-          keyboardType: TextInputType.text,
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: AppColors.kColor1,
-            border: InputBorder.none,
-            suffixIcon: IconButton(
-              icon: Padding(
-                padding: EdgeInsets.only(right: 20.w),
-                child: Icon(
-                  _passwordVisibility ? Icons.visibility_off : Icons.visibility,
-                  size: 16.h,
-                  color: Colors.black,
+      child: Form(child: Consumer<SettingAccountProvider>(
+        builder: (context, provider, child) {
+          return TextFormField(
+            onChanged: widget.onChanged,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            maxLines: 1,
+            obscureText: !_passwordVisibility,
+            textInputAction: TextInputAction.done,
+            inputFormatters: [
+              FilteringTextInputFormatter.deny(RegExp('[\\.|\\,| -]'))
+            ],
+            controller: widget.confirmPwdController,
+            validator: (value) {
+              if (value != null) {
+                if (value.isEmpty) {
+                  return "Confirm Password cannot be blank!";
+                } else {
+                  if (provider.newPwdController.text != value) {
+                    return "Confirm password does not match!";
+                  } else {
+                    return null;
+                  }
+                }
+              } else {
+                return null;
+              }
+            },
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: AppColors.kColor1,
+              border: InputBorder.none,
+              suffixIcon: IconButton(
+                icon: Padding(
+                  padding: EdgeInsets.only(right: 20.w),
+                  child: Icon(
+                    _passwordVisibility
+                        ? Icons.visibility_off
+                        : Icons.visibility,
+                    size: 16.h,
+                    color: Colors.black,
+                  ),
                 ),
+                onPressed: () {
+                  setState(() {
+                    _passwordVisibility = !_passwordVisibility;
+                  });
+                },
               ),
-              onPressed: () {
-                setState(() {
-                  _passwordVisibility = !_passwordVisibility;
-                });
-              },
+              enabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.white),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: AppColors.kPrimaryColor),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              errorBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.red),
+                  borderRadius: BorderRadius.circular(10)),
             ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.white),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: AppColors.kPrimaryColor),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            errorBorder: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.red),
-                borderRadius: BorderRadius.circular(10)),
-          ),
-        ),
-      ),
+          );
+        },
+      )),
     );
   }
 }
