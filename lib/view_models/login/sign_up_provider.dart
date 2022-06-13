@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_project_1/models/users/user.dart';
 import 'package:flutter_project_1/services/auth_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -35,6 +36,13 @@ class SignUpProvider extends ChangeNotifier {
   void setLoadingStatus(bool loading) {
     isLoading = loading;
     notifyListeners();
+  }
+
+  Future getCurrentUser() async {
+    final prefs = await SharedPreferences.getInstance();
+    var userJson = jsonDecode(prefs.getString('user')!);
+    localCurrentUser = VatractionUser.fromJson(userJson);
+    localCurrentUser;
   }
 
   bool getCheckPolicyStatus() {
@@ -94,7 +102,7 @@ class SignUpProvider extends ChangeNotifier {
   Future sendOtp() async {
     isLoading = true;
     try {
-      await AuthService().sendOtp(emailController.text);
+      await AuthService().sendOtp(emailController.text, false);
       isLoading = false;
     } catch (err) {
       isLoading = false;

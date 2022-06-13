@@ -186,7 +186,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                           Text(
                             postDetailArgument.post.description
                                 .replaceAll("   ", '\n'),
-                            style: TextConfigs.kText16_1.copyWith(
+                            style: TextConfigs.kText16Black.copyWith(
                               color: AppColors.kColor0,
                             ),
                           ),

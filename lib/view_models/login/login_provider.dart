@@ -7,18 +7,40 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../constants/global_constants.dart';
 
 class LoginProvider extends ChangeNotifier {
-  bool isLoading = false;
+  bool _isLoading = false;
+  bool _isEnterEmail = false;
+  bool _isChangePwd = false;
   final loginEmailController = TextEditingController();
   final loginPwdController = TextEditingController();
+  final forgetPwdPinController = TextEditingController();
+  final forgetEmailController = TextEditingController();
+  final newPwdController = TextEditingController();
+  final confirmPwdController = TextEditingController();
 
   void clearTextController() {
-    loginEmailController.clear();
-    loginPwdController.clear();
+    loginEmailController.text = "";
+    loginPwdController.text = "";
     notifyListeners();
   }
 
-  void setLoadingStatus(bool loading) {
-    isLoading = loading;
+  bool get isLoading => _isLoading;
+
+  set isLoading(value) {
+    _isLoading = value;
+    notifyListeners();
+  }
+
+  bool get isEnterEmail => _isEnterEmail;
+
+  set isEnterEmail(value) {
+    _isEnterEmail = value;
+    notifyListeners();
+  }
+
+  bool get isChangePwd => _isChangePwd;
+
+  set isChangePwd(value) {
+    _isChangePwd = value;
     notifyListeners();
   }
 
@@ -36,6 +58,7 @@ class LoginProvider extends ChangeNotifier {
       isLoading = false;
       throw Exception(err.toString());
     }
+    isLoading = false;
     notifyListeners();
     return true;
   }
@@ -45,5 +68,35 @@ class LoginProvider extends ChangeNotifier {
       loginEmailController.text = email;
       loginPwdController.text = pwd;
     }
+  }
+
+  Future sendOtp(String email) async {
+    try {
+      await AuthService().sendOtp(email, true);
+      isEnterEmail = true;
+    } catch (err) {
+      throw Exception(err);
+    }
+  }
+
+  Future<bool> verifyOtp(String email, String userOtp) async {
+    var result = false;
+    try {
+      result = await AuthService().verifyOtp(email, userOtp, true);
+    } catch (err) {
+      throw Exception(err);
+    }
+    return result;
+  }
+
+  Future<bool> changePwd(String pwd, String email) async {
+    var isChangePwdSuccess = false;
+    try {
+      await AuthService().changePasswordWithoutLogin(pwd, email);
+      isChangePwdSuccess = true;
+    } catch (err) {
+      throw Exception(err);
+    }
+    return isChangePwdSuccess;
   }
 }
