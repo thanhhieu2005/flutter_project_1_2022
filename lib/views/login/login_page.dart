@@ -144,11 +144,15 @@ class _LoginPageState extends State<LoginPage> {
                                         Navigator.pushNamed(
                                             context, ForgetPwdPage.nameRoute);
                                       },
-                                      child: Align(
-                                        alignment: Alignment.centerRight,
-                                        child: Text(
-                                          "Forget your password ?",
-                                          style: TextConfigs.kText16kPrimary,
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 10.h, horizontal: 10.w),
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Text(
+                                            "Forget your password ?",
+                                            style: TextConfigs.kText16kPrimary,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -169,10 +173,11 @@ class _LoginPageState extends State<LoginPage> {
                                                   await loginProvider
                                                       .signInWithEmail();
                                               if (isConfirmEmail) {
-                                                Navigator.pushAndRemoveUntil(
-                                                    context,
-                                                    NavigationBarView.route(),
-                                                    (route) => true);
+                                                Navigator
+                                                    .pushNamedAndRemoveUntil(
+                                                        context,
+                                                        NavigationBarView.id,
+                                                        (route) => false);
                                               } else {
                                                 localCurrentUser =
                                                     localCurrentUser.copyWith(
@@ -210,7 +215,8 @@ class _LoginPageState extends State<LoginPage> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          "Don't have an account ?",
+                                          AppLocalizations.of(context)
+                                              .dontHaveAccount,
                                           style: TextConfigs.kText16kPrimary,
                                         ),
                                         SizedBox(
@@ -222,7 +228,7 @@ class _LoginPageState extends State<LoginPage> {
                                                 context, SignUpPage.route());
                                           },
                                           child: Text(
-                                            "Sign up",
+                                            AppLocalizations.of(context).signUp,
                                             style:
                                                 TextConfigs.kText16BoldKprimary,
                                           ),

@@ -10,12 +10,12 @@ class LoginProvider extends ChangeNotifier {
   bool _isLoading = false;
   bool _isEnterEmail = false;
   bool _isChangePwd = false;
+  bool _isLoadingPwd = false;
   final loginEmailController = TextEditingController();
   final loginPwdController = TextEditingController();
   final forgetPwdPinController = TextEditingController();
   final forgetEmailController = TextEditingController();
   final newPwdController = TextEditingController();
-  final confirmPwdController = TextEditingController();
 
   void clearTextController() {
     loginEmailController.text = "";
@@ -41,6 +41,23 @@ class LoginProvider extends ChangeNotifier {
 
   set isChangePwd(value) {
     _isChangePwd = value;
+    notifyListeners();
+  }
+
+  bool get isLoadingPwd => _isLoadingPwd;
+
+  set isLoadingPwd(value) {
+    _isLoadingPwd = value;
+    notifyListeners();
+  }
+
+  Future clearForgetPwdPage() async {
+    isChangePwd = false;
+    isEnterEmail = false;
+    isLoadingPwd = false;
+    forgetEmailController.text = "";
+    forgetPwdPinController.clear();
+    newPwdController.clear();
     notifyListeners();
   }
 
