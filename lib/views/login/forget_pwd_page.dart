@@ -259,8 +259,12 @@ class _ForgetPwdPageState extends State<ForgetPwdPage> {
                           press: () async {
                             EasyLoading.show(
                                 status: "Loading",
-                                maskType: EasyLoadingMaskType.custom,
-                                dismissOnTap: false);
+                                indicator: SpinKitThreeBounce(
+                                  color: AppColors.kPrimaryColor,
+                                  size: 32.h,
+                                ),
+                                dismissOnTap: false,
+                                maskType: EasyLoadingMaskType.custom);
                             if (!provider.isEnterEmail &&
                                 !provider.isChangePwd) {
                               await provider

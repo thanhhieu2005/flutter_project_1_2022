@@ -9,6 +9,7 @@ import 'package:flutter_project_1/view_models/favorite_post_provider.dart';
 import 'package:flutter_project_1/view_models/locale_provider.dart';
 import 'package:flutter_project_1/view_models/login/login_provider.dart';
 import 'package:flutter_project_1/view_models/login/sign_up_provider.dart';
+import 'package:flutter_project_1/view_models/post/search_post_provider.dart';
 import 'package:flutter_project_1/views/landing/landing_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -41,6 +42,9 @@ class VAtractionApp extends StatelessWidget {
                 ),
                 ChangeNotifierProvider<SettingAccountProvider>(
                   create: (_) => SettingAccountProvider(),
+                ),
+                ChangeNotifierProvider<SearchPostProvider>(
+                  create: (_) => SearchPostProvider(),
                 ),
               ],
               child: MaterialApp(

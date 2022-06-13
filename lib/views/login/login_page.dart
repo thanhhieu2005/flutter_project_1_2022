@@ -1,5 +1,6 @@
 import 'package:email_auth/email_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_project_1/constants/global_constants.dart';
@@ -43,222 +44,221 @@ class _LoginPageState extends State<LoginPage> {
     final loginProvider = Provider.of<LoginProvider>(context);
     return Consumer<LoginProvider>(
       builder: (context, provider, child) {
-        return ModalProgressHUD(
-          progressIndicator: SpinKitThreeBounce(
-            color: AppColors.kPrimaryColor,
-            size: 32.h,
-          ),
-          inAsyncCall: provider.isLoading,
-          color: AppColors.kPrimaryColor,
-          child: Scaffold(
-            body: SingleChildScrollView(
-              child: Container(
-                height: MediaQuery.of(context).size.height,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image:
-                        AssetImage("assets/images/img_welcome_background.png"),
-                    fit: BoxFit.cover,
-                  ),
+        return Scaffold(
+          body: SingleChildScrollView(
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/img_welcome_background.png"),
+                  fit: BoxFit.cover,
                 ),
-                child: SafeArea(
-                  child: Stack(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(top: 15.h, left: 20.w),
-                            child: Text(
-                              AppLocalizations.of(context).welcomeBack,
-                              style: TextConfigs.kText31SemiBoldWhite,
-                            ),
+              ),
+              child: SafeArea(
+                child: Stack(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(top: 15.h, left: 20.w),
+                          child: Text(
+                            AppLocalizations.of(context).welcomeBack,
+                            style: TextConfigs.kText31SemiBoldWhite,
                           ),
-                          Center(
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10.w, vertical: 5.h),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.black.withOpacity(0.2),
-                              ),
-                              margin: EdgeInsets.only(top: 20.h),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    AppLocalizations.of(context).signInToJoinIn,
-                                    style: TextConfigs.kText16White,
-                                  ),
-                                  SizedBox(height: 5.h),
-                                  Text(
-                                    AppLocalizations.of(context).amazingJourney,
-                                    style: TextConfigs.kText24_2.copyWith(
-                                      color: AppColors.kTextLightPrimary,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: FractionallySizedBox(
-                          heightFactor: 0.7,
+                        ),
+                        Center(
                           child: Container(
-                            padding: EdgeInsets.only(left: 40.w, right: 40.w),
-                            color: AppColors.kColor1,
-                            child: Stack(
-                              fit: StackFit.expand,
-                              clipBehavior: Clip.none,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10.w, vertical: 5.h),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.black.withOpacity(0.2),
+                            ),
+                            margin: EdgeInsets.only(top: 20.h),
+                            child: Column(
                               children: [
-                                Container(
-                                  margin: EdgeInsets.only(top: 60.h),
-                                  child: Column(children: [
-                                    RoundedInputField(
-                                      hasHint: true,
-                                      fillColor: AppColors.kLightBlueBackGround,
-                                      controller:
-                                          loginProvider.loginEmailController,
-                                      inputName:
-                                          AppLocalizations.of(context).email,
-                                      icon: Icons.person,
-                                    ),
-                                    SizedBox(
-                                      height: 10.h,
-                                    ),
-                                    RoundedPasswordField(
-                                      hasHint: true,
-                                      hintText:
-                                          AppLocalizations.of(context).yourPwd,
-                                      fillColor: AppColors.kLightBlueBackGround,
-                                      controller:
-                                          loginProvider.loginPwdController,
-                                    ),
-                                    SizedBox(
-                                      height: 10.h,
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.pushNamed(
-                                            context, ForgetPwdPage.nameRoute);
-                                      },
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 10.h, horizontal: 10.w),
-                                        child: Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            "Forget your password ?",
-                                            style: TextConfigs.kText16kPrimary,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 20.h,
-                                    ),
-                                    RoundedLinearButton(
-                                        isAllCap: false,
-                                        text:
-                                            AppLocalizations.of(context).signIn,
-                                        press: () async {
-                                          if (loginProvider.loginEmailController
-                                                  .text.isNotEmpty &&
-                                              loginProvider.loginPwdController
-                                                  .text.isNotEmpty) {
-                                            try {
-                                              var isConfirmEmail =
-                                                  await loginProvider
-                                                      .signInWithEmail();
-                                              if (isConfirmEmail) {
-                                                Navigator
-                                                    .pushNamedAndRemoveUntil(
-                                                        context,
-                                                        NavigationBarView.id,
-                                                        (route) => false);
-                                              } else {
-                                                localCurrentUser =
-                                                    localCurrentUser.copyWith(
-                                                        email: loginProvider
-                                                            .loginEmailController
-                                                            .text);
-                                                Navigator.pushNamed(context,
-                                                    ConfirmEmailPage.nameRoute,
-                                                    arguments: false);
-                                              }
-                                              loginProvider
-                                                  .clearTextController();
-                                            } catch (err) {
-                                              showDialog(
-                                                context: context,
-                                                builder: (context) =>
-                                                    CustomDialog(
-                                                  title: "Failed",
-                                                  description: err.toString(),
-                                                  image: 'cancel.png',
-                                                  hasDescription: true,
-                                                ),
-                                              );
-                                            }
-                                          }
-                                        },
-                                        textColor: Colors.white,
-                                        startColor: AppColors.kPrimaryColor,
-                                        endColor: AppColors.kPrimaryColor),
-                                    SizedBox(
-                                      height: 30.h,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          AppLocalizations.of(context)
-                                              .dontHaveAccount,
-                                          style: TextConfigs.kText16kPrimary,
-                                        ),
-                                        SizedBox(
-                                          width: 10.w,
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            Navigator.push(
-                                                context, SignUpPage.route());
-                                          },
-                                          child: Text(
-                                            AppLocalizations.of(context).signUp,
-                                            style:
-                                                TextConfigs.kText16BoldKprimary,
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ]),
+                                Text(
+                                  AppLocalizations.of(context).signInToJoinIn,
+                                  style: TextConfigs.kText16White,
                                 ),
-                                Positioned(
-                                  left: 0,
-                                  right: 0,
-                                  top: -45,
-                                  child: Center(
-                                    child: Image(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.13,
-                                      fit: BoxFit.cover,
-                                      image: const AssetImage(
-                                          "assets/images/small_app_logo.png"),
-                                    ),
+                                SizedBox(height: 5.h),
+                                Text(
+                                  AppLocalizations.of(context).amazingJourney,
+                                  style: TextConfigs.kText24_2.copyWith(
+                                    color: AppColors.kTextLightPrimary,
                                   ),
                                 ),
                               ],
                             ),
                           ),
                         ),
+                      ],
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: FractionallySizedBox(
+                        heightFactor: 0.7,
+                        child: Container(
+                          padding: EdgeInsets.only(left: 40.w, right: 40.w),
+                          color: AppColors.kColor1,
+                          child: Stack(
+                            fit: StackFit.expand,
+                            clipBehavior: Clip.none,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(top: 60.h),
+                                child: Column(children: [
+                                  RoundedInputField(
+                                    hasHint: true,
+                                    fillColor: AppColors.kLightBlueBackGround,
+                                    controller:
+                                        loginProvider.loginEmailController,
+                                    inputName:
+                                        AppLocalizations.of(context).email,
+                                    icon: Icons.person,
+                                  ),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  RoundedPasswordField(
+                                    hasHint: true,
+                                    hintText:
+                                        AppLocalizations.of(context).yourPwd,
+                                    fillColor: AppColors.kLightBlueBackGround,
+                                    controller:
+                                        loginProvider.loginPwdController,
+                                  ),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, ForgetPwdPage.nameRoute);
+                                    },
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 10.h, horizontal: 10.w),
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Text(
+                                          "Forget your password ?",
+                                          style: TextConfigs.kText16kPrimary,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 20.h,
+                                  ),
+                                  RoundedLinearButton(
+                                      isAllCap: false,
+                                      text: AppLocalizations.of(context).signIn,
+                                      press: () async {
+                                        EasyLoading.show(
+                                            status: "Loading",
+                                            indicator: SpinKitThreeBounce(
+                                              color: AppColors.kPrimaryColor,
+                                              size: 32.h,
+                                            ),
+                                            dismissOnTap: false,
+                                            maskType:
+                                                EasyLoadingMaskType.custom);
+                                        if (loginProvider.loginEmailController
+                                                .text.isNotEmpty &&
+                                            loginProvider.loginPwdController
+                                                .text.isNotEmpty) {
+                                          try {
+                                            var isConfirmEmail =
+                                                await loginProvider
+                                                    .signInWithEmail();
+                                            if (isConfirmEmail) {
+                                              await EasyLoading.dismiss();
+                                              Navigator.pushNamedAndRemoveUntil(
+                                                  context,
+                                                  NavigationBarView.id,
+                                                  (route) => false);
+                                            } else {
+                                              await EasyLoading.dismiss();
+                                              localCurrentUser =
+                                                  localCurrentUser.copyWith(
+                                                      email: loginProvider
+                                                          .loginEmailController
+                                                          .text);
+                                              Navigator.pushNamed(context,
+                                                  ConfirmEmailPage.nameRoute,
+                                                  arguments: false);
+                                            }
+                                            loginProvider.clearTextController();
+                                          } catch (err) {
+                                            EasyLoading.showError(
+                                                "Fail to sign in");
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) =>
+                                                  CustomDialog(
+                                                title: "Failed",
+                                                description: err.toString(),
+                                                image: 'cancel.png',
+                                                hasDescription: true,
+                                              ),
+                                            );
+                                          }
+                                        }
+                                      },
+                                      textColor: Colors.white,
+                                      startColor: AppColors.kPrimaryColor,
+                                      endColor: AppColors.kPrimaryColor),
+                                  SizedBox(
+                                    height: 30.h,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        AppLocalizations.of(context)
+                                            .dontHaveAccount,
+                                        style: TextConfigs.kText16kPrimary,
+                                      ),
+                                      SizedBox(
+                                        width: 10.w,
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context, SignUpPage.route());
+                                        },
+                                        child: Text(
+                                          AppLocalizations.of(context).signUp,
+                                          style:
+                                              TextConfigs.kText16BoldKprimary,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ]),
+                              ),
+                              Positioned(
+                                left: 0,
+                                right: 0,
+                                top: -45,
+                                child: Center(
+                                  child: Image(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.13,
+                                    fit: BoxFit.cover,
+                                    image: const AssetImage(
+                                        "assets/images/small_app_logo.png"),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
