@@ -37,7 +37,8 @@ class FavoriteProvider extends ChangeNotifier {
     sharer = await DestinationPostRepo.getUserById(uid);
   }
 
-  void onClickFavoriteButton(bool isLike, String destinationPostId) async {
+  Future<void> onClickFavoriteButton(
+      bool isLike, String destinationPostId) async {
     if (!isLike) {
       _favoriteDestinationPost.listIdDestinationPost.add(destinationPostId);
 
