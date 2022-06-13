@@ -18,7 +18,9 @@ class AccountRepo {
     await docs.doc(newInfoUser.uid).update({
       "avatarUrl": newInfoUser.avatarUrl,
       "userName": newInfoUser.userName,
-      "dateOfBirth": newInfoUser.dateOfBirth
+      "dateOfBirth": newInfoUser.dateOfBirth,
+      "phoneNumber": newInfoUser.phoneNumber,
+      "address": newInfoUser.address,
     });
   }
 

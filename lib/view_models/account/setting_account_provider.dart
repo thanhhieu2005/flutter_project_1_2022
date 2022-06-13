@@ -18,11 +18,11 @@ class SettingAccountProvider extends ChangeNotifier {
   final TextEditingController emailController =
       TextEditingController(text: localCurrentUser.email);
   final TextEditingController phoneNumController =
-      TextEditingController(text: "");
+      TextEditingController(text: localCurrentUser.phoneNumber);
   final TextEditingController dOBController =
       TextEditingController(text: localCurrentUser.dateOfBirth);
   final TextEditingController addressController =
-      TextEditingController(text: "");
+      TextEditingController(text: localCurrentUser.address);
 
   late File _avatar = File('');
 
@@ -41,27 +41,30 @@ class SettingAccountProvider extends ChangeNotifier {
 
   Future<void> refeshInput() async {
     userNameController.text = localCurrentUser.userName!;
-    phoneNumController.text = "";
+    phoneNumController.text = localCurrentUser.phoneNumber!;
     dOBController.text = localCurrentUser.dateOfBirth!;
-    addressController.text = "";
+    addressController.text = localCurrentUser.address!;
     notifyListeners();
   }
 
   VatractionUser infoUserUpdate(String newAvatar) {
     var newInfoUser = VatractionUser(
-        avatarUrl: newAvatar,
-        uid: localCurrentUser.uid,
-        email: localCurrentUser.email,
-        pwd: localCurrentUser.pwd,
-        dateOfBirth: dOBController.text,
-        userName: userNameController.text,
-        isConfirmEmail: localCurrentUser.isConfirmEmail);
+      role: localCurrentUser.role,
+      avatarUrl: newAvatar,
+      uid: localCurrentUser.uid,
+      email: localCurrentUser.email,
+      pwd: localCurrentUser.pwd,
+      dateOfBirth: dOBController.text,
+      userName: userNameController.text,
+      isConfirmEmail: localCurrentUser.isConfirmEmail,
+      phoneNumber: phoneNumController.text,
+      address: addressController.text,
+    );
     return newInfoUser;
   }
 
   Future<void> updateInfoUser(Function onSuccess, Function onFail) async {
-    if (userNameController.text.isEmpty ||
-        userNameController.text == localCurrentUser.userName) {
+    if (userNameController.text.isEmpty) {
       onFail();
     } else {
       isLoad = true;
