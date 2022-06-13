@@ -166,8 +166,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                             try {
                               EasyLoading.show(
                                   status: "Loading",
-                                  maskType: EasyLoadingMaskType.custom,
-                                  dismissOnTap: false);
+                                  indicator: SpinKitThreeBounce(
+                                    color: AppColors.kPrimaryColor,
+                                    size: 32.h,
+                                  ),
+                                  dismissOnTap: false,
+                                  maskType: EasyLoadingMaskType.custom);
                               await provider.changePassword();
                               EasyLoading.showSuccess("Success");
                               Navigator.pop(context);

@@ -1,5 +1,6 @@
 import 'package:email_auth/email_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/constants/global_constants.dart';
 import 'package:flutter_project_1/services/auth_service.dart';
@@ -40,265 +41,266 @@ class _ForgetPwdPageState extends State<ForgetPwdPage> {
   Widget build(BuildContext context) {
     final loginProvider = Provider.of<LoginProvider>(context);
     Size size = MediaQuery.of(context).size;
-    return ModalProgressHUD(
-      progressIndicator: SpinKitThreeBounce(
-        color: AppColors.kPrimaryColor,
-        size: 32.h,
-      ),
-      inAsyncCall: loginProvider.isLoading,
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: SafeArea(
-            child: Column(
-              children: [
-                Stack(
-                  children: [
-                    CustomPaint(
-                      size: size / 3,
-                      painter: ProfileCardPainter(color: Colors.black),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: (size.height / 2) / 2),
-                      child: Center(
-                        child: CircleAvatar(
-                          maxRadius: 55.r,
-                          minRadius: 55.r,
-                          backgroundColor: AppColors.kBackgroundColor,
-                          child: Icon(
-                            Icons.mail,
-                            size: 65.sp,
-                            color: AppColors.kPrimaryColor.withOpacity(0.9),
-                          ),
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Column(
+            children: [
+              Stack(
+                children: [
+                  CustomPaint(
+                    size: size / 3,
+                    painter: ProfileCardPainter(color: Colors.black),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: (size.height / 2) / 2),
+                    child: Center(
+                      child: CircleAvatar(
+                        maxRadius: 55.r,
+                        minRadius: 55.r,
+                        backgroundColor: AppColors.kBackgroundColor,
+                        child: Icon(
+                          Icons.mail,
+                          size: 65.sp,
+                          color: AppColors.kPrimaryColor.withOpacity(0.9),
                         ),
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, LoginPage.nameRoute, (route) => false);
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(top: 15.h),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(left: 15.w, right: 15.w),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: AppColors.kLightBlue2.withOpacity(0.25),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.2),
-                                    spreadRadius: 3,
-                                    blurRadius: 4,
-                                    offset: const Offset(0, 2),
-                                  ),
-                                ],
-                              ),
-                              child: ClipOval(
-                                child: Material(
-                                  color: AppColors.kLightBlue2
-                                      .withOpacity(0.1), // Button color
-                                  child: InkWell(
-                                    splashColor: Colors.grey, // Splash color
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: SizedBox(
-                                      width: 42.w,
-                                      height: 42.h,
-                                      child: SvgPicture.asset(
-                                        "assets/icons/ic_back.svg",
-                                        fit: BoxFit.scaleDown,
-                                        color: AppColors.kBackgroundColor,
-                                      ),
+                  ),
+                  GestureDetector(
+                    onTap: () async {
+                      Navigator.pop(context);
+                      loginProvider.clearForgetPwdPage();
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(top: 15.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(left: 15.w, right: 15.w),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: AppColors.kLightBlue2.withOpacity(0.25),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.2),
+                                  spreadRadius: 3,
+                                  blurRadius: 4,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: ClipOval(
+                              child: Material(
+                                color: AppColors.kLightBlue2
+                                    .withOpacity(0.1), // Button color
+                                child: InkWell(
+                                  splashColor: Colors.grey, // Splash color
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                    loginProvider.clearForgetPwdPage();
+                                  },
+                                  child: SizedBox(
+                                    width: 42.w,
+                                    height: 42.h,
+                                    child: SvgPicture.asset(
+                                      "assets/icons/ic_back.svg",
+                                      fit: BoxFit.scaleDown,
+                                      color: AppColors.kBackgroundColor,
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                            Center(
-                              child: Text(
-                                AppLocalizations.of(context).backToSignIn,
-                                style: TextConfigs.kText16White,
+                          ),
+                          Center(
+                            child: Text(
+                              AppLocalizations.of(context).backToSignIn,
+                              style: TextConfigs.kText16White,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    right: -35.w,
+                    top: 100.h,
+                    child: SvgPicture.asset(
+                      "assets/icons/img_send_background.svg",
+                      color: AppColors.kLightBlue3.withOpacity(0.25),
+                      width: 150.w,
+                      height: 150.h,
+                    ),
+                  ),
+                  Positioned.fill(child: Consumer<LoginProvider>(
+                    builder: (context, provider, child) {
+                      return Container(
+                        margin: EdgeInsets.only(top: size.height * 0.12),
+                        child: provider.isEnterEmail
+                            ? Column(
+                                children: [
+                                  Text(
+                                    "One More Step",
+                                    style: TextConfigs.kText22WhiteBold
+                                        .copyWith(fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  Text(
+                                    "Let's Verify Your Email",
+                                    style: TextConfigs.kText22White,
+                                  )
+                                ],
+                              )
+                            : Column(
+                                children: [
+                                  Text(
+                                    "First Step",
+                                    style: TextConfigs.kText22WhiteBold
+                                        .copyWith(fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  Text(
+                                    "Please Enter Your Email",
+                                    style: TextConfigs.kText22White,
+                                  )
+                                ],
                               ),
+                      );
+                    },
+                  ))
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Center(
+                    child: Container(
+                        margin: EdgeInsets.symmetric(vertical: 25.h),
+                        child: Consumer<LoginProvider>(
+                          builder: (context, provider, child) {
+                            return !provider.isChangePwd
+                                ? provider.isEnterEmail
+                                    ? Pinput(
+                                        controller: loginProvider
+                                            .forgetPwdPinController,
+                                        defaultPinTheme: defaultPinTheme,
+                                        focusedPinTheme: focusPinTheme,
+                                        showCursor: false,
+                                        length: 6,
+                                        onCompleted: (value) {},
+                                      )
+                                    : Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 30.w),
+                                        child: RoundedInputField(
+                                          hasHint: true,
+                                          fillColor:
+                                              AppColors.kLightBlueBackGround,
+                                          controller: loginProvider
+                                              .forgetEmailController,
+                                          inputName:
+                                              AppLocalizations.of(context)
+                                                  .email,
+                                          icon: Icons.person,
+                                        ),
+                                      )
+                                : Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 30.w),
+                                    child: RoundedPasswordField(
+                                      controller: provider.newPwdController,
+                                    ),
+                                  );
+                          },
+                        )),
+                  ),
+                  Consumer<LoginProvider>(
+                    builder: (context, provider, child) {
+                      return provider.isChangePwd
+                          ? Text(
+                              AppLocalizations.of(context).pleaseEnterPwd,
+                              style: TextConfigs.kText14Black,
+                              textAlign: TextAlign.center,
                             )
-                          ],
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      right: -35.w,
-                      top: 100.h,
-                      child: SvgPicture.asset(
-                        "assets/icons/img_send_background.svg",
-                        color: AppColors.kLightBlue3.withOpacity(0.25),
-                        width: 150.w,
-                        height: 150.h,
-                      ),
-                    ),
-                    Positioned.fill(child: Consumer<LoginProvider>(
-                      builder: (context, provider, child) {
-                        return Container(
-                          margin: EdgeInsets.only(top: size.height * 0.12),
-                          child: provider.isEnterEmail
-                              ? Column(
-                                  children: [
-                                    Text(
-                                      "One More Step",
-                                      style: TextConfigs.kText22WhiteBold
-                                          .copyWith(
-                                              fontWeight: FontWeight.bold),
-                                    ),
-                                    SizedBox(
-                                      height: 10.h,
-                                    ),
-                                    Text(
-                                      "Let's Verify Your Email",
-                                      style: TextConfigs.kText22White,
-                                    )
-                                  ],
+                          : provider.isEnterEmail
+                              ? Text(
+                                  AppLocalizations.of(context)
+                                      .pleaseEnter6DigitCode,
+                                  style: TextConfigs.kText14Black,
+                                  textAlign: TextAlign.center,
                                 )
-                              : Column(
-                                  children: [
-                                    Text(
-                                      "First Step",
-                                      style: TextConfigs.kText22WhiteBold
-                                          .copyWith(
-                                              fontWeight: FontWeight.bold),
-                                    ),
-                                    SizedBox(
-                                      height: 10.h,
-                                    ),
-                                    Text(
-                                      "Please Enter Your Email",
-                                      style: TextConfigs.kText22White,
-                                    )
-                                  ],
+                              : Text(
+                                  AppLocalizations.of(context).pleaseEnterEmail,
+                                  style: TextConfigs.kText14Black,
+                                  textAlign: TextAlign.center,
+                                );
+                    },
+                  ),
+                  SizedBox(
+                    height: 50.h,
+                  ),
+                ],
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 15.w),
+                    child: Consumer<LoginProvider>(
+                      builder: (context, provider, child) {
+                        return RoundedLinearButton(
+                          press: () async {
+                            EasyLoading.show(
+                                status: "Loading",
+                                indicator: SpinKitThreeBounce(
+                                  color: AppColors.kPrimaryColor,
+                                  size: 32.h,
                                 ),
+                                dismissOnTap: false,
+                                maskType: EasyLoadingMaskType.custom);
+                            if (!provider.isEnterEmail &&
+                                !provider.isChangePwd) {
+                              await provider
+                                  .sendOtp(provider.forgetEmailController.text);
+                              EasyLoading.showSuccess("OTP Sent!");
+                            } else if (!provider.isChangePwd) {
+                              bool result = await provider.verifyOtp(
+                                  provider.forgetEmailController.text,
+                                  provider.forgetPwdPinController.text);
+                              if (result) {
+                                provider.isChangePwd = true;
+                              }
+                              EasyLoading.showSuccess("Verified!");
+                            } else if (provider.isChangePwd) {
+                              await provider.changePwd(
+                                  provider.newPwdController.text,
+                                  provider.forgetEmailController.text);
+                              EasyLoading.showSuccess("Password Changed!");
+                              Navigator.pop(context);
+                              provider.clearForgetPwdPage();
+                            }
+                          },
+                          isAllCap: false,
+                          text: provider.isChangePwd
+                              ? AppLocalizations.of(context).changePwd
+                              : provider.isEnterEmail
+                                  ? AppLocalizations.of(context).verify
+                                  : AppLocalizations.of(context).sendEmail,
+                          textColor: Colors.white,
+                          startColor: AppColors.kPrimaryColor,
+                          endColor: AppColors.kPrimaryColor,
                         );
                       },
-                    ))
-                  ],
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Center(
-                      child: Container(
-                          margin: EdgeInsets.symmetric(vertical: 25.h),
-                          child: Consumer<LoginProvider>(
-                            builder: (context, provider, child) {
-                              return !provider.isChangePwd
-                                  ? provider.isEnterEmail
-                                      ? Pinput(
-                                          controller: loginProvider
-                                              .forgetPwdPinController,
-                                          defaultPinTheme: defaultPinTheme,
-                                          focusedPinTheme: focusPinTheme,
-                                          showCursor: false,
-                                          length: 6,
-                                          onCompleted: (value) {},
-                                        )
-                                      : Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 30.w),
-                                          child: RoundedInputField(
-                                            hasHint: true,
-                                            fillColor:
-                                                AppColors.kLightBlueBackGround,
-                                            controller: loginProvider
-                                                .forgetEmailController,
-                                            inputName:
-                                                AppLocalizations.of(context)
-                                                    .email,
-                                            icon: Icons.person,
-                                          ),
-                                        )
-                                  : Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 30.w),
-                                      child: RoundedPasswordField(
-                                        controller: provider.newPwdController,
-                                        isConfirmPwd: true,
-                                        pwdToConfirm:
-                                            provider.newPwdController.text,
-                                      ),
-                                    );
-                            },
-                          )),
-                    ),
-                    Consumer<LoginProvider>(
-                      builder: (context, provider, child) {
-                        return provider.isChangePwd
-                            ? Text(
-                                AppLocalizations.of(context).pleaseEnterPwd,
-                                style: TextConfigs.kText14Black,
-                                textAlign: TextAlign.center,
-                              )
-                            : provider.isEnterEmail
-                                ? Text(
-                                    AppLocalizations.of(context)
-                                        .pleaseEnter6DigitCode,
-                                    style: TextConfigs.kText14Black,
-                                    textAlign: TextAlign.center,
-                                  )
-                                : Text(
-                                    AppLocalizations.of(context)
-                                        .pleaseEnterEmail,
-                                    style: TextConfigs.kText14Black,
-                                    textAlign: TextAlign.center,
-                                  );
-                      },
-                    ),
-                    SizedBox(
-                      height: 50.h,
-                    ),
-                  ],
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 15.w),
-                      child: Consumer<LoginProvider>(
-                        builder: (context, provider, child) {
-                          return RoundedLinearButton(
-                            press: () async {
-                              if (!provider.isEnterEmail &&
-                                  !provider.isChangePwd) {
-                                provider.sendOtp(
-                                    provider.forgetEmailController.text);
-                              } else if (!provider.isChangePwd) {
-                                bool result = await provider.verifyOtp(
-                                    provider.forgetEmailController.text,
-                                    provider.forgetPwdPinController.text);
-                                if (result) {
-                                  provider.isChangePwd = true;
-                                }
-                              } else if (provider.isChangePwd) {
-                                await provider.changePwd(
-                                    provider.newPwdController.text,
-                                    provider.forgetEmailController.text);
-                              }
-                            },
-                            isAllCap: false,
-                            text: provider.isChangePwd
-                                ? AppLocalizations.of(context).changePwd
-                                : provider.isEnterEmail
-                                    ? AppLocalizations.of(context).verify
-                                    : AppLocalizations.of(context).sendEmail,
-                            textColor: Colors.white,
-                            startColor: AppColors.kPrimaryColor,
-                            endColor: AppColors.kPrimaryColor,
-                          );
-                        },
-                      )),
-                ),
-              ],
-            ),
+                    )),
+              ),
+            ],
           ),
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:email_auth/email_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/constants/global_constants.dart';
 import 'package:flutter_project_1/services/auth_service.dart';
@@ -209,6 +210,14 @@ class _ConfirmEmailPageState extends State<ConfirmEmailPage> {
                         builder: (context, provider, child) {
                           return RoundedLinearButton(
                             press: () async {
+                              EasyLoading.show(
+                                  status: "Loading",
+                                  indicator: SpinKitThreeBounce(
+                                    color: AppColors.kPrimaryColor,
+                                    size: 32.h,
+                                  ),
+                                  dismissOnTap: false,
+                                  maskType: EasyLoadingMaskType.custom);
                               signUpProvider.setLoadingStatus(true);
                               var isVerified = emailAuth.validateOtp(
                                   recipientMail: localCurrentUser.email,

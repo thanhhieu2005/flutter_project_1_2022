@@ -96,5 +96,6 @@
     "pleaseEnterEmail" : "Nhập email đã được đăng ký của bạn",
     "verify" : "Xác nhận",
     "sendEmail" : "Gửi Email",
-    "pleaseEnterPwd" : "Hãy nhập mật khẩu mới của bạn"
+    "pleaseEnterPwd" : "Hãy nhập mật khẩu mới của bạn",
+    "dontHaveAccount" : "Chưa có tài khoản ?"
 }

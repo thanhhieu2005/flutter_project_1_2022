@@ -96,5 +96,6 @@
     "pleaseEnterEmail": "Please enter your email address that link with your account",
     "verify" : "Verify",
     "sendEmail" : "Send Email",
-    "pleaseEnterPwd" : "Please enter your new password"
+    "pleaseEnterPwd" : "Please enter your new password",
+    "dontHaveAccount" : "Don't have an account ?"
 }
