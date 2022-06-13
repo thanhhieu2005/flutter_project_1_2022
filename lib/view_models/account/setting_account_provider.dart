@@ -158,7 +158,6 @@ class SettingAccountProvider extends ChangeNotifier {
 
   Future changePassword() async {
     if (isValidPwd()) {
-      isLoadChangePwd = true;
       try {
         await AuthService().changePassword(newPwdController.text);
       } catch (err) {
@@ -168,6 +167,7 @@ class SettingAccountProvider extends ChangeNotifier {
       throw Exception("Can not change your password, Please try again");
     }
     isLoadChangePwd = false;
+    clearTextController();
     notifyListeners();
   }
 

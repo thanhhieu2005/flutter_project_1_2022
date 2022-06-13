@@ -9,13 +9,17 @@ import '../../constants/global_constants.dart';
 class LoginProvider extends ChangeNotifier {
   bool _isLoading = false;
   bool _isEnterEmail = false;
+  bool _isChangePwd = false;
   final loginEmailController = TextEditingController();
   final loginPwdController = TextEditingController();
   final forgetPwdPinController = TextEditingController();
+  final forgetEmailController = TextEditingController();
+  final newPwdController = TextEditingController();
+  final confirmPwdController = TextEditingController();
 
   void clearTextController() {
-    loginEmailController.clear();
-    loginPwdController.clear();
+    loginEmailController.text = "";
+    loginPwdController.text = "";
     notifyListeners();
   }
 
@@ -30,6 +34,13 @@ class LoginProvider extends ChangeNotifier {
 
   set isEnterEmail(value) {
     _isEnterEmail = value;
+    notifyListeners();
+  }
+
+  bool get isChangePwd => _isChangePwd;
+
+  set isChangePwd(value) {
+    _isChangePwd = value;
     notifyListeners();
   }
 
@@ -57,5 +68,35 @@ class LoginProvider extends ChangeNotifier {
       loginEmailController.text = email;
       loginPwdController.text = pwd;
     }
+  }
+
+  Future sendOtp(String email) async {
+    try {
+      await AuthService().sendOtp(email, true);
+      isEnterEmail = true;
+    } catch (err) {
+      throw Exception(err);
+    }
+  }
+
+  Future<bool> verifyOtp(String email, String userOtp) async {
+    var result = false;
+    try {
+      result = await AuthService().verifyOtp(email, userOtp, true);
+    } catch (err) {
+      throw Exception(err);
+    }
+    return result;
+  }
+
+  Future<bool> changePwd(String pwd, String email) async {
+    var isChangePwdSuccess = false;
+    try {
+      await AuthService().changePasswordWithoutLogin(pwd, email);
+      isChangePwdSuccess = true;
+    } catch (err) {
+      throw Exception(err);
+    }
+    return isChangePwdSuccess;
   }
 }

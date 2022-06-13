@@ -1,6 +1,7 @@
 // ignore_for_file: must_call_super
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_project_1/view_models/account/setting_account_provider.dart';
@@ -39,56 +40,152 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final settingProvider = context.read<SettingAccountProvider>();
-    return ModalProgressHUD(
-      progressIndicator: SpinKitThreeBounce(
-        color: AppColors.kPrimaryColor,
-        size: 32.h,
-      ),
-      inAsyncCall: settingProvider.isLoadChangePwd,
-      child: Scaffold(
-        backgroundColor: AppColors.kBackgroundColor,
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(100.h),
-          child: AppBar(
-            elevation: 0,
+    return Consumer<SettingAccountProvider>(
+      builder: (context, provider, child) {
+        return ModalProgressHUD(
+          progressIndicator: SpinKitThreeBounce(
+            color: AppColors.kPrimaryColor,
+            size: 32.h,
+          ),
+          inAsyncCall: provider.isLoadChangePwd,
+          child: Scaffold(
             backgroundColor: AppColors.kBackgroundColor,
-            automaticallyImplyLeading: false,
-            leadingWidth: 48.w,
-            leading: Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: EdgeInsets.only(
-                  top: 12.h,
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(100.h),
+              child: AppBar(
+                elevation: 0,
+                backgroundColor: AppColors.kBackgroundColor,
+                automaticallyImplyLeading: false,
+                leadingWidth: 48.w,
+                leading: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      top: 12.h,
+                    ),
+                    child: CustomBackButton(
+                      onTapBack: () {
+                        Navigator.pop(context);
+                      },
+                      backgroundColor: AppColors.kColor1,
+                      iconColor: AppColors.kColor0,
+                      isCircleRounded: false,
+                    ),
+                  ),
                 ),
-                child: CustomBackButton(
-                  onTapBack: () {
-                    Navigator.pop(context);
-                  },
-                  backgroundColor: AppColors.kColor1,
-                  iconColor: AppColors.kColor0,
-                  isCircleRounded: false,
+                flexibleSpace: SafeArea(
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        right: 12.w,
+                        top: 12.h,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            AppLocalizations.of(context).change,
+                            style: TextConfigs.kTextHeader1,
+                          ),
+                          Text(
+                            AppLocalizations.of(context).yourPwd,
+                            style: TextConfigs.kTextHeader1,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
-            flexibleSpace: SafeArea(
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    right: 12.w,
-                    top: 12.h,
-                  ),
+            body: SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20.w,
+                  vertical: 20.h,
+                ),
+                child: Form(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  key: _formKey,
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        AppLocalizations.of(context).change,
-                        style: TextConfigs.kTextHeader1,
+                      SizedBox(
+                        height: 54.h,
                       ),
                       Text(
-                        AppLocalizations.of(context).yourPwd,
-                        style: TextConfigs.kTextHeader1,
+                        AppLocalizations.of(context).currPwd,
+                        style: TextConfigs.kTextSubtitleBold,
+                      ),
+                      SizedBox(
+                        height: 8.h,
+                      ),
+                      CurrentPasswordField(
+                        controller: provider.currentPwdController,
+                        onChanged: (value) {},
+                      ),
+                      SizedBox(
+                        height: 16.h,
+                      ),
+                      Text(
+                        AppLocalizations.of(context).newPwd,
+                        style: TextConfigs.kTextSubtitleBold,
+                      ),
+                      SizedBox(
+                        height: 8.h,
+                      ),
+                      NewPasswordField(
+                        controller: provider.newPwdController,
+                        onChanged: (value) {},
+                      ),
+                      SizedBox(
+                        height: 16.h,
+                      ),
+                      Text(
+                        AppLocalizations.of(context).confirmPwd,
+                        style: TextConfigs.kTextSubtitleBold,
+                      ),
+                      SizedBox(
+                        height: 8.h,
+                      ),
+                      ConfirmPasswordField(
+                        confirmPwdController: provider.confirmPwdController,
+                        newPassword: provider.confirmPwdController.text,
+                        onChanged: (String value) {},
+                      ),
+                      SizedBox(
+                        height: 54.h,
+                      ),
+                      Center(
+                        child: RoundedMainButton(
+                          text: AppLocalizations.of(context).save,
+                          height: 56.h,
+                          width: 240.w,
+                          onTap: () async {
+                            try {
+                              EasyLoading.show(
+                                  status: "Loading",
+                                  maskType: EasyLoadingMaskType.custom,
+                                  dismissOnTap: false);
+                              await provider.changePassword();
+                              EasyLoading.showSuccess("Success");
+                              Navigator.pop(context);
+                            } catch (err) {
+                              showDialog(
+                                context: context,
+                                builder: (context) => const CustomDialog(
+                                  title: "Failed",
+                                  description:
+                                      "Password is not validate, Please try again!",
+                                  image: 'cancel.png',
+                                  hasDescription: true,
+                                ),
+                              );
+                            }
+                            EasyLoading.dismiss(animation: true);
+                          },
+                        ),
                       ),
                     ],
                   ),
@@ -96,93 +193,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               ),
             ),
           ),
-        ),
-        body: SingleChildScrollView(
-          child: Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: 20.w,
-              vertical: 20.h,
-            ),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 54.h,
-                  ),
-                  Text(
-                    AppLocalizations.of(context).currPwd,
-                    style: TextConfigs.kTextSubtitleBold,
-                  ),
-                  SizedBox(
-                    height: 8.h,
-                  ),
-                  CurrentPasswordField(
-                    controller: settingProvider.currentPwdController,
-                    onChanged: (value) {},
-                  ),
-                  SizedBox(
-                    height: 16.h,
-                  ),
-                  Text(
-                    AppLocalizations.of(context).newPwd,
-                    style: TextConfigs.kTextSubtitleBold,
-                  ),
-                  SizedBox(
-                    height: 8.h,
-                  ),
-                  NewPasswordField(
-                    controller: settingProvider.newPwdController,
-                    onChanged: (value) {},
-                  ),
-                  SizedBox(
-                    height: 16.h,
-                  ),
-                  Text(
-                    AppLocalizations.of(context).confirmPwd,
-                    style: TextConfigs.kTextSubtitleBold,
-                  ),
-                  SizedBox(
-                    height: 8.h,
-                  ),
-                  ConfirmPasswordField(
-                    confirmPwdController: settingProvider.confirmPwdController,
-                    newPassword: settingProvider.confirmPwdController.text,
-                    onChanged: (String value) {},
-                  ),
-                  SizedBox(
-                    height: 54.h,
-                  ),
-                  Center(
-                    child: RoundedMainButton(
-                      text: AppLocalizations.of(context).save,
-                      height: 56.h,
-                      width: 240.w,
-                      onTap: () async {
-                        try {
-                          await settingProvider.changePassword();
-                        } catch (err) {
-                          showDialog(
-                            context: context,
-                            builder: (context) => const CustomDialog(
-                              title: "Failed",
-                              description:
-                                  "Password is not validate, Please try again!",
-                              image: 'cancel.png',
-                              hasDescription: true,
-                            ),
-                          );
-                        }
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

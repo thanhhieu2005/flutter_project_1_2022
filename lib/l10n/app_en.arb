@@ -80,5 +80,9 @@
     "female" : "Female",
     "confirmPassword" : "Confirm Password",
     "termsAppCreateAccount" : "I agree to comply with the ",
-    "ofTheApplication" : "of the application"
+    "ofTheApplication" : "of the application",
+    "pleaseEnterEmail": "Please enter your email address that link with your account",
+    "verify" : "Verify",
+    "sendEmail" : "Send Email",
+    "pleaseEnterPwd" : "Please enter your new password"
 }

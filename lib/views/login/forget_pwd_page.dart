@@ -5,6 +5,7 @@ import 'package:flutter_project_1/constants/global_constants.dart';
 import 'package:flutter_project_1/services/auth_service.dart';
 import 'package:flutter_project_1/view_models/login/login_provider.dart';
 import 'package:flutter_project_1/view_models/login/sign_up_provider.dart';
+import 'package:flutter_project_1/views/login/login_page.dart';
 import 'package:flutter_project_1/views/navigation_bar_view/navigation_bar_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -18,6 +19,7 @@ import '../../configs/text_config.dart';
 import '../../widgets/dialog/custom_dialog.dart';
 import '../../widgets/button/rounded_linear_button.dart';
 import '../../widgets/text_field/rounded_input_field.dart';
+import '../../widgets/text_field/rounded_password_field.dart';
 
 class ForgetPwdPage extends StatefulWidget {
   const ForgetPwdPage({Key? key}) : super(key: key);
@@ -34,12 +36,6 @@ class ForgetPwdPage extends StatefulWidget {
 }
 
 class _ForgetPwdPageState extends State<ForgetPwdPage> {
-  @override
-  void initState() {
-    emailAuth.sendOtp(recipientMail: localCurrentUser.email);
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     final loginProvider = Provider.of<LoginProvider>(context);
@@ -78,7 +74,8 @@ class _ForgetPwdPageState extends State<ForgetPwdPage> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).pop();
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, LoginPage.nameRoute, (route) => false);
                       },
                       child: Container(
                         margin: EdgeInsets.only(top: 15.h),
@@ -195,28 +192,40 @@ class _ForgetPwdPageState extends State<ForgetPwdPage> {
                           margin: EdgeInsets.symmetric(vertical: 25.h),
                           child: Consumer<LoginProvider>(
                             builder: (context, provider, child) {
-                              return provider.isEnterEmail
-                                  ? Pinput(
-                                      controller:
-                                          loginProvider.forgetPwdPinController,
-                                      defaultPinTheme: defaultPinTheme,
-                                      focusedPinTheme: focusPinTheme,
-                                      showCursor: false,
-                                      length: 6,
-                                      onCompleted: (value) {},
-                                    )
+                              return !provider.isChangePwd
+                                  ? provider.isEnterEmail
+                                      ? Pinput(
+                                          controller: loginProvider
+                                              .forgetPwdPinController,
+                                          defaultPinTheme: defaultPinTheme,
+                                          focusedPinTheme: focusPinTheme,
+                                          showCursor: false,
+                                          length: 6,
+                                          onCompleted: (value) {},
+                                        )
+                                      : Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 30.w),
+                                          child: RoundedInputField(
+                                            hasHint: true,
+                                            fillColor:
+                                                AppColors.kLightBlueBackGround,
+                                            controller: loginProvider
+                                                .forgetEmailController,
+                                            inputName:
+                                                AppLocalizations.of(context)
+                                                    .email,
+                                            icon: Icons.person,
+                                          ),
+                                        )
                                   : Padding(
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 30.w),
-                                      child: RoundedInputField(
-                                        hasHint: true,
-                                        fillColor:
-                                            AppColors.kLightBlueBackGround,
-                                        controller:
-                                            loginProvider.loginEmailController,
-                                        inputName:
-                                            AppLocalizations.of(context).email,
-                                        icon: Icons.person,
+                                      child: RoundedPasswordField(
+                                        controller: provider.newPwdController,
+                                        isConfirmPwd: true,
+                                        pwdToConfirm:
+                                            provider.newPwdController.text,
                                       ),
                                     );
                             },
@@ -224,18 +233,25 @@ class _ForgetPwdPageState extends State<ForgetPwdPage> {
                     ),
                     Consumer<LoginProvider>(
                       builder: (context, provider, child) {
-                        return provider.isEnterEmail
+                        return provider.isChangePwd
                             ? Text(
-                                AppLocalizations.of(context)
-                                    .pleaseEnter6DigitCode,
+                                AppLocalizations.of(context).pleaseEnterPwd,
                                 style: TextConfigs.kText14Black,
                                 textAlign: TextAlign.center,
                               )
-                            : Text(
-                                AppLocalizations.of(context).email,
-                                style: TextConfigs.kText14Black,
-                                textAlign: TextAlign.center,
-                              );
+                            : provider.isEnterEmail
+                                ? Text(
+                                    AppLocalizations.of(context)
+                                        .pleaseEnter6DigitCode,
+                                    style: TextConfigs.kText14Black,
+                                    textAlign: TextAlign.center,
+                                  )
+                                : Text(
+                                    AppLocalizations.of(context)
+                                        .pleaseEnterEmail,
+                                    style: TextConfigs.kText14Black,
+                                    textAlign: TextAlign.center,
+                                  );
                       },
                     ),
                     SizedBox(
@@ -247,19 +263,40 @@ class _ForgetPwdPageState extends State<ForgetPwdPage> {
                   alignment: Alignment.bottomCenter,
                   child: Container(
                       margin: EdgeInsets.symmetric(horizontal: 15.w),
-                      child: Consumer<AuthService>(
+                      child: Consumer<LoginProvider>(
                         builder: (context, provider, child) {
                           return RoundedLinearButton(
-                            press: () async {},
+                            press: () async {
+                              if (!provider.isEnterEmail &&
+                                  !provider.isChangePwd) {
+                                provider.sendOtp(
+                                    provider.forgetEmailController.text);
+                              } else if (!provider.isChangePwd) {
+                                bool result = await provider.verifyOtp(
+                                    provider.forgetEmailController.text,
+                                    provider.forgetPwdPinController.text);
+                                if (result) {
+                                  provider.isChangePwd = true;
+                                }
+                              } else if (provider.isChangePwd) {
+                                await provider.changePwd(
+                                    provider.newPwdController.text,
+                                    provider.forgetEmailController.text);
+                              }
+                            },
                             isAllCap: false,
-                            text: "Verify",
+                            text: provider.isChangePwd
+                                ? AppLocalizations.of(context).changePwd
+                                : provider.isEnterEmail
+                                    ? AppLocalizations.of(context).verify
+                                    : AppLocalizations.of(context).sendEmail,
                             textColor: Colors.white,
                             startColor: AppColors.kPrimaryColor,
                             endColor: AppColors.kPrimaryColor,
                           );
                         },
                       )),
-                )
+                ),
               ],
             ),
           ),

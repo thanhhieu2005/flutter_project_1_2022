@@ -59,14 +59,18 @@ class _ConfirmPasswordFieldState extends State<ConfirmPasswordField> {
             ],
             controller: widget.confirmPwdController,
             validator: (value) {
-              if (value!.isEmpty) {
-                return "Confirm Password cannot be blank!";
-              } else {
-                if (provider.newPwdController.text != value) {
-                  return "Confirm password does not match!";
+              if (value != null) {
+                if (value.isEmpty) {
+                  return "Confirm Password cannot be blank!";
                 } else {
-                  return null;
+                  if (provider.newPwdController.text != value) {
+                    return "Confirm password does not match!";
+                  } else {
+                    return null;
+                  }
                 }
+              } else {
+                return null;
               }
             },
             keyboardType: TextInputType.text,

@@ -38,13 +38,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   String email = "", password = "";
-
-  @override
-  void didChangeDependencies() {
-    context.read<LoginProvider>().clearTextController();
-    super.didChangeDependencies();
-  }
-
   @override
   Widget build(BuildContext context) {
     final loginProvider = Provider.of<LoginProvider>(context);
@@ -190,6 +183,8 @@ class _LoginPageState extends State<LoginPage> {
                                                     ConfirmEmailPage.nameRoute,
                                                     arguments: false);
                                               }
+                                              loginProvider
+                                                  .clearTextController();
                                             } catch (err) {
                                               showDialog(
                                                 context: context,

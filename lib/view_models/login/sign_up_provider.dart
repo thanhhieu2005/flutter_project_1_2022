@@ -102,7 +102,7 @@ class SignUpProvider extends ChangeNotifier {
   Future sendOtp() async {
     isLoading = true;
     try {
-      await AuthService().sendOtp(emailController.text);
+      await AuthService().sendOtp(emailController.text, false);
       isLoading = false;
     } catch (err) {
       isLoading = false;

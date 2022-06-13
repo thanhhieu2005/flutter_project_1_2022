@@ -80,5 +80,9 @@
     "female" : "Nữ",
     "confirmPassword" : "Nhập lại mật khẩu",
     "termsAppCreateAccount" : "Tôi đồng ý với ",
-    "ofTheApplication" : "sử dụng của của phần mềm này"
+    "ofTheApplication" : "sử dụng của của phần mềm này",
+    "pleaseEnterEmail" : "Nhập email đã được đăng ký của bạn",
+    "verify" : "Xác nhận",
+    "sendEmail" : "Gửi Email",
+    "pleaseEnterPwd" : "Hãy nhập mật khẩu mới của bạn"
 }
