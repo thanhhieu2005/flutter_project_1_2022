@@ -59,7 +59,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
     DestinationPostDetailArgument postDetailArgument = ModalRoute.of(context)!
         .settings
         .arguments as DestinationPostDetailArgument;
-    final favoriteProvider = Provider.of<FavoriteProvider>(context);
+    // final favoriteProvider = Provider.of<FavoriteProvider>(context);
     return Scaffold(
       extendBodyBehindAppBar: true,
       body: CustomScrollView(
@@ -79,6 +79,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
             actions: [
               Container(
                 margin: EdgeInsets.only(right: 12.w),
+                padding: EdgeInsets.only(left: 4.w),
                 height: 48.w,
                 width: 48.w,
                 decoration: BoxDecoration(
@@ -93,8 +94,9 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                     ),
                   ],
                 ),
-                child: Center(
-                  child: LikeButton(
+                child: Consumer<FavoriteProvider>(
+                    builder: (context, favoriteProvider, child) {
+                  return LikeButton(
                     isLiked: favoriteProvider
                         .isLike(postDetailArgument.post.destinationPostId),
                     circleColor: const CircleColor(
@@ -108,7 +110,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                         FontAwesomeIcons.solidHeart,
                         color:
                             isLiked ? AppColors.kColor3 : AppColors.kTextColor1,
-                        // size: 24.h,
+                        size: 24.w,
                       );
                     },
                     onTap: (isLike) async {
@@ -116,8 +118,8 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                           isLike, postDetailArgument.post.destinationPostId);
                       return !isLike;
                     },
-                  ),
-                ),
+                  );
+                }),
               ),
             ],
             backgroundColor: AppColors.kBackgroundColor,

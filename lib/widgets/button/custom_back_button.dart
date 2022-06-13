@@ -25,6 +25,7 @@ class CustomBackButton extends StatelessWidget {
         margin: EdgeInsets.only(
           left: 12.w,
         ),
+        padding: EdgeInsets.only(right: 4.w),
         height: height,
         width: width,
         decoration: isCircleRounded
