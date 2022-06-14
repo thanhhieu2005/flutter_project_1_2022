@@ -86,30 +86,37 @@ class DestinationPostProvider extends ChangeNotifier {
             }
             break;
           case DocumentChangeType.modified:
-            if (post.status != PostStatus.approve || post.rating < 3.5) {
+            if (post.rating < 3.5 ||
+                DateConfig.daysBetweenNow(post.dateTime) > 15 ||
+                post.status != PostStatus.approve) {
               continue remove;
-            }
-            final index = _popularDestinationPost.indexWhere((element) =>
-                element.destinationPostId == post.destinationPostId);
-            final indexNewPost = _listNewPost.indexWhere((element) =>
-                element.destinationPostId == post.destinationPostId);
-            if (index >= 0) {
-              _popularDestinationPost[index] = post;
-            } else if (indexNewPost >= 0) {
-              _listNewPost[indexNewPost] = post;
             } else {
-              continue add;
+              final index = _popularDestinationPost.indexWhere((element) =>
+                  element.destinationPostId == post.destinationPostId);
+              final indexNewPost = _listNewPost.indexWhere((element) =>
+                  element.destinationPostId == post.destinationPostId);
+              if (index >= 0) {
+                _popularDestinationPost[index] = post;
+              } else if (indexNewPost >= 0) {
+                _listNewPost[indexNewPost] = post;
+              } else {
+                continue add;
+              }
+
+              break;
             }
-            break;
           remove:
           case DocumentChangeType.removed:
-            _popularDestinationPost.removeWhere((element) =>
-                element.destinationPostId == post.destinationPostId);
-
+            if (post.rating < 3.5 || post.status != PostStatus.approve) {
+              _popularDestinationPost.removeWhere((element) =>
+                  element.destinationPostId == post.destinationPostId);
+            }
             if (DateConfig.daysBetweenNow(post.dateTime) > 15 ||
                 post.status != PostStatus.approve) {
               _listNewPost.removeWhere((element) =>
                   element.destinationPostId == post.destinationPostId);
+            } else {
+              continue add;
             }
 
             break;
@@ -134,6 +141,7 @@ class DestinationPostProvider extends ChangeNotifier {
   }
 
   List<DestinationPost> get popularDestinationPost {
+    _popularDestinationPost.sort((a, b) => a.rating.compareTo(b.rating));
     return _popularDestinationPost;
   }
 
@@ -142,6 +150,7 @@ class DestinationPostProvider extends ChangeNotifier {
   }
 
   List<DestinationPost> get listNewPost {
+    _listNewPost.sort((a, b) => a.dateTime.compareTo(b.dateTime));
     return _listNewPost;
   }
 
