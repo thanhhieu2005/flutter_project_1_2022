@@ -12,6 +12,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../home/sub_screens/search_screen.dart';
+
 class PostModerationScreen extends StatefulWidget {
   static const String nameRoute = '/post_moderation_screen';
   static Route route() {
@@ -100,8 +102,9 @@ class _PostModerationScreenState extends State<PostModerationScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SearchWidget(
+                    onChange: (value) {},
                     onTap: () {
-                      // Navigator.pushNamed(context, SearchScreen.nameRoute);
+                      Navigator.pushNamed(context, SearchScreen.nameRoute);
                     },
                     readOnly: true,
                     fillColors: AppColors.kColor1,

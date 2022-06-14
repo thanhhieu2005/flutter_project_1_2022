@@ -98,6 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 // mainAxisSize: MainAxisSize.max,
                 children: [
                   SearchWidget(
+                    onChange: (value) {},
                     onTap: () {
                       Navigator.pushNamed(context, SearchScreen.nameRoute);
                     },
