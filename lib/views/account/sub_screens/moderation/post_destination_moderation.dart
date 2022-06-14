@@ -104,7 +104,8 @@ class _PostModerationScreenState extends State<PostModerationScreen> {
                   SearchWidget(
                     onChange: (value) {},
                     onTap: () {
-                      Navigator.pushNamed(context, SearchScreen.nameRoute);
+                      Navigator.pushNamed(context, SearchScreen.nameRoute,
+                          arguments: SearchScreenArgument(true));
                     },
                     readOnly: true,
                     fillColors: AppColors.kColor1,

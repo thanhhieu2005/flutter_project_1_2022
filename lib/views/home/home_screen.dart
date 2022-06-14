@@ -100,7 +100,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   SearchWidget(
                     onChange: (value) {},
                     onTap: () {
-                      Navigator.pushNamed(context, SearchScreen.nameRoute);
+                      Navigator.pushNamed(context, SearchScreen.nameRoute,
+                          arguments: SearchScreenArgument(false));
                     },
                     readOnly: true,
                     fillColors: AppColors.kLightBlue4,

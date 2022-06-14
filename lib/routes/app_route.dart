@@ -66,7 +66,7 @@ class AppRoutes {
         return HomeScreen.route();
       // Sub Screen of Account Screen
       case SearchScreen.nameRoute:
-        return SearchScreen.route();
+        return SearchScreen.route(settings);
       case PostDetailScreen.nameRoute:
         return PostDetailScreen.route(settings);
       case TypeScreen.nameRoute:

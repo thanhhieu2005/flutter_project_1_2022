@@ -13,10 +13,10 @@ import '../../../widgets/general_post_card.dart';
 
 class SearchScreen extends StatefulWidget {
   static const String nameRoute = '/search_screen';
-  static Route route() {
+  static Route route(RouteSettings settings) {
     return MaterialPageRoute(
       builder: (_) => const SearchScreen(),
-      settings: const RouteSettings(name: nameRoute),
+      settings: settings,
     );
   }
 
@@ -41,13 +41,16 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SearchScreenArgument searchScreenArgument =
+        ModalRoute.of(context)!.settings.arguments as SearchScreenArgument;
+    searchPostProvider.isModeration = searchScreenArgument.isModeration;
     return Scaffold(
       backgroundColor: AppColors.kBackgroundColor,
       body: NestedScrollView(
         floatHeaderSlivers: true,
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           SliverAppBar(
-            expandedHeight: 90.h,
+            expandedHeight: 100.h,
             automaticallyImplyLeading: false,
             elevation: 0,
             floating: true,
@@ -90,7 +93,8 @@ class _SearchScreenState extends State<SearchScreen> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Padding(
+              Container(
+                margin: EdgeInsets.only(top: 20.h),
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: Container(
                   margin: EdgeInsets.only(top: 10.h),
