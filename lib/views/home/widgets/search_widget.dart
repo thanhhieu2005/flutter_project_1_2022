@@ -8,14 +8,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class SearchWidget extends StatefulWidget {
   final VoidCallback? onTap;
   final TextEditingController? textController;
-  final Function(String)? onChange;
+  final Function(String) onChange;
   final bool readOnly;
   final Color fillColors;
   const SearchWidget({
     Key? key,
     this.onTap,
     this.textController,
-    this.onChange,
+    required this.onChange,
     required this.readOnly,
     required this.fillColors,
   }) : super(key: key);

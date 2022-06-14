@@ -90,16 +90,22 @@ class _SearchScreenState extends State<SearchScreen> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
-                margin: EdgeInsets.only(top: 10.h),
-                child: const SearchWidget(
-                  readOnly: false,
-                  fillColors: AppColors.kLightBlue4,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: Container(
+                  margin: EdgeInsets.only(top: 10.h),
+                  child: SearchWidget(
+                    readOnly: false,
+                    onChange: (value) {
+                      searchPostProvider.onSearch(value);
+                    },
+                    fillColors: AppColors.kLightBlue4,
+                  ),
                 ),
               ),
               Consumer<SearchPostProvider>(
                 builder: (context, provider, child) {
-                  final listFavorite = provider.listPostModeration;
+                  final listFavorite = provider.listSearchPost;
                   return Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: 12.w,

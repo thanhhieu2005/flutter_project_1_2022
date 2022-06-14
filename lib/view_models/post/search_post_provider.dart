@@ -6,6 +6,7 @@ import 'package:flutter_project_1/services/destination_post_repository.dart';
 
 class SearchPostProvider extends ChangeNotifier {
   final List<DestinationPost> _listPostModeration = [];
+  List<DestinationPost> _listSearch = [];
 
   VatractionUser? sharer;
 
@@ -24,6 +25,11 @@ class SearchPostProvider extends ChangeNotifier {
     return _listPostModeration;
   }
 
+  List<DestinationPost> get listSearchPost {
+    _listPostModeration.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+    return _listPostModeration;
+  }
+
   void clearListPost() {
     _listPostModeration.clear();
   }
@@ -38,6 +44,7 @@ class SearchPostProvider extends ChangeNotifier {
           _listPostModeration.add(post);
         }
       }
+      _listSearch = _listPostModeration;
       notifyListeners();
     });
   }
@@ -50,6 +57,13 @@ class SearchPostProvider extends ChangeNotifier {
       String postId, PostStatus postStatus, Function onSuccess) async {
     await DestinationPostRepo().postModeration(postId, postStatus.value);
     onSuccess();
+    notifyListeners();
+  }
+
+  void onSearch(String keyword) {
+    _listSearch = _listPostModeration
+        .where((post) => post.postName.contains(keyword))
+        .toList();
     notifyListeners();
   }
 }
