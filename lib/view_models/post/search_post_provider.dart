@@ -34,30 +34,8 @@ class SearchPostProvider extends ChangeNotifier {
       for (var element in event.docChanges) {
         final post =
             DestinationPost.fromMap(element.doc.data() as Map<String, dynamic>);
-        switch (element.type) {
-          case DocumentChangeType.added:
-            if (post.status == PostStatus.pending) {
-              _listPostModeration.add(post);
-            }
-            break;
-          case DocumentChangeType.modified:
-            if (post.status != PostStatus.pending) {
-              continue remove;
-            }
-            final index = _listPostModeration.indexWhere((element) =>
-                element.destinationPostId == post.destinationPostId);
-            if (index >= 0) {
-              _listPostModeration[index] = post;
-            }
-            break;
-          remove:
-          case DocumentChangeType.removed:
-            if (post.status != PostStatus.pending) {
-              _listPostModeration.removeWhere((element) =>
-                  element.destinationPostId == post.destinationPostId);
-            }
-
-            break;
+        if (post.status == PostStatus.approve) {
+          _listPostModeration.add(post);
         }
       }
       notifyListeners();

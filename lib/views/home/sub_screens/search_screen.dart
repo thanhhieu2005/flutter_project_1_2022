@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/view_models/post/search_post_provider.dart';
+import 'package:flutter_project_1/views/home/sub_screens/post_detail_screen.dart';
 import 'package:flutter_project_1/views/home/widgets/search_widget.dart';
 import 'package:flutter_project_1/widgets/title_appbar_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import '../../../configs/text_config.dart';
+import '../../../models/others/argument_model.dart';
 import '../../../widgets/button/custom_back_button.dart';
 import '../../../widgets/general_post_card.dart';
 
@@ -55,7 +57,9 @@ class _SearchScreenState extends State<SearchScreen> {
                 child: Padding(
                   padding: EdgeInsets.only(right: 12.w),
                   child: Row(
+                    mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Align(
                         alignment: Alignment.centerLeft,
@@ -83,50 +87,73 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           ),
         ],
-        body: Consumer<SearchPostProvider>(
-          builder: (context, provider, child) {
-            final listFavorite = provider.listPostModeration;
-            return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
-              child: Column(
-                children: [
-                  const SearchWidget(
-                    readOnly: false,
-                    fillColors: AppColors.kLightBlue4,
-                  ),
-                  ListView.separated(
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        final eachPost = listFavorite[index];
-                        return listFavorite.isNotEmpty
-                            ? GeneralPostCard(
-                                firstImage: eachPost.images.first,
-                                namePostModeration: eachPost.postName,
-                                location: eachPost.district +
-                                    ", " +
-                                    eachPost.province,
-                                date: '06/06/2021',
-                                onTap: () async {},
-                                isPending: false,
-                                rating: eachPost.rating,
-                              )
-                            : Center(
-                                child: Container(
-                                  height: 100,
-                                  width: 100,
-                                  color: Colors.red,
-                                ),
-                              );
-                      },
-                      separatorBuilder: (BuildContext context, int index) =>
-                          SizedBox(
-                            height: 8.h,
-                          ),
-                      itemCount: listFavorite.length),
-                ],
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                margin: EdgeInsets.only(top: 10.h),
+                child: const SearchWidget(
+                  readOnly: false,
+                  fillColors: AppColors.kLightBlue4,
+                ),
               ),
-            );
-          },
+              Consumer<SearchPostProvider>(
+                builder: (context, provider, child) {
+                  final listFavorite = provider.listPostModeration;
+                  return Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 12.w,
+                    ),
+                    child: Expanded(
+                      child: ListView.separated(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            final eachPost = listFavorite[index];
+                            return listFavorite.isNotEmpty
+                                ? GeneralPostCard(
+                                    firstImage: eachPost.images.first,
+                                    namePostModeration: eachPost.postName,
+                                    location: eachPost.district +
+                                        ", " +
+                                        eachPost.province,
+                                    date: '06/06/2021',
+                                    onTap: () async {
+                                      await searchPostProvider
+                                          .getUserById(eachPost.sharer);
+
+                                      Navigator.pushNamed(
+                                        context,
+                                        PostDetailScreen.nameRoute,
+                                        arguments:
+                                            DestinationPostDetailArgument(
+                                          eachPost,
+                                          searchPostProvider.sharer!,
+                                        ),
+                                      );
+                                    },
+                                    isPending: false,
+                                    rating: eachPost.rating,
+                                  )
+                                : Center(
+                                    child: Container(
+                                      height: 100,
+                                      width: 100,
+                                      color: Colors.red,
+                                    ),
+                                  );
+                          },
+                          separatorBuilder: (BuildContext context, int index) =>
+                              SizedBox(
+                                height: 8.h,
+                              ),
+                          itemCount: listFavorite.length),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
