@@ -9,7 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../configs/color_config.dart';
 
 class ChangeAvatarScreen extends StatefulWidget {
@@ -37,11 +37,11 @@ class _ChangeAvatarScreenState extends State<ChangeAvatarScreen> {
         barrierDismissible: false,
         context: context,
         builder: (context) {
-          return const CustomDialogWidget(
+          return CustomDialogWidget(
             assetsNamePng: "assets/images/check.png",
-            content: 'Your Avatar has been change!',
+            content: AppLocalizations.of(context).contenAvatarSuccess,
             mainColor: AppColors.kLightGreen,
-            title: 'Amazing!',
+            title: AppLocalizations.of(context).titleAvatarSuccess,
           );
         });
   }
@@ -51,11 +51,11 @@ class _ChangeAvatarScreenState extends State<ChangeAvatarScreen> {
         barrierDismissible: false,
         context: context,
         builder: (context) {
-          return const CustomDialogWidget(
+          return CustomDialogWidget(
             assetsNamePng: "assets/images/error.png",
-            content: 'You need to choose new avatar, please!',
+            content: AppLocalizations.of(context).contentAvatarFail,
             mainColor: AppColors.kLightRed,
-            title: 'Oh...No!',
+            title: AppLocalizations.of(context).titleAvatarFail,
           );
         });
   }
@@ -68,7 +68,7 @@ class _ChangeAvatarScreenState extends State<ChangeAvatarScreen> {
         elevation: 0,
         backgroundColor: AppColors.kBackgroundColor,
         title: Text(
-          'Change Avatar',
+          AppLocalizations.of(context).changeAvatar,
           style: TextConfigs.kText24_1.copyWith(
             color: AppColors.kColor0,
             fontWeight: FontWeight.w500,
@@ -103,7 +103,7 @@ class _ChangeAvatarScreenState extends State<ChangeAvatarScreen> {
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
                   child: Text(
-                    'Save',
+                    AppLocalizations.of(context).save,
                     style: TextConfigs.kTextSubtitleBold.copyWith(
                       fontWeight: FontWeight.w500,
                       color: AppColors.kPrimaryColor,
@@ -134,42 +134,40 @@ class _ChangeAvatarScreenState extends State<ChangeAvatarScreen> {
                   Consumer<SettingAccountProvider>(
                       builder: (context, accountProvider, child) {
                     return accountProvider.avatar.path != ""
-                        ? Container(
-                            constraints: BoxConstraints(
-                              minHeight: 120.h,
-                              maxHeight: 200.h,
-                              minWidth: 120.w,
-                              maxWidth: 200.w,
-                            ),
-                            // height: 120.h,
-                            // width: 120.w,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.transparent,
-                            ),
-                            child: Image.file(
-                              File(
-                                accountProvider.avatar.path,
+                        ? ClipOval(
+                            child: Container(
+                              height: 200.h,
+                              width: 200.h,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.transparent,
+                                  boxShadow: [
+                                    BoxShadowConfig.kShadowGrey,
+                                  ]),
+                              child: Image.file(
+                                File(
+                                  accountProvider.avatar.path,
+                                ),
+                                fit: BoxFit.contain,
                               ),
-                              fit: BoxFit.cover,
                             ),
                           )
-                        : Container(
-                            constraints: BoxConstraints(
-                              minHeight: 120.h,
-                              maxHeight: 200.h,
-                              minWidth: 120.w,
-                              maxWidth: 200.w,
-                            ),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.transparent,
-                              border: Border.all(
-                                  color: AppColors.kColor2, width: 0.5),
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                    accountProvider.getCurrUser().avatarUrl!),
-                                fit: BoxFit.contain,
+                        : ClipOval(
+                            child: Container(
+                              height: 200.h,
+                              width: 200.h,
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadowConfig.kShadowGrey,
+                                ],
+                                color: Colors.transparent,
+                                border: Border.all(
+                                    color: AppColors.kColor2, width: 0.5),
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                      accountProvider.getCurrUser().avatarUrl!),
+                                  fit: BoxFit.contain,
+                                ),
                               ),
                             ),
                           );
@@ -193,7 +191,7 @@ class _ChangeAvatarScreenState extends State<ChangeAvatarScreen> {
                             ],
                           ),
                           child: Text(
-                            'Choose Image',
+                            AppLocalizations.of(context).chooseImage,
                             style: TextConfigs.kTextSubtitle.copyWith(
                               color: AppColors.kColor1,
                             ),

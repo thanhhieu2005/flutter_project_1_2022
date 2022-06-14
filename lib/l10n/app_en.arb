@@ -9,7 +9,7 @@
     "beach": "Beach",
     "introBeach": "Magical Blue Sea",
     "mountain": "Mountain",
-    "introMountain": "Gorgeo1 Mountains", 
+    "introMountain": "Gorgeous Mountains", 
     "island": "Island",
     "introIsland": "Pearl Island Horizon",
     "city": "City",
@@ -46,6 +46,7 @@
     "confirmPwd": "Confirm New Password",
     "create": "Create",
     "save": "Save",
+    "cancel": "Cancel",
     "newAccount": "New Account",
     "backToSignIn": "Back To Sign In",
     "backToSignUp": "Back To Sign Up",
@@ -97,5 +98,12 @@
     "verify" : "Verify",
     "sendEmail" : "Send Email",
     "pleaseEnterPwd" : "Please enter your new password",
-    "dontHaveAccount" : "Don't have an account ?"
+    "dontHaveAccount" : "Don't have an account ?",
+    "contenAvatarSuccess": "Your Avatar has been change!",
+    "titleAvatarSuccess": "Amazing!",
+    "contentAvatarFail": "You need to choose new avatar, please!",
+    "titleAvatarFail": "Oh...No!",
+    "changeAvatar": "Change Avatar",
+    "chooseImage": "Choose Image",
+    "selectNewAvatar": "Select New Avatar"
 }
