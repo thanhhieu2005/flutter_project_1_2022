@@ -71,7 +71,11 @@ class SettingAccountProvider extends ChangeNotifier {
   }
 
   Future<void> updateInfoUser(Function onSuccess, Function onFail) async {
-    if (userNameController.text.isEmpty) {
+    if (userNameController.text.isEmpty ||
+        userNameController.text == localCurrentUser.userName ||
+        phoneNumController.text == localCurrentUser.phoneNumber ||
+        dOBController.text == localCurrentUser.dateOfBirth ||
+        addressController.text == localCurrentUser.address) {
       onFail();
     } else {
       isLoad = true;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BottomSheetUploadPhoto extends StatelessWidget {
   final void Function() onClick;
@@ -27,7 +28,7 @@ class BottomSheetUploadPhoto extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Text(
-                'Select New Avatar',
+                AppLocalizations.of(context).selectNewAvatar,
                 style: TextConfigs.kTextSubtitle.copyWith(
                   color: AppColors.kColor1,
                 ),
@@ -47,7 +48,7 @@ class BottomSheetUploadPhoto extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Text(
-                'Cancel',
+                AppLocalizations.of(context).cancel,
                 style: TextConfigs.kTextSubtitle.copyWith(
                   color: AppColors.kColor1,
                 ),

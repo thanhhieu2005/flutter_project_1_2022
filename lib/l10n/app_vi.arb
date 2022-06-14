@@ -46,6 +46,7 @@
     "confirmPwd": "Xác nhận Mật khẩu mới",
     "create": "Tạo",
     "save": "Lưu",
+    "cancel": "Cancel",
     "newAccount": "Tài Khoản Mới",
     "backToSignIn": "Quay Trở Lại Đăng Nhập",
     "backToSignUp": "Quay Trở Lại Đăng Nhập",
@@ -97,5 +98,12 @@
     "verify" : "Xác nhận",
     "sendEmail" : "Gửi Email",
     "pleaseEnterPwd" : "Hãy nhập mật khẩu mới của bạn",
-    "dontHaveAccount" : "Chưa có tài khoản ?"
+    "dontHaveAccount" : "Chưa có tài khoản ?",
+    "contenAvatarSuccess": "Ảnh đại diện của bạn đã được đổi!",
+    "titleAvatarSuccess": "Tuyệt vời!",
+    "contentAvatarFail": "Bạn chưa chọn ảnh đại diện mới!",
+    "titleAvatarFail": "Lỗi rồi!!",
+    "changeAvatar": "Thay đổi ảnh đại diện",
+    "chooseImage": "Chọn hình ảnh",
+    "selectNewAvatar": "Cập nhật ảnh đại diện mới"
 }

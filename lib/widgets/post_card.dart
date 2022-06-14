@@ -34,55 +34,6 @@ class PostCard extends StatelessWidget {
             ]),
         child: Stack(
           children: [
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Flexible(
-                  child: Container(
-                    margin:
-                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-                    // height: 60.h,
-                    constraints: BoxConstraints(maxWidth: 120.w),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      image: DecorationImage(
-                        image: NetworkImage(post.images.first),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 16.h, horizontal: 12.w),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Flexible(
-                        child: Text(
-                          post.postName,
-                          style: TextConfigs.kTextSubtitle.copyWith(
-                            color: AppColors.kColor0,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 12.h,
-                      ),
-                      Flexible(
-                        child: Text(
-                          post.district + ', ' + post.province,
-                          style: TextConfigs.kText14Black,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
             Positioned(
               right: 16.w,
               // top: 10.h,
@@ -113,6 +64,59 @@ class PostCard extends StatelessWidget {
                   ],
                 ),
               ),
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Flexible(
+                  flex: 3,
+                  child: Container(
+                    margin:
+                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+                    // height: 60.h,
+                    constraints: BoxConstraints(maxWidth: 120.w),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                        image: NetworkImage(post.images.first),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+                Flexible(
+                  flex: 2,
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 8.h, horizontal: 12.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            post.postName,
+                            style: TextConfigs.kTextSubtitle.copyWith(
+                              color: AppColors.kColor0,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 12.h,
+                        ),
+                        Flexible(
+                          child: Text(
+                            post.district + ', ' + post.province,
+                            style: TextConfigs.kText14Black,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),

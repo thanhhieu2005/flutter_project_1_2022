@@ -85,7 +85,7 @@ class SignUpPageState extends State<SignUpPage> {
                                 },
                                 child: SizedBox(
                                   width: 42.w,
-                                  height: 42.h,
+                                  height: 42.w,
                                   child: SvgPicture.asset(
                                     "assets/icons/ic_back.svg",
                                     fit: BoxFit.scaleDown,
