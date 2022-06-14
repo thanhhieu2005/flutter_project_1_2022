@@ -3,9 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_project_1/models/posts/destination_post.dart';
 import 'package:flutter_project_1/models/users/user.dart';
 import 'package:flutter_project_1/services/destination_post_repository.dart';
+import 'package:tiengviet/tiengviet.dart';
 
 class PostModerationProvider extends ChangeNotifier {
   final List<DestinationPost> _listPostModeration = [];
+
+  List<DestinationPost> _listSearch = [];
 
   VatractionUser? sharer;
 
@@ -16,6 +19,11 @@ class PostModerationProvider extends ChangeNotifier {
   List<DestinationPost> get listPostModeration {
     _listPostModeration.sort((a, b) => a.dateTime.compareTo(b.dateTime));
     return _listPostModeration;
+  }
+
+  List<DestinationPost> get listPostSearch {
+    _listSearch.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+    return _listSearch;
   }
 
   void onDataChange() {
@@ -62,6 +70,14 @@ class PostModerationProvider extends ChangeNotifier {
       String postId, PostStatus postStatus, Function onSuccess) async {
     await DestinationPostRepo().postModeration(postId, postStatus.value);
     onSuccess();
+    notifyListeners();
+  }
+
+  void onSearch(String keyword) {
+    _listSearch = _listPostModeration
+        .where((post) => TiengViet.parse(post.postName.toLowerCase())
+            .contains(keyword.toLowerCase()))
+        .toList();
     notifyListeners();
   }
 }

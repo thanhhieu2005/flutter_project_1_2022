@@ -3,10 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_project_1/models/posts/destination_post.dart';
 import 'package:flutter_project_1/models/users/user.dart';
 import 'package:flutter_project_1/services/destination_post_repository.dart';
+import 'package:tiengviet/tiengviet.dart';
 
 class SearchPostProvider extends ChangeNotifier {
   final List<DestinationPost> _listPostModeration = [];
   List<DestinationPost> _listSearch = [];
+
+  bool _isModeration = false;
 
   VatractionUser? sharer;
 
@@ -18,6 +21,13 @@ class SearchPostProvider extends ChangeNotifier {
     return _listPosts;
   }
 
+  bool get isModeration => _isModeration;
+
+  set isModeration(value) {
+    _isModeration = value;
+    notifyListeners();
+  }
+
   SearchPostProvider();
 
   List<DestinationPost> get listPostModeration {
@@ -26,8 +36,17 @@ class SearchPostProvider extends ChangeNotifier {
   }
 
   List<DestinationPost> get listSearchPost {
-    _listPostModeration.sort((a, b) => a.dateTime.compareTo(b.dateTime));
-    return _listPostModeration;
+    _listSearch.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+    if (isModeration) {
+      _listSearch = _listSearch
+          .where((element) => element.status == PostStatus.pending)
+          .toList();
+    } else {
+      _listSearch = _listSearch
+          .where((element) => element.status == PostStatus.approve)
+          .toList();
+    }
+    return _listSearch;
   }
 
   void clearListPost() {
@@ -40,7 +59,8 @@ class SearchPostProvider extends ChangeNotifier {
       for (var element in event.docChanges) {
         final post =
             DestinationPost.fromMap(element.doc.data() as Map<String, dynamic>);
-        if (post.status == PostStatus.approve) {
+        if (post.status == PostStatus.approve ||
+            post.status == PostStatus.pending) {
           _listPostModeration.add(post);
         }
       }
@@ -62,7 +82,8 @@ class SearchPostProvider extends ChangeNotifier {
 
   void onSearch(String keyword) {
     _listSearch = _listPostModeration
-        .where((post) => post.postName.contains(keyword))
+        .where((post) => TiengViet.parse(post.postName.toLowerCase())
+            .contains(keyword.toLowerCase()))
         .toList();
     notifyListeners();
   }

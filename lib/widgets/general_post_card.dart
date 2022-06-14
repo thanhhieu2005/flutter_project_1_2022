@@ -118,7 +118,7 @@ class GeneralPostCard extends StatelessWidget {
                                         style:
                                             TextConfigs.kText14Black.copyWith(
                                           color: AppColors.kTextGrey,
-                                          fontSize: 24.sp,
+                                          fontSize: 20.sp,
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
@@ -165,10 +165,10 @@ class InfoGeneralPostCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final sizeAsset = 14.h;
-    final sizeAsset2 = 20.h;
-    final sizeText = 14.sp;
-    final sizeText2 = 20.sp;
+    final sizeAsset = 13.h;
+    final sizeAsset2 = 16.h;
+    final sizeText = 13.sp;
+    final sizeText2 = 16.sp;
     return Row(
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.start,

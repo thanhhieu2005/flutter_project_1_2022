@@ -49,7 +49,6 @@ class _SearchWidgetState extends State<SearchWidget> {
           hintText: AppLocalizations.of(context).search,
           hintStyle: TextConfigs.kText16White.copyWith(
             color: AppColors.kDarkBlue1,
-            fontStyle: FontStyle.italic,
           ),
           prefixIcon: InkWell(
             // onTap: widget.onTap,

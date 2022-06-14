@@ -25,3 +25,9 @@ class TypeScreenArgument {
 
   TypeScreenArgument(this.provider, this.category);
 }
+
+class SearchScreenArgument {
+  final bool isModeration;
+
+  SearchScreenArgument(this.isModeration);
+}
