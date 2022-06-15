@@ -116,6 +116,7 @@ class _PostModerationScreenState extends State<PostModerationScreen> {
                   Consumer<PostModerationProvider>(
                       builder: (context, postModerationProvider, child) {
                     return ListView.separated(
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           final postModeration =

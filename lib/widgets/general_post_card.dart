@@ -79,12 +79,6 @@ class GeneralPostCard extends StatelessWidget {
                               isPending: isPending,
                             ),
                             SizedBox(height: 4.h),
-                            InfoGeneralPostCard(
-                              assetIcon: "assets/icons/ic_location.svg",
-                              content: location,
-                              isPending: isPending,
-                            ),
-                            SizedBox(height: 4.h),
                             isPending
                                 ? InfoGeneralPostCard(
                                     assetIcon: "assets/icons/ic_aboutl.svg",
@@ -106,7 +100,7 @@ class GeneralPostCard extends StatelessWidget {
                                               color: AppColors.kColor4,
                                             ),
                                             itemCount: 5,
-                                            itemSize: 24.h,
+                                            itemSize: 18.h,
                                           ),
                                         ],
                                       ),
@@ -118,12 +112,18 @@ class GeneralPostCard extends StatelessWidget {
                                         style:
                                             TextConfigs.kText14Black.copyWith(
                                           color: AppColors.kTextGrey,
-                                          fontSize: 20.sp,
+                                          fontSize: 18.sp,
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
                                     ],
                                   ),
+                            SizedBox(height: 4.h),
+                            InfoGeneralPostCard(
+                              assetIcon: "assets/icons/ic_location.svg",
+                              content: location,
+                              isPending: isPending,
+                            ),
                           ],
                         ),
                       ),
@@ -259,7 +259,7 @@ class NameGeneralPostCardWidget extends StatelessWidget {
                   style: TextConfigs.kTextSubtitle.copyWith(
                     color: AppColors.kDarkBlue1,
                     fontWeight: FontWeight.w600,
-                    fontSize: 24.sp,
+                    fontSize: 22.sp,
                   ),
                 ),
               ),

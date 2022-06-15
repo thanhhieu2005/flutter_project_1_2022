@@ -17,71 +17,83 @@ class NewDiscoveryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onClick,
-      child: Container(
-        height: 160.h,
-        width: 160.w,
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(10),
+      child: Stack(
+        children: [
+          Container(
+            height: 160.h,
+            width: 160.w,
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(
+                Radius.circular(10),
+              ),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: NetworkImage(post.images.first),
+              ),
+            ),
           ),
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: NetworkImage(post.images.first),
-          ),
-        ),
-        child: Stack(
-          children: [
-            Positioned(
-              bottom: 0,
-              child: Container(
-                height: 56.h,
-                width: 160.w,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.grey.shade200,
-                  ),
-                  color: AppColors.kColor1,
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(10),
-                  ),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 8.h,
-                    horizontal: 16.w,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Flexible(
-                        child: Text(
-                          post.postName,
-                          style: TextConfigs.kTextSubtitle.copyWith(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16.sp,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 4.h,
-                      ),
-                      Flexible(
-                        child: Text(
-                          post.province,
-                          style: TextConfigs.kText16Black.copyWith(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 14.sp,
-                          ),
-                        ),
-                      ),
-                    ],
+          Positioned(
+            bottom: 0,
+            child: AnimatedOpacity(
+              opacity: 1,
+              duration: const Duration(seconds: 0),
+              child: ShaderMask(
+                shaderCallback: (rect) {
+                  return const LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Colors.black, Colors.transparent],
+                  ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
+                },
+                blendMode: BlendMode.dstOut,
+                child: Container(
+                  height: 70.h,
+                  width: 160.w,
+                  decoration: const BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
+                    ),
                   ),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+          Positioned(
+            bottom: 15,
+            child: Container(
+              margin: EdgeInsets.only(left: 10.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Flexible(
+                    child: Text(
+                      post.postName,
+                      style: TextConfigs.kTextSubtitle.copyWith(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16.sp,
+                          color: AppColors.kColor1),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 4.h,
+                  ),
+                  Flexible(
+                    child: Text(
+                      post.province,
+                      style: TextConfigs.kText16Black.copyWith(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14.sp,
+                          color: AppColors.kColor1),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
