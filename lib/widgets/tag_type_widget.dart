@@ -52,7 +52,15 @@ class TagTypeWidget extends StatelessWidget {
                     ? 'assets/icons/ic_mountain.svg'
                     : post.type == PostType.island
                         ? 'assets/icons/ic_island.svg'
-                        : 'assets/icons/ic_city.svg',
+                        : post.type == PostType.city
+                            ? 'assets/icons/ic_city.svg'
+                            : post.type == PostType.summer
+                                ? 'assets/icons/ic_city.svg'
+                                : post.type == PostType.wild
+                                    ? 'assets/icons/ic_city.svg'
+                                    : post.type == PostType.happyWeekend
+                                        ? 'assets/icons/ic_city.svg'
+                                        : 'assets/icons/ic_city.svg',
             width: 24.w,
             height: 24.h,
           ),
