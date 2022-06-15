@@ -58,6 +58,7 @@ class PostModerationProvider extends ChangeNotifier {
             break;
         }
       }
+      _listSearch = _listPostModeration;
       notifyListeners();
     });
   }

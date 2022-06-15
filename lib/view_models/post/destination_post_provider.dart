@@ -23,28 +23,28 @@ class DestinationPostProvider extends ChangeNotifier {
   final List<Category> categories = [
     // Setting again in class SettingPostType => to setting title and intro to Category
     Category(
-      icon: "assets/icons/ic_beach.svg",
+      icon: "assets/icons/ic_beach.jpg",
       title: "Beach",
       thumb: ImageConfig.thumbBeach,
       intro: 'Khám Phá Biển',
       type: PostType.beach,
     ),
     Category(
-      icon: "assets/icons/ic_mountain.svg",
+      icon: "assets/icons/ic_mountain.jpg",
       title: "Mountain",
       thumb: ImageConfig.thumbMountain,
       intro: 'Núi Non Hùng Vĩ',
       type: PostType.mountain,
     ),
     Category(
-      icon: "assets/icons/ic_island.svg",
+      icon: "assets/icons/ic_island.jpg",
       title: "Island",
       thumb: ImageConfig.thumbIsland,
       intro: 'Vi Vu Đảo Ngọc',
       type: PostType.island,
     ),
     Category(
-      icon: "assets/icons/ic_city.svg",
+      icon: "assets/icons/ic_city.jpg",
       title: "City",
       thumb: ImageConfig.thumbCity,
       intro: 'Khám Phá Phố Thị',

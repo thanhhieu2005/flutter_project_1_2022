@@ -212,6 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     var item = provider.listNewPost.take(5);
                     return SingleChildScrollView(
                       child: Row(
+                        mainAxisSize: MainAxisSize.max,
                         children: item
                             .map((e) => [
                                   NewDiscoveryCard(

@@ -26,6 +26,7 @@ class AppColors {
   static const kTextGrey1 = Color(0xff787878);
   static const kTextLightPrimary = Color(0xff00D5FF);
   static const kLightBlueBackGround = Color(0xffC7F6FF);
+  static const kDarkGrey = Color(0xffE6EAF0);
 }
 
 class BoxShadowConfig {

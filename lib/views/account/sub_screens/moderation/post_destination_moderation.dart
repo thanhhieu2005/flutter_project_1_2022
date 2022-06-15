@@ -101,14 +101,16 @@ class _PostModerationScreenState extends State<PostModerationScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SearchWidget(
-                    onChange: (value) {},
-                    onTap: () {
-                      Navigator.pushNamed(context, SearchScreen.nameRoute,
-                          arguments: SearchScreenArgument(true));
-                    },
-                    readOnly: true,
-                    fillColors: AppColors.kColor1,
+                  Padding(
+                    padding:
+                        EdgeInsets.only(left: 10.w, right: 10.w, bottom: 10.h),
+                    child: SearchWidget(
+                      onChange: (value) {
+                        postModrationProvider.onSearch(value);
+                      },
+                      readOnly: false,
+                      fillColors: AppColors.kColor1,
+                    ),
                   ),
                   SizedBox(
                     height: 8.h,
@@ -116,10 +118,11 @@ class _PostModerationScreenState extends State<PostModerationScreen> {
                   Consumer<PostModerationProvider>(
                       builder: (context, postModerationProvider, child) {
                     return ListView.separated(
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           final postModeration =
-                              postModerationProvider.listPostModeration[index];
+                              postModerationProvider.listPostSearch[index];
                           return GeneralPostCard(
                             firstImage: postModeration.images.first,
                             namePostModeration: postModeration.postName,
@@ -151,7 +154,7 @@ class _PostModerationScreenState extends State<PostModerationScreen> {
                               height: 8.h,
                             ),
                         itemCount:
-                            postModerationProvider.listPostModeration.length);
+                            postModerationProvider.listPostSearch.length);
                   }),
                 ],
               ),
