@@ -47,7 +47,7 @@ class NewDiscoveryCard extends StatelessWidget {
                 },
                 blendMode: BlendMode.dstOut,
                 child: Container(
-                  height: 70.h,
+                  height: 100.h,
                   width: 160.w,
                   decoration: const BoxDecoration(
                     color: Colors.black,

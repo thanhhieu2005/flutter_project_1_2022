@@ -122,6 +122,8 @@ class _SearchScreenState extends State<SearchScreen> {
                             final eachPost = listFavorite[index];
                             return listFavorite.isNotEmpty
                                 ? GeneralPostCard(
+                                    isModeration:
+                                        searchScreenArgument.isModeration,
                                     firstImage: eachPost.images.first,
                                     namePostModeration: eachPost.postName,
                                     location: eachPost.district +

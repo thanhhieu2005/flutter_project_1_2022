@@ -17,39 +17,108 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
-      onPressed: onClick,
-      style: OutlinedButton.styleFrom(
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10),
+    return GestureDetector(
+      onTap: onClick,
+      child: Stack(
+        fit: StackFit.loose,
+        children: [
+          Container(
+            width: 180.w,
+            height: 300.h,
+            decoration: BoxDecoration(
+                color: Colors.grey,
+                image: DecorationImage(
+                  image: AssetImage(icon),
+                  fit: BoxFit.fill,
+                ),
+                borderRadius: BorderRadius.circular(10.0)),
           ),
-        ),
-      ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 4.w,
-          vertical: 4.h,
-        ),
-        child: Column(
-          children: [
-            SvgPicture.asset(
-              icon,
-              width: 40.w,
-              height: 40.h,
-            ),
-            SizedBox(
-              height: 8.h,
-            ),
-            Text(
-              title,
-              style: TextConfigs.kText16White.copyWith(
-                color: AppColors.kDarkBlue1,
-                fontWeight: FontWeight.normal,
+          AnimatedOpacity(
+            opacity: 0.7,
+            duration: const Duration(seconds: 0),
+            child: ShaderMask(
+              shaderCallback: (rect) {
+                return const LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Colors.black, Colors.transparent],
+                ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
+              },
+              blendMode: BlendMode.dstOut,
+              child: Container(
+                width: 180.w,
+                height: 300.h,
+                decoration: const BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10),
+                  ),
+                ),
               ),
             ),
-          ],
-        ),
+          ),
+          Positioned.fill(
+            child: Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: EdgeInsets.only(left: 10.w, bottom: 10.h),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      title.toUpperCase(),
+                      style: TextConfigs.kText16White.copyWith(
+                          color: AppColors.kColor1.withOpacity(0.8),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30.sp),
+                    ),
+                    SizedBox(
+                      height: 8.h,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Positioned.fill(
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: EdgeInsets.only(left: 10.w, bottom: 10.h),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      height: 8.h,
+                    ),
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 5.h, horizontal: 10.w),
+                      decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.4),
+                          borderRadius: BorderRadius.circular(5.0)),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            "Tap to Discover",
+                            style: TextConfigs.kText16White.copyWith(
+                                color: AppColors.kColor1,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14.sp),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

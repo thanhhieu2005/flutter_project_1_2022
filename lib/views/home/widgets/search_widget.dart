@@ -54,8 +54,8 @@ class _SearchWidgetState extends State<SearchWidget> {
             // onTap: widget.onTap,
             child: Padding(
               padding: EdgeInsets.all(12.h),
-              child: SvgPicture.asset(
-                "assets/icons/ic_search.svg",
+              child: Image.asset(
+                "assets/icons/ic_search.png",
                 height: 28.h,
                 width: 28.w,
               ),
