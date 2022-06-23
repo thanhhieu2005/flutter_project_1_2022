@@ -51,7 +51,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           child: Scaffold(
             backgroundColor: AppColors.kBackgroundColor,
             appBar: PreferredSize(
-              preferredSize: Size.fromHeight(100.h),
+              preferredSize: Size.fromHeight(120.h),
               child: AppBar(
                 elevation: 0,
                 backgroundColor: AppColors.kBackgroundColor,

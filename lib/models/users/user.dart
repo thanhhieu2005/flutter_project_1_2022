@@ -34,7 +34,7 @@ class VatractionUser extends Equatable {
         'gender': gender ?? "",
         'pwd': pwd,
         'isConfirmEmail': isConfirmEmail ?? false,
-        'role': role ?? 1,
+        'role': role ?? 2,
         'phoneNumber': phoneNumber ?? "",
         'address': address ?? "",
       };

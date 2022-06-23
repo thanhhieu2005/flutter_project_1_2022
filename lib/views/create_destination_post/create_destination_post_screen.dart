@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/models/address/district_model.dart';
 import 'package:flutter_project_1/models/address/province_model.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_project_1/widgets/button/rounded_main_button.dart';
 import 'package:flutter_project_1/widgets/dialog/open_dialog.dart';
 import 'package:flutter_project_1/widgets/title_appbar_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import '../../configs/text_config.dart';
 import '../../models/address/wards_model.dart';
@@ -39,7 +41,7 @@ class _CreateDestinationPostScreenState
         floatHeaderSlivers: true,
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           SliverAppBar(
-            expandedHeight: 90.h,
+            expandedHeight: 120.h,
             automaticallyImplyLeading: false,
             elevation: 0,
             floating: true,
@@ -309,7 +311,16 @@ class _CreateDestinationPostScreenState
                         height: 56.h,
                         width: 240.w,
                         onTap: () {
-                          createPostProvider.submitPost(() {
+                          EasyLoading.show(
+                              status: "Loading",
+                              indicator: SpinKitThreeBounce(
+                                color: AppColors.kPrimaryColor,
+                                size: 32.h,
+                              ),
+                              dismissOnTap: false,
+                              maskType: EasyLoadingMaskType.custom);
+                          createPostProvider.submitPost(() async {
+                            await EasyLoading.dismiss();
                             OpenDialog().onSuccess(
                                 context: context,
                                 assetsNamePng: "assets/images/check.png",
@@ -318,7 +329,8 @@ class _CreateDestinationPostScreenState
                                 title: AppLocalizations.of(context)
                                     .titleCreatePostSuccess,
                                 mainColor: AppColors.kLightGreen);
-                          }, () {
+                          }, () async {
+                            await EasyLoading.dismiss();
                             OpenDialog().onFail(
                                 context: context,
                                 assetsNamePng: "assets/images/error.png",
