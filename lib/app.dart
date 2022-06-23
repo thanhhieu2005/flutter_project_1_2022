@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_project_1/routes/app_route.dart';
 import 'package:flutter_project_1/services/auth_service.dart';
 import 'package:flutter_project_1/view_models/account/setting_account_provider.dart';
+import 'package:flutter_project_1/view_models/discovery/discovery_provider.dart';
 import 'package:flutter_project_1/view_models/favorite_post_provider.dart';
 import 'package:flutter_project_1/view_models/locale_provider.dart';
 import 'package:flutter_project_1/view_models/login/login_provider.dart';
@@ -45,6 +46,9 @@ class VAtractionApp extends StatelessWidget {
                 ),
                 ChangeNotifierProvider<SearchPostProvider>(
                   create: (_) => SearchPostProvider(),
+                ),
+                ChangeNotifierProvider<DiscoveryProvider>(
+                  create: (_) => DiscoveryProvider(),
                 ),
               ],
               child: MaterialApp(

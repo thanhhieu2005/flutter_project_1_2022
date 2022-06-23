@@ -6,6 +6,7 @@ import 'package:flutter_project_1/views/account/sub_screens/change_pwd_screen.da
 import 'package:flutter_project_1/views/account/sub_screens/moderation/post_destination_moderation.dart';
 import 'package:flutter_project_1/views/account/sub_screens/moderation/post_moderation_detail.dart';
 import 'package:flutter_project_1/views/account/sub_screens/per_info_screen.dart';
+import 'package:flutter_project_1/views/discovery/discovery_detail.dart';
 import 'package:flutter_project_1/views/discovery/discovery_screen.dart';
 import 'package:flutter_project_1/views/favorite/favorite_screen.dart';
 import 'package:flutter_project_1/views/home/home_screen.dart';
@@ -42,6 +43,10 @@ class AppRoutes {
         return CupertinoPageRoute(builder: (_) => const LandingPage());
       case ForgetPwdPage.nameRoute:
         return CupertinoPageRoute(builder: (_) => const ForgetPwdPage());
+      case DiscoveryDetailScreen.nameRoute:
+        return CupertinoPageRoute(
+            builder: (_) => DiscoveryDetailScreen(),
+            settings: RouteSettings(arguments: settings.arguments));
       // Create new post screen
       // case CreatePostScreen.nameRoute:
       //   return CreatePostScreen.route();

@@ -46,215 +46,207 @@ class _ConfirmEmailPageState extends State<ConfirmEmailPage> {
     final signUpProvider = Provider.of<SignUpProvider>(context);
     final isCreateAccount = ModalRoute.of(context)!.settings.arguments as bool;
     Size size = MediaQuery.of(context).size;
-    return ModalProgressHUD(
-      progressIndicator: SpinKitThreeBounce(
-        color: AppColors.kPrimaryColor,
-        size: 32.h,
-      ),
-      inAsyncCall: signUpProvider.isLoading,
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: SafeArea(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Stack(
-                  children: [
-                    CustomPaint(
-                      size: size / 3,
-                      painter: ProfileCardPainter(color: Colors.black),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: (size.height / 2) / 2),
-                      child: Center(
-                        child: CircleAvatar(
-                          maxRadius: 55.r,
-                          minRadius: 55.r,
-                          backgroundColor: AppColors.kBackgroundColor,
-                          child: Icon(
-                            Icons.mail,
-                            size: 65.sp,
-                            color: AppColors.kPrimaryColor.withOpacity(0.9),
-                          ),
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Stack(
+                children: [
+                  CustomPaint(
+                    size: size / 3,
+                    painter: ProfileCardPainter(color: Colors.black),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: (size.height / 2) / 2),
+                    child: Center(
+                      child: CircleAvatar(
+                        maxRadius: 55.r,
+                        minRadius: 55.r,
+                        backgroundColor: AppColors.kBackgroundColor,
+                        child: Icon(
+                          Icons.mail,
+                          size: 65.sp,
+                          color: AppColors.kPrimaryColor.withOpacity(0.9),
                         ),
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(top: 15.h),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(left: 15.w, right: 15.w),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: AppColors.kLightBlue2.withOpacity(0.25),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.2),
-                                    spreadRadius: 3,
-                                    blurRadius: 4,
-                                    offset: const Offset(0, 2),
-                                  ),
-                                ],
-                              ),
-                              child: ClipOval(
-                                child: Material(
-                                  color: AppColors.kLightBlue2
-                                      .withOpacity(0.1), // Button color
-                                  child: InkWell(
-                                    splashColor: Colors.grey, // Splash color
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: SizedBox(
-                                      width: 42.w,
-                                      height: 42.h,
-                                      child: SvgPicture.asset(
-                                        "assets/icons/ic_back.svg",
-                                        fit: BoxFit.scaleDown,
-                                        color: AppColors.kBackgroundColor,
-                                      ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(top: 15.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(left: 15.w, right: 15.w),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: AppColors.kLightBlue2.withOpacity(0.25),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.2),
+                                  spreadRadius: 3,
+                                  blurRadius: 4,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: ClipOval(
+                              child: Material(
+                                color: AppColors.kLightBlue2
+                                    .withOpacity(0.1), // Button color
+                                child: InkWell(
+                                  splashColor: Colors.grey, // Splash color
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: SizedBox(
+                                    width: 42.w,
+                                    height: 42.h,
+                                    child: SvgPicture.asset(
+                                      "assets/icons/ic_back.svg",
+                                      fit: BoxFit.scaleDown,
+                                      color: AppColors.kBackgroundColor,
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                            Center(
-                              child: Text(
-                                AppLocalizations.of(context).backToSignUp,
-                                style: TextConfigs.kText16White,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      right: -35.w,
-                      top: 100.h,
-                      child: SvgPicture.asset(
-                        "assets/icons/img_send_background.svg",
-                        color: AppColors.kLightBlue3.withOpacity(0.25),
-                        width: 150.w,
-                        height: 150.h,
-                      ),
-                    ),
-                    Positioned.fill(
-                      child: Container(
-                        margin: EdgeInsets.only(top: size.height * 0.12),
-                        child: Column(
-                          children: [
-                            Text(
-                              "One Last Step",
-                              style: TextConfigs.kText22WhiteBold
-                                  .copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          Center(
+                            child: Text(
+                              AppLocalizations.of(context).backToSignUp,
+                              style: TextConfigs.kText16White,
                             ),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            Text(
-                              "Let's Verify Your Email",
-                              style: TextConfigs.kText22White,
-                            )
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Center(
-                      child: Container(
-                        margin: EdgeInsets.symmetric(vertical: 25.h),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Pinput(
-                              controller: signUpProvider.pinCodeController,
-                              defaultPinTheme: defaultPinTheme,
-                              focusedPinTheme: focusPinTheme,
-                              showCursor: false,
-                              length: 6,
-                              onCompleted: (value) {},
-                            )
-                          ],
-                        ),
+                          )
+                        ],
                       ),
                     ),
-                    Text(
-                      AppLocalizations.of(context).pleaseEnter6DigitCode,
-                      style: TextConfigs.kText14Black,
-                      textAlign: TextAlign.center,
+                  ),
+                  Positioned(
+                    right: -35.w,
+                    top: 100.h,
+                    child: SvgPicture.asset(
+                      "assets/icons/img_send_background.svg",
+                      color: AppColors.kLightBlue3.withOpacity(0.25),
+                      width: 150.w,
+                      height: 150.h,
                     ),
-                    SizedBox(
-                      height: 50.h,
+                  ),
+                  Positioned.fill(
+                    child: Container(
+                      margin: EdgeInsets.only(top: size.height * 0.12),
+                      child: Column(
+                        children: [
+                          Text(
+                            "One Last Step",
+                            style: TextConfigs.kText22WhiteBold
+                                .copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          Text(
+                            "Let's Verify Your Email",
+                            style: TextConfigs.kText22White,
+                          )
+                        ],
+                      ),
                     ),
-                  ],
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 15.w),
-                      child: Consumer<AuthService>(
-                        builder: (context, provider, child) {
-                          return RoundedLinearButton(
-                            press: () async {
-                              EasyLoading.show(
-                                  status: "Loading",
-                                  indicator: SpinKitThreeBounce(
-                                    color: AppColors.kPrimaryColor,
-                                    size: 32.h,
-                                  ),
-                                  dismissOnTap: false,
-                                  maskType: EasyLoadingMaskType.custom);
-                              signUpProvider.setLoadingStatus(true);
-                              var isVerified = emailAuth.validateOtp(
-                                  recipientMail: localCurrentUser.email,
-                                  userOtp:
-                                      signUpProvider.pinCodeController.text);
-                              if (isVerified) {
-                                await signUpProvider.updateVerifyEmailStatus(
-                                    localCurrentUser.uid);
-                                Navigator.pushAndRemoveUntil(
-                                    context,
-                                    NavigationBarView.route(),
-                                    (route) => false);
-                                signUpProvider.clearPinCodeController();
-                              } else {
-                                signUpProvider.isLoading = false;
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => const CustomDialog(
-                                    title: "Invalid Code",
-                                    description: "Please try again!",
-                                    image: 'cancel.png',
-                                    hasDescription: true,
-                                  ),
-                                );
-                              }
-                            },
-                            isAllCap: false,
-                            text: "Verify",
-                            textColor: Colors.white,
-                            startColor: AppColors.kPrimaryColor,
-                            endColor: AppColors.kPrimaryColor,
-                          );
-                        },
-                      )),
-                )
-              ],
-            ),
+                  )
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Center(
+                    child: Container(
+                      margin: EdgeInsets.symmetric(vertical: 25.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Pinput(
+                            controller: signUpProvider.pinCodeController,
+                            defaultPinTheme: defaultPinTheme,
+                            focusedPinTheme: focusPinTheme,
+                            showCursor: false,
+                            length: 6,
+                            onCompleted: (value) {},
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  Text(
+                    AppLocalizations.of(context).pleaseEnter6DigitCode,
+                    style: TextConfigs.kText14Black,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    height: 50.h,
+                  ),
+                ],
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 15.w),
+                    child: Consumer<AuthService>(
+                      builder: (context, provider, child) {
+                        return RoundedLinearButton(
+                          press: () async {
+                            EasyLoading.show(
+                                status: "Loading",
+                                indicator: SpinKitThreeBounce(
+                                  color: AppColors.kPrimaryColor,
+                                  size: 32.h,
+                                ),
+                                dismissOnTap: false,
+                                maskType: EasyLoadingMaskType.custom);
+                            signUpProvider.setLoadingStatus(true);
+                            var isVerified = emailAuth.validateOtp(
+                                recipientMail: localCurrentUser.email,
+                                userOtp: signUpProvider.pinCodeController.text);
+                            if (isVerified) {
+                              await EasyLoading.dismiss();
+                              await signUpProvider.updateVerifyEmailStatus(
+                                  localCurrentUser.uid);
+                              Navigator.pushAndRemoveUntil(context,
+                                  NavigationBarView.route(), (route) => false);
+                              signUpProvider.clearPinCodeController();
+                            } else {
+                              await EasyLoading.dismiss();
+
+                              showDialog(
+                                context: context,
+                                builder: (context) => const CustomDialog(
+                                  title: "Invalid Code",
+                                  description: "Please try again!",
+                                  image: 'cancel.png',
+                                  hasDescription: true,
+                                ),
+                              );
+                            }
+                          },
+                          isAllCap: false,
+                          text: "Verify",
+                          textColor: Colors.white,
+                          startColor: AppColors.kPrimaryColor,
+                          endColor: AppColors.kPrimaryColor,
+                        );
+                      },
+                    )),
+              )
+            ],
           ),
         ),
       ),

@@ -78,7 +78,16 @@ class DestinationPost {
   }
 }
 
-enum PostType { beach, mountain, island, city }
+enum PostType {
+  beach,
+  mountain,
+  island,
+  city,
+  summer,
+  wild,
+  happyWeekend,
+  other
+}
 
 extension PostTypeExtension on PostType {
   int get value {
@@ -87,6 +96,10 @@ extension PostTypeExtension on PostType {
       PostType.mountain: 2,
       PostType.island: 3,
       PostType.city: 4,
+      PostType.summer: 5,
+      PostType.wild: 6,
+      PostType.happyWeekend: 7,
+      PostType.other: 8,
     };
 
     return values[this]!;
@@ -98,6 +111,10 @@ extension PostTypeExtension on PostType {
       2: PostType.mountain,
       3: PostType.island,
       4: PostType.city,
+      5: PostType.summer,
+      6: PostType.wild,
+      7: PostType.happyWeekend,
+      8: PostType.other,
     };
 
     return values[value]!;
