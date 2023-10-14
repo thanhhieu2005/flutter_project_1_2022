@@ -25,7 +25,7 @@ class SearchPostProvider extends ChangeNotifier {
 
   set isModeration(value) {
     _isModeration = value;
-    notifyListeners();
+    // notifyListeners();
   }
 
   SearchPostProvider();

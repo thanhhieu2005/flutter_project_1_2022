@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../configs/text_config.dart';
@@ -24,13 +25,19 @@ class TitleAppBarWidget extends StatelessWidget {
           Expanded(
             child: Text(
               aboveText,
-              style: TextConfigs.kTextHeader1,
+              style: TextConfigs.kTextHeader1.copyWith(
+                color: AppColors.kPrimaryColor,
+              ),
             ),
           ),
           Expanded(
             child: Text(
               underText,
-              style: TextConfigs.kTextHeader1,
+              style: TextConfigs.kTextHeader1.copyWith(
+                color: AppColors.kPrimaryColor,
+                fontWeight: FontWeight.w700,
+                fontSize: 48,
+              ),
             ),
           ),
         ],
