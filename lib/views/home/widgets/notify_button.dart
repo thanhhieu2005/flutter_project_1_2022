@@ -1,4 +1,4 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badge;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -19,8 +19,9 @@ class NotifyButton extends StatelessWidget {
       child: InkWell(
         onTap: onClick,
         child: Container(
-          height: 48.h,
-          width: 48.w,
+          // height: 48.h,
+          // width: 48.w,
+          padding: EdgeInsets.all(4.r),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: AppColors.kColor1,
@@ -37,12 +38,12 @@ class NotifyButton extends StatelessWidget {
             child: Badge(
               // showBadge: , /* Để hàm kiểm tra có thông báo */
               // animationType: BadgeAnimationType.slide,
-              badgeContent: Container(
-                height: 4.h,
-                width: 4.w,
-                decoration: const BoxDecoration(
-                    shape: BoxShape.circle, color: AppColors.kColor3),
-              ),
+              // label: Container(
+              //   padding: EdgeInsets.all(4.r),
+              //   decoration: const BoxDecoration(
+              //       shape: BoxShape.circle, color: AppColors.kColor3,),
+              // ), 
+              isLabelVisible: false,
               child: SvgPicture.asset(
                 "assets/icons/ic_notification.svg",
                 height: 28.h,

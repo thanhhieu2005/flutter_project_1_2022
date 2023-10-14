@@ -1,23 +1,20 @@
-import 'package:email_auth/email_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_project_1/configs/color_config.dart';
 import 'package:flutter_project_1/configs/text_config.dart';
 import 'package:flutter_project_1/constants/global_constants.dart';
-import 'package:flutter_project_1/services/auth_service.dart';
 import 'package:flutter_project_1/views/login/forget_pwd_page.dart';
 import 'package:flutter_project_1/views/navigation_bar_view/navigation_bar_view.dart';
 import 'package:flutter_project_1/views/sign_up/confirm_email_page.dart';
 import 'package:flutter_project_1/views/sign_up/sign_up_page.dart';
-import 'package:flutter_project_1/widgets/text_field/rounded_input_field.dart';
 import 'package:flutter_project_1/widgets/button/rounded_linear_button.dart';
+import 'package:flutter_project_1/widgets/text_field/rounded_input_field.dart';
 import 'package:flutter_project_1/widgets/text_field/rounded_password_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../configs/auth_config.dart';
+
 import '../../view_models/login/login_provider.dart';
 import '../../widgets/dialog/custom_dialog.dart';
 
