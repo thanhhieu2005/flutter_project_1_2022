@@ -10,6 +10,7 @@ import 'package:flutter_project_1/views/home/widgets/notify_button.dart';
 import 'package:flutter_project_1/views/home/widgets/new_discovery_card.dart';
 import 'package:flutter_project_1/views/home/widgets/search_widget.dart';
 import 'package:flutter_project_1/views/home/widgets/row_title_seeall.dart';
+import 'package:flutter_project_1/widgets/dialog/is_developing_dialog.dart';
 import 'package:flutter_project_1/widgets/title_appbar_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -38,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     postProvider = Provider.of<DestinationPostProvider>(context, listen: false);
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       postProvider.onDataChange();
     });
   }
@@ -78,7 +79,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           underText: AppLocalizations.of(context).vietnam,
                         ),
                         NotifyButton(
-                          onClick: () {},
+                          onClick: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return const DevelopingDiaglog();
+                                });
+                          },
                         ),
                       ],
                     ),
@@ -159,6 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       builder: (context, provider, child) {
                     var item = provider.popularDestinationPost.take(5);
                     return SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
                       child: Row(
                         children: item
                             .map((e) => [
@@ -193,7 +201,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             .expand((element) => element)
                             .toList(),
                       ),
-                      scrollDirection: Axis.horizontal,
                     );
                   }),
                   SizedBox(
@@ -211,6 +218,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       builder: (context, provider, child) {
                     var item = provider.listNewPost.take(5);
                     return SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: item
@@ -241,7 +249,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             .expand((element) => element)
                             .toList(),
                       ),
-                      scrollDirection: Axis.horizontal,
                     );
                   }),
                   // container trang

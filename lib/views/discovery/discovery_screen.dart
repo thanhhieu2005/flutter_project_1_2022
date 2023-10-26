@@ -124,7 +124,7 @@ class DiscoveryScreen extends StatelessWidget {
                         child: Consumer<DiscoveryProvider>(
                             builder: (context, provider, child) {
                           return SizedBox(
-                            height: 400.h,
+                            // height: 400.h,
                             child: Align(
                               alignment: Alignment.center,
                               child: ListView.separated(
@@ -157,7 +157,7 @@ class DiscoveryScreen extends StatelessWidget {
                           );
                         }),
                       ),
-                      SizedBox(height: 65.h)
+                      SizedBox(height: 12.h)
                     ],
                   ),
                 ),

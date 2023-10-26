@@ -51,14 +51,11 @@ class SharerPostWidget extends StatelessWidget {
                 SizedBox(
                   width: 8.w,
                 ),
-                InkWell(
-                  onTap: onClick,
-                  child: Text(
-                    AppLocalizations.of(context).sharer,
-                    style: TextConfigs.kText16Black.copyWith(
-                      color: AppColors.kDarkBlue1,
-                      fontWeight: FontWeight.w500,
-                    ),
+                Text(
+                  AppLocalizations.of(context).sharer,
+                  style: TextConfigs.kText16Black.copyWith(
+                    color: AppColors.kDarkBlue1,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
@@ -66,12 +63,15 @@ class SharerPostWidget extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.only(right: 20.w),
-            child: Text(
-              sharer.userName.toString(),
-              style: TextConfigs.kText16Black.copyWith(
-                color: AppColors.kColor0,
-                fontWeight: FontWeight.w500,
-                decoration: TextDecoration.underline,
+            child: GestureDetector(
+              onTap: onClick,
+              child: Text(
+                sharer.userName.toString(),
+                style: TextConfigs.kText16Black.copyWith(
+                  color: AppColors.kColor0,
+                  fontWeight: FontWeight.w500,
+                  decoration: TextDecoration.underline,
+                ),
               ),
             ),
           ),
