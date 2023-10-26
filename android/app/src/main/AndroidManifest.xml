@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.flutter_project_1">
+    package="com.hksolution.vattraction">
    <application
         android:label="Vattraction"
         android:icon="@mipmap/launcher_icon">

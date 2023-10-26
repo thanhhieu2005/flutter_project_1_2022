@@ -16,7 +16,7 @@ class NotifyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.center,
-      child: InkWell(
+      child: GestureDetector(
         onTap: onClick,
         child: Container(
           // height: 48.h,

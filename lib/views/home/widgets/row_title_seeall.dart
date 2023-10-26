@@ -24,17 +24,17 @@ class RowTitleSeeAll extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
-        InkWell(
-          onTap: onTapSeeAll,
-          child: Text(
-            AppLocalizations.of(context).seeAll,
-            style: TextConfigs.kTextSubtitle.copyWith(
-              fontWeight: FontWeight.w500,
-              color: AppColors.kPrimaryColor,
-              fontSize: 16.sp,
-            ),
-          ),
-        ),
+        // InkWell(
+        //   onTap: onTapSeeAll,
+        //   child: Text(
+        //     AppLocalizations.of(context).seeAll,
+        //     style: TextConfigs.kTextSubtitle.copyWith(
+        //       fontWeight: FontWeight.w500,
+        //       color: AppColors.kPrimaryColor,
+        //       fontSize: 16.sp,
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }

@@ -1,4 +1,4 @@
-package com.example.flutter_project_1
+package com.hksolution.vattraction
 
 import io.flutter.embedding.android.FlutterActivity
 

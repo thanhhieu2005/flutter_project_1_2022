@@ -51,21 +51,21 @@ class _CreateDestinationPostScreenState
                 child: Padding(
                   padding: EdgeInsets.only(right: 12.w),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: CustomBackButton(
-                          height: 40.w,
-                          width: 40.w,
-                          backgroundColor: AppColors.kColor1,
-                          iconColor: AppColors.kColor0,
-                          onTapBack: () {
-                            Navigator.pop(context);
-                          },
-                          isCircleRounded: false,
-                        ),
-                      ),
+                      // Align(
+                      //   alignment: Alignment.centerLeft,
+                      //   child: CustomBackButton(
+                      //     height: 40.w,
+                      //     width: 40.w,
+                      //     backgroundColor: AppColors.kColor1,
+                      //     iconColor: AppColors.kColor0,
+                      //     onTapBack: () {
+                      //       Navigator.pop(context);
+                      //     },
+                      //     isCircleRounded: false,
+                      //   ),
+                      // ),
                       TitleAppBarWidget(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         aboveText: AppLocalizations.of(context).create,

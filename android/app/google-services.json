@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:46810423477:android:1efdacdadde2192ef99efc",
         "android_client_info": {
-          "package_name": "com.example.flutter_project_1"
+          "package_name": "com.hksolution.vattraction"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "46810423477-pdplf2q0794eij2797si97e9h6okuna8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.flutter_project_1",
+            "package_name": "com.hksolution.vattraction",
             "certificate_hash": "20d111cc4c4a7e1637db4c4153be6b81096f5249"
           }
         },

@@ -12,6 +12,7 @@ import 'package:flutter_project_1/views/account/sub_screens/per_info_screen.dart
 import 'package:flutter_project_1/views/account/widgets/setting_app_item.dart';
 import 'package:flutter_project_1/views/account/widgets/setting_language.dart';
 import 'package:flutter_project_1/views/login/login_page.dart';
+import 'package:flutter_project_1/widgets/dialog/is_developing_dialog.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -192,7 +193,13 @@ class _SettingAccountScreenState extends State<SettingAccountScreen> {
                 icon: "assets/icons/ic_aboutl.svg",
                 name: AppLocalizations.of(context).aboutApp,
                 colorItem: AppColors.kBlackColor,
-                onTap: () {},
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const DevelopingDiaglog();
+                      });
+                },
                 visibility: true,
               ),
               SizedBox(
@@ -203,7 +210,13 @@ class _SettingAccountScreenState extends State<SettingAccountScreen> {
                 icon: "assets/icons/ic_policy.svg",
                 name: AppLocalizations.of(context).policy,
                 colorItem: AppColors.kBlackColor,
-                onTap: () {},
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const DevelopingDiaglog();
+                      });
+                },
                 visibility: true,
               ),
               SizedBox(
@@ -216,6 +229,7 @@ class _SettingAccountScreenState extends State<SettingAccountScreen> {
                 colorItem: AppColors.kBlackColor,
                 onTap: () async {
                   await authService.signOut();
+                  // ignore: use_build_context_synchronously
                   Navigator.pushAndRemoveUntil(
                       context, LoginPage.route(), (route) => false);
                 },

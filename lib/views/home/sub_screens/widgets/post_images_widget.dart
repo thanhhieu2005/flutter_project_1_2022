@@ -54,6 +54,7 @@ class _PostImagesWidgetState extends State<PostImagesWidget> {
                 });
               }),
         ),
+        SizedBox(height: 8.h,),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,

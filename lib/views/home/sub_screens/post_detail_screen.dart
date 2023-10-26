@@ -7,6 +7,7 @@ import 'package:flutter_project_1/view_models/post/destination_post_provider.dar
 import 'package:flutter_project_1/view_models/post/post_detail_provider.dart';
 import 'package:flutter_project_1/views/home/sub_screens/widgets/evaluate_widget.dart';
 import 'package:flutter_project_1/views/home/sub_screens/widgets/post_images_widget.dart';
+import 'package:flutter_project_1/widgets/dialog/is_developing_dialog.dart';
 import 'package:flutter_project_1/widgets/info_des_post_widget.dart';
 import 'package:flutter_project_1/views/home/sub_screens/widgets/sharer_post_widget.dart';
 import 'package:flutter_project_1/widgets/button/custom_back_button.dart';
@@ -43,6 +44,7 @@ class PostDetailScreen extends StatefulWidget {
 
 class _PostDetailScreenState extends State<PostDetailScreen> {
   late FavoriteProvider initFavoriteProvider;
+  late bool _hasEvaluated = false;
 
   @override
   void didChangeDependencies() {
@@ -221,11 +223,108 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                             Icons.star,
                             color: AppColors.kColor4,
                           ),
-                          onRatingUpdate: (rating) => setState(() {
-                            postDetailProvider.ratingValue = rating;
-                            postDetailProvider.evaluationDestinationPost(
-                                postDetailArgument.post);
-                          }),
+                          onRatingUpdate: (rating) {
+                            if (_hasEvaluated) {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.warning_amber,
+                                            color: AppColors.kColor4,
+                                            size: 24.sp,
+                                          ),
+                                          SizedBox(width: 8.w,),
+                                          Text(
+                                            'Notification',
+                                            style: TextConfigs.kText24_2,
+                                          ),
+                                        ],
+                                      ),
+                                      content: Text(
+                                        'You have performed the evaluation operation',
+                                        textAlign: TextAlign.center,
+                                        style: TextConfigs.kText16BoldKprimary
+                                            .copyWith(
+                                          fontSize: 24.sp,
+                                        ),
+                                      ),
+                                      // contentPadding:
+                                      //     EdgeInsets.only(top: 16.h),
+                                      actionsAlignment:
+                                          MainAxisAlignment.center,
+                                      actions: [
+                                        GestureDetector(
+                                          onTap: () => Navigator.pop(context),
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 12.h,
+                                                horizontal: 32.w),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                              color: AppColors.kDarkBlue1,
+                                            ),
+                                            child: Text(
+                                              'Close',
+                                              style: TextConfigs.kText14White
+                                                  .copyWith(fontSize: 16.sp),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  });
+                            } else {
+                              setState(() {
+                                _hasEvaluated = true;
+                                postDetailProvider.ratingValue = rating;
+                                postDetailProvider.evaluationDestinationPost(
+                                    postDetailArgument.post);
+                              });
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      content: Text(
+                                        'Evaluation of Success',
+                                        textAlign: TextAlign.center,
+                                        style: TextConfigs.kText16BoldKprimary
+                                            .copyWith(
+                                          fontSize: 24.sp,
+                                        ),
+                                      ),
+                                      contentPadding:
+                                          EdgeInsets.only(top: 16.h),
+                                      actionsAlignment:
+                                          MainAxisAlignment.center,
+                                      actions: [
+                                        GestureDetector(
+                                          onTap: () => Navigator.pop(context),
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 8.h,
+                                                horizontal: 16.w),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              color: AppColors.kDarkBlue1,
+                                            ),
+                                            child: Text(
+                                              'Close',
+                                              style: TextConfigs.kText14White,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  });
+                            }
+                          },
                         ),
                       );
                     }),
@@ -233,7 +332,11 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                       height: 16.h,
                     ),
                     SharerPostWidget(
-                      onClick: () {},
+                      onClick: () {
+                        showDialog(context: context, builder: (context) {
+                          return const DevelopingDiaglog();
+                        });
+                      },
                       sharer: postDetailArgument.sharer,
                     ),
                   ],

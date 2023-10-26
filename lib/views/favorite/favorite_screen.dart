@@ -54,21 +54,21 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const TitleAppBarWidget(
+                    children: const [
+                       TitleAppBarWidget(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         aboveText: "Your",
                         underText: "Destination",
                       ),
-                      GestureDetector(
-                        onTap: () {},
-                        child: Image.asset(
-                          "assets/images/statistical.png",
-                          height: 32.h,
-                          width: 32.h,
-                          scale: 1.0,
-                        ),
-                      ),
+                      // GestureDetector(
+                      //   onTap: () {},
+                      //   child: Image.asset(
+                      //     "assets/images/statistical.png",
+                      //     height: 32.h,
+                      //     width: 32.h,
+                      //     scale: 1.0,
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -89,12 +89,13 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                               firstImage: eachPost.images.first,
                               namePostModeration: eachPost.postName,
                               location:
-                                  eachPost.district + ", " + eachPost.province,
+                                  "${eachPost.district}, ${eachPost.province}",
                               date: '06/06/2021',
                               onTap: () async {
                                 await favoriteProvider
                                     .getUserById(eachPost.sharer);
 
+                                // ignore: use_build_context_synchronously
                                 Navigator.pushNamed(
                                   context,
                                   PostDetailScreen.nameRoute,
